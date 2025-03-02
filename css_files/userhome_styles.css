@@ -5,6 +5,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+body {
+    padding-top: 70px; /* Adjust based on your header's height */
+}
+
 
 .header {
     position: fixed;
@@ -46,3 +50,37 @@
 .logo h2{
     font-size: 25px;
 }
+
+/* study this tommorrow */
+
+#slider {
+    margin-top: 80px; /* Push the slider down below the fixed header */
+    width: 80%; /* Adjust width (optional) */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#carouselExampleCaptions {
+    max-width: 900px; /* Set a maximum width */
+    max-height: 500px; /* Set a maximum height */
+    margin: auto; /* Center the carousel */
+    overflow: hidden; /* Prevents overflow issues */
+}
+
+#carouselExampleCaptions .carousel-item img {
+    height: 500px; /* Adjust the height */
+    width: 100%; /* Ensure it takes full width */
+    object-fit: cover; /* Ensures images fit nicely without stretching */
+    border-radius: 15px; /* Optional: Rounds the corners */
+}
+
+@media (max-width: 768px) {
+    #carouselExampleCaptions {
+        max-height: 300px; /* Reduce height on smaller screens */
+    }
+
+    #carouselExampleCaptions .carousel-item img {
+        height: 300px; /* Reduce image height */
+    }
+}
+
