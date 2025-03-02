@@ -8,22 +8,41 @@
 
 .header {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the header span the full width */
     display: flex;
-    align-items: center; /* vertical alignment */
-    gap: 2px; /* Space between image and text */
-    padding: 10px 0px 5px 20px;
+    justify-content: space-between; /* Ensures logo and menu are on opposite sides */
+    align-items: center;
+    background-color: white; /* Add background to prevent content from overlapping */
+    padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensures it stays above other elements */
 }
 
-.header h2, .menu a {
-    font-size: 25px;
+.logo{
+    display: flex;
+    text-align: center;
+}
+
+.logo h2, .menu a {
     color: black;
     font-weight: 100;
     margin: 0; /* Removes default margin */
-    line-height: 1; /* proper vertical centering */
+    line-height: 2; /* proper vertical centering */
     text-decoration: none;
     text-align: center;
-    text-transform: uppercase;
 }
 
+.menu {
+    display: flex; /* Ensures menu items are in a row */
+    gap: 20px; /* Adds spacing between menu links */
+}
 
+.menu a:hover {
+    color: #ff6600; /* Changes color when hovered */
+}
+
+.logo h2{
+    font-size: 25px;
+}
