@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 10px;
+    background-color: pink;
+}
+
+.logoimg img {
+    width: 50px;
+    height: 50px;
+}
+
+.logoimg{
+    display: flex;
+    align-items: center;  
+    gap: 10px;  
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+}
+
+.menu a {
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+}
