@@ -19,7 +19,7 @@
         <!-- Row For Centering -->
         <div class="row justify-content-center">
             <!-- Column to Adjust Form -->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <!-- Card Component -->
                 <div class="card shadow-sm">
                     <!-- Card Header -->
@@ -39,17 +39,32 @@
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" required>
                             </div>
+                            <!-- Remember me -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="options" id="remember" value="remember">
+                                <label class="form-check-label" for="remember">
+                                    Remember Me 
+                                    
+                                    <a href="forgotpassword.html" class="text-primary">Forgot password? </a>
+                                </label>
+                            </div>
+
                             <!-- Submit Button -->
+
                             <div class="d-grid">
                                 <button type="submit" class="custom-btn">Login</button>
                             </div>
+
+                           
 
                         </form>
                     </div>
                     <!-- Sign Up -->
                     <div class="card-footer text-center">
-                        Don't have an account? <a href="registration.html" class="text-primary">Sign Up</a>
+                        Don't have an account? <a href="forgotpassword.html" class="text-primary">Sign Up</a>
+                       <a href="forgotpassword.html" class="text-primary">Forgot password? </a>
                     </div>
+                    
                 </div>
             </div>
         </div>
