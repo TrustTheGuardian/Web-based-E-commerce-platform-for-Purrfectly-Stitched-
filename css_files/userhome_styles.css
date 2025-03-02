@@ -2,39 +2,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-}
 
-.topnav {
+.header {
+    position: fixed;
     display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    padding: 10px;
-    background-color: pink;
+    align-items: center; /* vertical alignment */
+    gap: 2px; /* Space between image and text */
+    padding: 10px 0px 5px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.logoimg img {
-    width: 50px;
-    height: 50px;
-}
-
-.logoimg{
-    display: flex;
-    align-items: center;  
-    gap: 10px;  
-}
-
-.menu {
-    display: flex;
-    gap: 15px;
-}
-
-.menu a {
-    font-size: 20px;
+.header h2, .menu a {
+    font-size: 25px;
     color: black;
+    font-weight: 100;
+    margin: 0; /* Removes default margin */
+    line-height: 1; /* proper vertical centering */
     text-decoration: none;
+    text-align: center;
     text-transform: uppercase;
 }
+
+
