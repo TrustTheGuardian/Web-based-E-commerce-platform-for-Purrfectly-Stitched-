@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Registration</title>
 
     <!-- Bootsrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
                 <div class="card shadow-sm">
                     <!-- Card Header -->
                     <div class="card-header text-center text-white">
-                        <h4>Login</h4>
+                        <h4>Register</h4>
                     </div>
 
                     <div class="card-body">
@@ -32,38 +32,34 @@
                             <!-- Username Input  -->
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" name="username" id="username" required>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required>
+                            </div>
+                            <!-- Email Input -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" id="email"  placeholder="Enter your email"required>
+                            </div>
+                            <!-- AddresS Input -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="Enter your address" required>
                             </div>
                             <!-- Password Input -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" name="password" id="password" required>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
                             </div>
-                            <!-- Remember me -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="options" id="remember" value="remember">
-                                <label class="form-check-label" for="remember">
-                                    Remember Me 
-                                    
-                                    <a href="forgotpassword.html" class="text-primary">Forgot password? </a>
-                                </label>
-                            </div>
-
                             <!-- Submit Button -->
-
                             <div class="d-grid">
-                                <button type="submit" class="custom-btn">Login</button>
+                                <button type="submit" class="custom-btn">Sign Up</button>
                             </div>
-
-                           
 
                         </form>
                     </div>
                     <!-- Sign Up -->
                     <div class="card-footer text-center">
-                        Don't have an account? <a href="registration.html" class="text-primary">Sign Up</a>
+                        Already have an account? <a href="index.php" class="text-primary">Sign In</a>
                     </div>
-                    
                 </div>
             </div>
         </div>
