@@ -1,0 +1,19 @@
+.card-header {
+    background: #AA60C8;
+}
+
+.custom-btn {
+    background: #AA60C8;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-btn:hover {
+    background-color: #D69ADE; 
+    color: black;
+}
+

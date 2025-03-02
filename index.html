@@ -2,13 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ffff</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
 
+    <!-- Bootsrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS Style -->
+    <link rel="stylesheet" href="css_files/index.css">
 
 </head>
+<!-- Overall Layout -->
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <!-- Container -->
+    <div class="container">
+        <!-- Row For Centering -->
+        <div class="row justify-content-center">
+            <!-- Column to Adjust Form -->
+            <div class="col-md-4">
+                <!-- Card Component -->
+                <div class="card shadow-sm">
+                    <!-- Card Header -->
+                    <div class="card-header text-center text-white">
+                        <h4>Login</h4>
+                    </div>
 
-<body>
-    <p>Hello World!</p>
+                    <div class="card-body">
+                        <form action="" method="post">
+                            <!-- Username Input  -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" required>
+                            </div>
+                            <!-- Password Input -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" required>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="custom-btn">Login</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Sign Up -->
+                    <div class="card-footer text-center">
+                        Don't have an account? <a href="registration.html" class="text-primary">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
