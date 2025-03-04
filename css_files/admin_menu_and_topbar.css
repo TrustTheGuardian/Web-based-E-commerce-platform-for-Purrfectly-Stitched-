@@ -1,0 +1,124 @@
+/* Sidebar styles */
+#menu {
+    background: #AA60C8;
+    width: 300px;
+    height: 100vh;
+}
+
+#menu .logo {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 30px 0 0 30px;
+    width: 40px;
+    margin-right: 15px;
+}
+
+#menu .items {
+    margin-top: 40px;
+    padding: 0;
+}
+
+#menu .items li {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Active menu item styling */
+#menu .items li.active {
+    border-left: 4px solid white;
+    background-color: #D69ADE;
+    width: 100%;
+}
+
+/* Ensure full width for links */
+#menu .items li a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s ease;
+}
+
+/* Active link color */
+#menu .items li.active a, 
+#menu .items li.active i {
+    color: black;
+}
+
+/* Hover effect */
+#menu .items li:hover {
+    background-color: #D69ADE;
+    cursor: pointer;
+}
+
+/* Icon styles */
+#menu .items li i {
+    color: white;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 10px 0 25px;
+}
+
+#menu .items li:hover i, 
+#menu .items li:hover a {
+    color: black;
+}
+/* side bar style end */
+
+/* Top bar styles */
+
+#topbar {
+    width: 100%;
+}
+
+/* Top bar styles */
+#topbar .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFDFEF;
+    padding: 15px 30px;
+    border-bottom: 3px solid black;
+}
+
+/* Search bar */
+#topbar .navigation .search {
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 90px;
+    border: 1px solid #d7dbe6;
+    border-radius: 15px;
+}
+
+#topbar .navigation .search i {
+    margin-right: 14px;
+}
+
+#topbar .navigation .search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Profile section */
+#topbar .navigation .profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#topbar .navigation .profile i {
+    margin-right: 20px;
+    font-size: 24px;
+    font-weight: 400;
+}

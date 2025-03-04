@@ -22,19 +22,7 @@
 
     <!-- main display -->
     <section id="interface">
-        <div class="navigation">
-            <!-- top bar -->
-            <div class="n1">
-                <div class="search">
-                    <i class="bi bi-search"></i>
-                    <input type="text" placeholder="Search">
-                </div>
-            </div>
-            <div class="profile">
-                <i class="bi bi-bell"></i>
-                <i class="bi bi-person-circle"></i>
-            </div>
-        </div>
+    <?php include 'admin_topbar.php'; ?>
 
         <h3 class="i-name">Dashboard</h3>
 
@@ -60,7 +48,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="card card-hw rounded bg white custom-shadow col-lg-3 col-xs-3 col-md-3 col-sm-12 mb-3 mb-md-0">
                 <div class="card-body p-1">
                     <span>Placeholder</span>
