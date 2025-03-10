@@ -16,7 +16,7 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
     <title>Admin Dashboard</title>
     
     <!-- CSS Link -->
-    <link rel="stylesheet" href="css_files/adminstyles.css">
+    <link rel="stylesheet" href="css_files/admin_menu_and_topbar.css">
 
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">

@@ -26,7 +26,7 @@
 
         <h3 class="i-name">Dashboard</h3>
 
-    <div>
+    <div class="contain">
         <div id="cards" class="row justify-content-around mt-1">
             <div class="card card-hw rounded bg white custom-shadow col-lg-3 col-xs-3 col-md-3 col-sm-12 mb-3 mb-md-0">
                 <div class="card-body p-1">

@@ -14,3 +14,12 @@ body {
     font-size: 24px;
     font-weight: 700;
 }
+
+/* Ipad or tablet screen */
+@media only screen and (min-width:601px) and (max-width: 1024px){
+    .contain {
+        padding: 30px 30px 0 30px;
+        justify-content: flex-start;
+    }
+}
+/* Ipad or tablet screen End */

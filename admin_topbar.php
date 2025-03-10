@@ -2,9 +2,9 @@
 $directoryURI = $_SERVER['REQUEST_URI'];
 $path = parse_url($directoryURI, PHP_URL_PATH);
 $components = explode('/', $path);
-$page = end($components); // Get the last part of the URL
+$page = end($components);
 
-// Debugging (Check in Browser Console)
+// Debugging
 echo "<script>console.log('Current Page: " . $page . "');</script>";
 ?>
 
@@ -26,10 +26,13 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
 </head>
 <body>
 
-<section id="topbar">
+<div id="interface">
+    <section id="topbar">
         <div class="navigation">
-            <!-- top bar -->
             <div class="n1">
+                <div>
+                    <i id="menu_icon" class="bi bi-list"></i>
+                </div>
                 <div class="search">
                     <i class="bi bi-search"></i>
                     <input type="text" placeholder="Search">
@@ -40,10 +43,35 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
                 <i class="bi bi-person-circle"></i>
             </div>
         </div>
-</section>
+    </section>
+</div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuIcon = document.getElementById("menu_icon");
+    const menu = document.getElementById("menu");
+    const interface = document.getElementById("interface");
+
+    function toggleMenu() {
+        menu.classList.toggle("active");
+
+        if (menu.classList.contains("active")) {
+            interface.style.marginLeft = "270px"; // Sidebar open
+        } else {
+            interface.style.marginLeft = "0"; // Sidebar closed
+        }
+    }
+
+    if (menuIcon && menu) {
+        menuIcon.addEventListener("click", toggleMenu);
+    } else {
+        console.error("Menu or icon not found!");
+    }
+});
+
+</script>
 
 </body>
 </html>
