@@ -31,7 +31,11 @@
                               </div> <br>";
                         echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button></a>";
                     } else {
-                        mysqli_query($con, "INSERT INTO users (Username, Email, Address, Password) VALUES ('$username', '$email', '$address', '$password')") or die("Error Occurred");
+                        // Hash the password before storing
+                        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        
+                        mysqli_query($con, "INSERT INTO users (Username, Email, Address, Password) VALUES ('$username', '$email', '$address', '$hashed_password')") 
+                        or die("Error Occurred");
 
                         echo "<div class='message'>
                                 <p>Registration successful!</p>
@@ -89,6 +93,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -7,15 +7,16 @@
        $username = mysqli_real_escape_string($con, $_POST['username']);
        $password = mysqli_real_escape_string($con, $_POST['password']);
 
-       // Query the database to check credentials
-       $result = mysqli_query($con, "SELECT * FROM users WHERE Username='$username'AND Password='$password' ") or die("Query Failed");
+       // Query the database to check if the username exists
+       $result = mysqli_query($con, "SELECT * FROM users WHERE Username='$username'") or die("Query Failed");
 
        // Check if the user exists before fetching data
        if(mysqli_num_rows($result) > 0){
            $row = mysqli_fetch_assoc($result);
+           $hashed_password = $row['Password']; // Fetch the hashed password from the database
 
-           // Ensure 'Password' key exists before verifying
-           if(isset($row['Password']) && password_verify($password, $row['Password'])){
+           // Verify the entered password against the hashed password
+           if(password_verify($password, $hashed_password)){
                // Store user information in session variables
                $_SESSION['valid'] = $row['Email'];
                $_SESSION['username'] = $row['Username'];
