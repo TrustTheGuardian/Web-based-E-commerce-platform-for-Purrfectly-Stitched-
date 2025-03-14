@@ -1,3 +1,8 @@
+body {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
 /* Sidebar styles */
 #menu {
     background: #AA60C8;
@@ -174,3 +179,10 @@
     }
 }
 /* Ipad or tablet screen End */
+
+.i-name {
+    color: #444a53;
+    padding: 30px 30px 0 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
