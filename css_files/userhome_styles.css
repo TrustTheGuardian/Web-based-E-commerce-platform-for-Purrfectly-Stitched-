@@ -9,6 +9,12 @@ body {
     padding-top: 70px; /* Adjust based on your header's height */
 }
 
+.contain{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+}
 
 .header {
     position: fixed;
@@ -54,15 +60,15 @@ body {
 /* study this tommorrow */
 
 #slider {
-    margin-top: 80px; /* Push the slider down below the fixed header */
+    margin-top: 40px; /* Push the slider down below the fixed header */
     width: 80%; /* Adjust width (optional) */
     margin-left: auto;
     margin-right: auto;
 }
 
 #carouselExampleCaptions {
-    max-width: 900px; /* Set a maximum width */
-    max-height: 500px; /* Set a maximum height */
+    max-width: 100%; /* Set a maximum width */
+    max-height: 100%; /* Set a maximum height */
     margin: auto; /* Center the carousel */
     overflow: hidden; /* Prevents overflow issues */
 }
