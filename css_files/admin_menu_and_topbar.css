@@ -1,3 +1,8 @@
+body {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
 /* Sidebar styles */
 #menu {
     background: #AA60C8;
@@ -86,7 +91,7 @@
 }
 
 /* Topbar */
-#topbar .navigation {
+#interface .navigation {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -96,7 +101,7 @@
 }
 
 /* Search bar */
-#topbar .navigation .search {
+#interface .navigation .search {
     background-color: white;
     display: flex;
     justify-content: flex-start;
@@ -106,24 +111,24 @@
     border-radius: 15px;
 }
 
-#topbar .navigation .search i {
+#interface .navigation .search i {
     margin-right: 14px;
 }
 
-#topbar .navigation .search input {
+#interface .navigation .search input {
     border: none;
     outline: none;
     font-size: 14px;
 }
 
 /* Profile section */
-#topbar .navigation .profile {
+#interface .navigation .profile {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-#topbar .navigation .profile i {
+#interface .navigation .profile i {
     margin-right: 20px;
     font-size: 24px;
     font-weight: 400;
@@ -164,7 +169,7 @@
         margin-left: 0px;
         display: inline-block;
     }
-    #topbar .navigation {
+    #interface .navigation {
         width: 100%;
     }
 
@@ -174,3 +179,10 @@
     }
 }
 /* Ipad or tablet screen End */
+
+.i-name {
+    color: #444a53;
+    padding: 30px 30px 0 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
