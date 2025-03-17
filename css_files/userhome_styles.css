@@ -80,6 +80,59 @@ body {
     border-radius: 15px; /* Optional: Rounds the corners */
 }
 
+/*-----------------Design for boxes in Products--------------------------*/
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: right; /* Centers button */
+}
+
+
+
+.product-card {
+    width: 15rem;
+    border: none;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+/*---Editable---*/
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, #ff6b6b, #ffa502);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #28a745;
+}
+
+.btn-custom {
+    background-color: #ff6b6b !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 12px !important;
+    border-radius: 5px !important;
+    transition: 0.3s ease-in-out !important;
+}
+
+.btn-custom:hover {
+    background-color: #e63946 !important;
+}
+
+/*---Editable---*/
+
+
 @media (max-width: 768px) {
     #carouselExampleCaptions {
         max-height: 300px; /* Reduce height on smaller screens */
