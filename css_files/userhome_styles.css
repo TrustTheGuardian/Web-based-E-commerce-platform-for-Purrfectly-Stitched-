@@ -22,7 +22,7 @@ body {
     left: 0;
     width: 100%; /* Make the header span the full width */
     display: flex;
-    justify-content: space-between; /* Ensures logo and menu are on opposite sides */
+    justify-content: space-around; /* Ensures logo and menu are on opposite sides */
     align-items: center;
     background-color: white; /* Add background to prevent content from overlapping */
     padding: 10px 20px;
@@ -47,6 +47,7 @@ body {
 .menu {
     display: flex; /* Ensures menu items are in a row */
     gap: 20px; /* Adds spacing between menu links */
+    padding: 0px 0px 0px 750px;
 }
 
 .menu a:hover {
