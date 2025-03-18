@@ -6,7 +6,7 @@
     <title>Dashboard</title>
 
     <!-- css link -->
-    <link rel="stylesheet" href="css_files/admin_menu_and_topbar.css">
+    <link rel="stylesheet" href="css_files/adminstyles.css">
 
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -18,8 +18,8 @@
 
 <body>
     <!-- Menu bar -->
-    <!-- <?php include 'admin_menu.php'; ?> -->
-    <section id="menu">
+    <?php include 'admin_menu.php'; ?>
+    <!-- <section id="menu">
         <div class="logo">
             <img src="" alt="Purrfectly Stitch">
             <h2>Purrfectly Stitch</h2>
@@ -55,14 +55,14 @@
                 </a>
             </li>
         </ul>
-    </section>
+    </section> -->
 
 
 
     <!-- main display -->
     <section id="interface">
-    <!-- <?php include 'admin_topbar.php'; ?> -->
-    <div class="navigation">
+    <?php include 'admin_topbar.php'; ?>
+    <!-- <div class="navigation">
         <div class="n1">
             <div>
                 <i id="menu_icon" class="bi bi-list"></i>
@@ -76,7 +76,7 @@
             <i class="bi bi-bell"></i>
             <i class="bi bi-person-circle"></i>
         </div>
-    </div>
+    </div> -->
 
         <h3 class="i-name">Dashboard</h3>
 
@@ -115,30 +115,6 @@
     
         <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const menuIcon = document.getElementById("menu_icon");
-        const menu = document.getElementById("menu");
-        const interface = document.getElementById("interface");
-    
-        function toggleMenu() {
-            menu.classList.toggle("active");
-    
-            if (menu.classList.contains("active")) {
-                interface.style.marginLeft = "270px"; // Sidebar open
-            } else {
-                interface.style.marginLeft = "0"; // Sidebar closed
-            }
-        }
-    
-        if (menuIcon && menu) {
-            menuIcon.addEventListener("click", toggleMenu);
-        } else {
-            console.error("Menu or icon not found!");
-        }
-    });
-    </script>
-
     
 </body>
 </html>
