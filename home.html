@@ -11,7 +11,7 @@
 
 <body>
 
-    <header class="header">
+    <header class="header col-12">
         <div class="logo">
             <img src="https://media.istockphoto.com/id/1287550606/vector/handmade-with-love-round-beautiful-sign-vector.jpg?s=612x612&w=0&k=20&c=f6vj0YcNCCRQNwp2HFJI47ZDWdBcz6nJTJk5h0xf6Eo=" alt="sample logo" width="50px" height = "50px">
             <h2>Purrfectly Crochet</h2>
@@ -19,12 +19,20 @@
         <div class="menu">
             <a href="home.html">Home</a>
             <a href="shop.html">Shop</a>
-            <a href="registration.html">Profile</a>
+            <a href="registration.html">Log in</a>
         </div>
     </header>
+    
 
-    <section id="slider">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <section id="slider" class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
+        <div class="welcometextdesign col-12 col-md-6 mb-4">
+            <h1><br>Your Crochet Products</h1>
+            <p>Shop now and customize your own Crochet Products</p>
+            <a href="" class="btn btn-custom">Shop Now &#10140;</a>
+        </div>
+        </div>
+        <div class="carouselcontainer col-12 col-md-6">
+          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <img src="https://img.freepik.com/free-photo/wool-elements-space-right_23-2147691749.jpg" class="d-block w-100" alt="...">
@@ -57,15 +65,45 @@
               <span class="visually-hidden">Next</span>
             </button>
           </div>
+        </div>
     </section>
 
-    <section id="products">
+    <section id="announcement-section">
+      <h2>Announcements!</h2>
+      <div class="announcement-scroll-container">
+        <div class="announcement-card">
+            <h3>Fresh Start!</h3>
+            <p class="announcement-date">August 22, 2024</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, dolore.</p>
+        </div>
+
+        <div class="announcement-card">
+            <h3>Ber-Months Sale</h3>
+            <p class="announcement-date">September 1, 2024</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, sit.</p>
+        </div>
+
+        <div class="announcement-card">
+            <h3>New Arrivals</h3>
+            <p class="announcement-date">December 1, 2024</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, dicta.</p>
+        </div>
+
+        <div class="announcement-card">
+            <h3>Special Weekend Discounts</h3>
+            <p class="announcement-date">December 5, 2024</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quisquam!</p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="products">   
       <div class="row mt-5">
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-2 d-flex justify-content-center mb-2">
 
         </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
+        <div class="productspacing col-6 col-md-2 d-flex justify-content-center mb-2 ">
+          <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
@@ -74,232 +112,37 @@
             </div>
           </div>
         </div>          
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
+        <div class="productspacing col-6 col-md-2 d-flex justify-content-center mb-2 ">
+          <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
+              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
+        <div class="productspacing col-6 col-md-2 d-flex justify-content-center mb-2 ">
+          <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
+              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
+        <div class="productspacing col-6 col-md-2 d-flex justify-content-center mb-2 ">
+          <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
+              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md2 d-flex justify-content-center ">
-          
-        </div>
-      </div>
-
-      <div class="row mt-5">
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>          
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md2 d-flex justify-content-center ">
-          
-        </div>
-      </div>
-
-      <div class="row mt-5">
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>          
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md2 d-flex justify-content-center ">
-          
-        </div>
-      </div>
-
-      <div class="row mt-5">
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>          
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md2 d-flex justify-content-center ">
-          
-        </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>          
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-2 d-flex justify-content-center mb-2 ">
-          <div class="card product-card" style="width: 15rem;">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md2 d-flex justify-content-center mb-2">
+        <div class="productspacing col-12 col-md-2 d-flex justify-content-center mb-2">
           
         </div>
       </div>

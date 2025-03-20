@@ -6,7 +6,7 @@
 }
 
 body {
-    padding-top: 70px; /* Adjust based on your header's height */
+    padding: 70px 20px 0px 20px;
 }
 
 .contain{
@@ -24,7 +24,7 @@ body {
     display: flex;
     justify-content: space-around; /* Ensures logo and menu are on opposite sides */
     align-items: center;
-    background-color: white; /* Add background to prevent content from overlapping */
+    background-color: #ffffff; /* Add background to prevent content from overlapping */
     padding: 10px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000; /* Ensures it stays above other elements */
@@ -47,35 +47,36 @@ body {
 .menu {
     display: flex; /* Ensures menu items are in a row */
     gap: 20px; /* Adds spacing between menu links */
-    padding: 0px 0px 0px 750px;
 }
 
 .menu a:hover {
-    color: #ff6600; /* Changes color when hovered */
+    color: #AA60C8; /* Changes color when hovered */
 }
 
 .logo h2{
     font-size: 25px;
 }
 
-/* study this tommorrow */
+/* ----------------------Carousel------------------- */
 
 #slider {
     margin-top: 40px; /* Push the slider down below the fixed header */
-    width: 80%; /* Adjust width (optional) */
+    width: 65%; /* Adjust width (optional) */
+    max-height: fit-content;
     margin-left: auto;
     margin-right: auto;
 }
 
 #carouselExampleCaptions {
-    max-width: 100%; /* Set a maximum width */
-    max-height: 100%; /* Set a maximum height */
+    max-width: 500px; /* Set a maximum width */
+    max-height: 300px; /* Set a maximum height */
     margin: auto; /* Center the carousel */
     overflow: hidden; /* Prevents overflow issues */
+    
 }
 
 #carouselExampleCaptions .carousel-item img {
-    height: 500px; /* Adjust the height */
+    height: 300px; /* Adjust the height */
     width: 100%; /* Ensure it takes full width */
     object-fit: cover; /* Ensures images fit nicely without stretching */
     border-radius: 15px; /* Optional: Rounds the corners */
@@ -91,7 +92,7 @@ body {
 
 
 .product-card {
-    width: 15rem;
+    width: 100%;
     border: none;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
@@ -100,13 +101,14 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
-/*---Editable---*/
-.card-title {
+
+/*---------------------Editable--------------------*/
+.card-title, #announcement-section h2 {
     font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    background: linear-gradient(45deg, #ff6b6b, #ffa502);
+    background: linear-gradient(45deg, #BE5985, #BE5985);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
@@ -119,7 +121,7 @@ body {
 }
 
 .btn-custom {
-    background-color: #ff6b6b !important;
+    background-color: #BE5985 !important;
     color: white !important;
     border: none !important;
     padding: 8px 12px !important;
@@ -128,10 +130,92 @@ body {
 }
 
 .btn-custom:hover {
-    background-color: #e63946 !important;
+    background-color: 6#e63946 !important;
 }
 
 /*---Editable---*/
+
+.homeproduct{
+    display: flex;
+    padding: 10px;
+    justify-content: left;
+    font-size: 25px;
+    font-family: "Poppins", sans-serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+
+.productspacing{
+    padding-bottom: 10px;
+}
+
+.welcometextdesign{
+    text-align: center;
+}
+
+/* ---------------- ANNOUNCEMENT SECTION -----------------------*/
+/* ANNOUNCEMENT SECTION */
+
+#announcement-section {
+    width: 66%; /* Adjust width as needed */
+    margin: 50px auto;
+    text-align: center;
+}
+
+.announcement-scroll-container {
+    max-width: 100%; /* Set max width instead of height */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    white-space: nowrap; /* Prevents items from wrapping */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Match background color */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Enables flexbox */
+    gap: 15px; /* Adds spacing between items */
+}
+
+/* Custom scrollbar styling */
+.announcement-scroll-container::-webkit-scrollbar {
+    height: 8px; /* Height of the scrollbar */
+}
+
+.announcement-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar */
+    border-radius: 10px; /* Rounded scrollbar */
+}
+
+.announcement-scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+
+.announcement-card {
+    background: #f9f9f9; /* Light background for each announcement */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    flex: 0 0 auto; /* Prevents flex items from stretching */
+    min-width: 250px; /* Adjust card width as needed */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align text to left */
+}
+
+.announcement-date {
+    font-size: 0.9rem;
+    color: #999; /* Match announcement date color */
+    font-style: italic;
+}
+
+#announcement-section h2 {
+    font-size: 1.5rem;
+    color: #333; /* Match heading color */
+    text-align: left;
+    padding-left: 10px;
+}
+
+
 
 
 @media (max-width: 768px) {
