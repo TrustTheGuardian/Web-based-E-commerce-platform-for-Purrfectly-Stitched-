@@ -55,7 +55,11 @@
             </div>
         </div>
 
-    </div>
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Purrfectly Stitch. All Rights Reserved.</p>
+            </div>
+        </footer>
     </section>
 
     

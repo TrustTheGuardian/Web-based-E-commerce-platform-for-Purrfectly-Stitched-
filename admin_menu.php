@@ -57,7 +57,7 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
         </li>
 
         <li class="nav_item <?php echo ($page == 'admin_products.php') ? 'active' : ''; ?>">
-            <a href="admin_products.php" class="nav-link">
+            <a href="admin_inventory.php" class="nav-link">
                 <i class="bi bi-box2-heart-fill"></i> Inventory
             </a>
         </li>
