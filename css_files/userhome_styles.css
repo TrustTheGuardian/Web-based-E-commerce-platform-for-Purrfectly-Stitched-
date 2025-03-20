@@ -215,6 +215,16 @@ body {
     padding-left: 10px;
 }
 
+.footer {
+    background-color: #02ff56;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 
 
 
