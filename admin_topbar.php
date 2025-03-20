@@ -31,10 +31,6 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
             <div>
                 <i id="menu_icon" class="bi bi-list"></i>
             </div>
-            <div class="search">
-                <i class="bi bi-search"></i>
-                <input type="text" placeholder="Search">
-            </div>
         </div>
         <div class="profile">
             <i class="bi bi-bell"></i>
@@ -45,7 +41,7 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
         const menuIcon = document.getElementById("menu_icon");
         const menu = document.getElementById("menu");
         const interface = document.getElementById("interface");
@@ -66,8 +62,6 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
             console.error("Menu or icon not found!");
         }
     });
-    </script>
-
 </script>
 
 </body>
