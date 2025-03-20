@@ -19,64 +19,10 @@
 <body>
     <!-- Menu bar -->
     <?php include 'admin_menu.php'; ?>
-    <!-- <section id="menu">
-        <div class="logo">
-            <img src="" alt="Purrfectly Stitch">
-            <h2>Purrfectly Stitch</h2>
-        </div>
-        <ul class="items">  
-             <li class="active">
-                <a href="admin_dashboard.html" class="nav-link">
-                    <i class="bi bi-clipboard2-data-fill"></i> Dashboard
-                </a>
-            </li>
-            
-            <li class="active">
-                <a href="admin_reports.php" class="nav-link">
-                    <i class="bi bi-file-earmark-text-fill"></i> Reports
-                </a>
-            </li>
-    
-            <li class="active">
-                <a href="admin_orders.php" class="nav-link">
-                    <i class="bi bi-bag-check-fill"></i> Purchase Order
-                </a>
-            </li>
-    
-            <li class="active">
-                <a href="admin_users.php" class="nav-link">
-                    <i class="bi bi-people-fill"></i> Users
-                </a>
-            </li>
-    
-            <li class="active">
-                <a href="admin_products.php" class="nav-link">
-                    <i class="bi bi-box2-heart-fill"></i> Products
-                </a>
-            </li>
-        </ul>
-    </section> -->
-
-
 
     <!-- main display -->
     <section id="interface">
     <?php include 'admin_topbar.php'; ?>
-    <!-- <div class="navigation">
-        <div class="n1">
-            <div>
-                <i id="menu_icon" class="bi bi-list"></i>
-            </div>
-            <div class="search">
-                <i class="bi bi-search"></i>
-                <input type="text" placeholder="Search">
-            </div>
-        </div>
-        <div class="profile">
-            <i class="bi bi-bell"></i>
-            <i class="bi bi-person-circle"></i>
-        </div>
-    </div> -->
 
         <h3 class="i-name">Dashboard</h3>
 
@@ -109,7 +55,11 @@
             </div>
         </div>
 
-    </div>
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Purrfectly Stitch. All Rights Reserved.</p>
+            </div>
+        </footer>
     </section>
 
     

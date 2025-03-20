@@ -53,59 +53,80 @@
 
     <!-- CSS Style -->
     <link rel="stylesheet" href="css_files/index.css">
+
+
 </head>
 
-<!-- Overall Layout -->
-<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
-    <!-- Container -->
-    <div class="container">
-        <!-- Row For Centering -->
-        <div class="row justify-content-center">
-            <!-- Column to Adjust Form -->
-            <div class="col-md-6">
-                <!-- Card Component -->
-                <div class="card shadow-sm">
-                    <!-- Card Header -->
+<body class="grad">
+    
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <!-- Left Column: Smaller Carousel -->
+            <div class="col-md-6 d-none d-md-flex justify-content-center">
+                <div id="carouselExampleCaptions" class="carousel slide h-75 w-100" data-bs-ride="carousel">
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item active h-100">
+                            <img src="https://img.freepik.com/free-photo/wool-elements-space-right_23-2147691749.jpg" class="d-block w-100 h-100 object-fit-cover rounded" alt="...">
+                        </div>
+                        <div class="carousel-item h-100">
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/023/801/960/small/crochet-and-knitting-hobby-colorful-balls-of-yarn-knitting-needles-on-table-with-copy-space-flat-lay-and-wood-background-photo.jpg" class="d-block w-100 h-100 object-fit-cover rounded" alt="...">
+                        </div>
+                        <div class="carousel-item h-100">
+                            <img src="https://img.freepik.com/premium-photo/crochet-landscape-art-showcasing-vibrant-trees-flowers-serene-scene_1033130-32880.jpg" class="d-block w-100 h-100 object-fit-cover rounded" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column: Login Form -->
+            <div class="col-md-5 d-flex align-items-center justify-content-center ">
+                <div class="card w-75">
                     <div class="card-header text-center text-white">
                         <h4>Login</h4>
                     </div>
-
-                    <!-- Card Body -->
                     <div class="card-body">
                         <form action="" method="post">
-                            <!-- Username Input  -->
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" name="username" id="username" required>
                             </div>
-                            <!-- Password Input -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" required>
                             </div>
-                            <!-- Remember me -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="options" id="remember" value="remember">
-                                <label class="form-check-label" for="remember">
-                                    Remember Me 
-                                    <a href="forgotpassword.html" class="text-primary">Forgot password?</a>
-                                </label>
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="options" id="remember" value="remember">
+                                    <label class="form-check-label" for="remember">Remember Me</label>
+                                </div>
+                                <a href="forgotpassword.html" class="text-primary">Forgot password?</a>
                             </div>
-
-                            <!-- Submit Button -->
                             <div class="d-grid">
-                                <button type="submit" name="submit" class="custom-btn">Login</button>
+                                <button type="button" class="custom-btn" onclick="location.href='home.html'">Login</button>
+
+
                             </div>
                         </form>
                     </div>
-
-                    <!-- Sign Up -->
                     <div class="card-footer text-center">
-                        Don't have an account? <a href="registration.php" class="text-primary">Sign Up</a>
+                        Don't have an account? <a href="registration.html" class="text-primary">Sign Up</a>
                     </div>
+
+
                 </div>
             </div>
         </div>
+    </div>
+    <div class="footer">
+        &copy; 2025 Your Website | All Rights Reserved
     </div>
 
     <!-- Bootstrap JS -->
