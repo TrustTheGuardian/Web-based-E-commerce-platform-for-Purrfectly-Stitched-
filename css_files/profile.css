@@ -1,0 +1,266 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+/* Navigation Bar */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: black;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.navbar .find-icon {
+    margin-left: 40px;
+}
+
+.navbar .user-icon {
+    margin-left: 10px;
+}
+ 
+.navbar .cart-icon {
+    margin-left: 10px;
+}
+
+.navbar img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
+}
+
+.navbar img:hover {
+    transform: scale(1.05);
+}
+
+.navbar a.text-link::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: .3s;
+}
+
+.navbar a.text-link.active::before {
+    background: seagreen;
+}
+
+.navbar a.text-link:hover::before {
+    width: 100%;
+}
+
+.navbar a.active {
+    color: #2e8b57; /* Highlight the active link */
+}
+
+.find-icon:hover img {
+    content: url('../images/icons/find-icon-grn.png');
+}
+
+.user-icon:hover img {
+    content: url('../images/icons/user-icon-grn.png')
+}
+
+.cart-icon:hover img {
+    content: url('../images/icons/cart-icon-grn.png')
+}
+
+/* Footer styles */
+
+footer {
+    background-color: #2e8b57;
+    color: #fff;
+    padding: 40px 0;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+
+}
+
+.footer-column {
+    width: 23%; /* Adjust the width for each column */
+    padding: 10px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+    color: #ddd;
+    text-decoration: underline;
+}
+
+.social-icons a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    background-color: #000;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 30px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+    .footer-column {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .social-icons a img {
+        margin: 0 5px;
+    }
+}
+
+/* Profile Section */
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 150px;
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 500px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #fff; /* If no profile image */
+    background-image: url('../images/icons/user-icon-blk.png');
+    background-size: cover;
+    background-position: center;
+    margin-right: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+}
+
+.profile-details {
+    margin: 20px;
+}
+
+.profile-details h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.profile-details p {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+
+.logout-btn {
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #1e6b47;
+}
+
+/* Styling for the Account Settings Button */
+.account-settings-btn {
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.account-settings-btn:hover {
+    background-color: #1e6b47;
+}

@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Page</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sole Society - Profile</title>
+    <link rel="stylesheet" href="profile.css" type="text/css" media="all">
 </head>
+
 <body>
-    <div class="profile-container">
-        <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-        <h1>Wesly Cunanan</h1>
-        <p class="bio">Student | Programmer | Fitness Enthusiast</p>
-        <div class="social-links">
-            <a href="#" class="social-link">GitHub</a>
-            <a href="#" class="social-link">LinkedIn</a>
-            <a href="#" class="social-link">Twitter</a>
+
+<!-- header section starts -->
+<header class="header">
+    <img src="images/logo.png" width="100px">
+    <nav class="navbar">
+        <a href="home.html" class="text-link">Home</a>
+        <a href="shop.html" class="text-link">Shop</a>
+        <a href="login.html" class="text-link">Log-in</a>
+        <a href="search.html" class="find-icon">
+            <img src="images/icons/find-icon-blk.png" alt="find" width="24px">
+        </a>
+        <a href="login.html" class="user-icon">
+            <img src="images/icons/user-icon-blk.png" alt="user" width="24px">
+        </a>
+        <a href="cart.html" class="cart-icon">
+            <img src="images/icons/cart-icon-blk.png" alt="cart" width="24px">
+        </a>
+    </nav>
+</header>
+<!-- header section ends -->
+
+<!-- Profile Section -->
+<div class="profile-container">
+    <div class="profile-card">
+        <img src="images/icons/user-icon-blk.png" alt="Profile Picture" class="profile-img">
+        <div class="profile-details">
+            <h2>Username</h2>
+            <p>Member Since: Month Year</p>
+            <form action="accountsettings.html" method="get">
+                <button type="submit" class="account-settings-btn">Account Settings</button>
+            </form>
+            <form action="logout.html" method="get">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
         </div>
     </div>
+</div>
+
 </body>
+
 </html>
