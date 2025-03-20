@@ -13,7 +13,24 @@
 }
 
 .custom-btn:hover {
-    background-color: #D69ADE; 
+    background-color: #AA60C8; 
     color: black;
+}
+
+.footer {
+    background-color: #AA60C8;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.grad {
+    min-height: 100vh; /* Ensures full height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
