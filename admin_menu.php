@@ -28,8 +28,7 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
     
 <section id="menu">
     <div class="logo">
-        <img src="pictures/Purrfectly Stitch.png" alt="Purrfectly Stit" width="60px" height = "50px">
-        <h2></h2>
+        <img src="pictures/Purrfectly Stitch.png" alt="Purrfectly Stitch" width="320px" height="200px">
     </div>
     <ul class="items">  <!-- Changed from div to ul for proper structure -->
         <li class="nav_item <?php echo ($page == 'admin_dashboard.php' || $page == 'admin_dashboard') ? 'active' : ''; ?>">
