@@ -231,8 +231,8 @@ footer {
     margin-right: 20px;
 }
 
-.logout-btn {
-    background-color: #2e8b57;
+.logout-btn, .account-settings-btn {
+    background-color: #BE5985;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -243,13 +243,13 @@ footer {
     transition: background-color 0.3s ease;
 }
 
-.logout-btn:hover {
-    background-color: #1e6b47;
+.logout-btn:hover, .account-settings-btn:hover {
+    background-color: #9D4A70;
 }
 
 /* Styling for the Account Settings Button */
 .account-settings-btn {
-    background-color: #2e8b57;
+    background-color: #BE5985;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -263,4 +263,45 @@ footer {
 /* Hover effect */
 .account-settings-btn:hover {
     background-color: #1e6b47;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the header span the full width */
+    display: flex;
+    justify-content: space-around; /* Ensures logo and menu are on opposite sides */
+    align-items: center;
+    background-color: #ffffff; /* Add background to prevent content from overlapping */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+.logo{
+    display: flex;
+    text-align: center;
+}
+
+.logo h2, .menu a {
+    color: black;
+    font-weight: 100;
+    margin: 0; /* Removes default margin */
+    line-height: 2; /* proper vertical centering */
+    text-decoration: none;
+    text-align: center;
+}
+
+.menu {
+    display: flex; /* Ensures menu items are in a row */
+    gap: 20px; /* Adds spacing between menu links */
+}
+
+.menu a:hover {
+    color: #AA60C8; /* Changes color when hovered */
+}
+
+.logo h2{
+    font-size: 25px;
 }
