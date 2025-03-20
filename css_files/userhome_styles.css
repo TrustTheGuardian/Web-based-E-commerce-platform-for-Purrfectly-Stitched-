@@ -6,7 +6,7 @@
 }
 
 body {
-    padding: 70px 20px 0px 20px;
+    padding-top: 70px;
 }
 
 .contain{
@@ -92,6 +92,7 @@ body {
 
 
 .product-card {
+    margin: 0px 20px 0px 20px;
     width: 100%;
     border: none;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -216,11 +217,10 @@ body {
 }
 
 .footer {
-    background-color: #02ff56;
+    background-color: #723a77;
     color: white;
     text-align: center;
     padding: 15px;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
