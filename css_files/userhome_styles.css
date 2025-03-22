@@ -57,6 +57,27 @@ body {
     font-size: 25px;
 }
 
+.custom-dropdown .dropdown-toggle {
+    background: none;
+    border: none;
+    color: black;
+    font-weight: 100;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 0;
+}
+
+.custom-dropdown .dropdown-toggle:hover {
+    color: #AA60C8;
+}
+
+.custom-dropdown .dropdown-menu {
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+
 /* ----------------------Carousel------------------- */
 
 #slider {
@@ -177,7 +198,7 @@ body {
     display: flex; /* Enables flexbox */
     gap: 15px; /* Adds spacing between items */
 }
-
+    
 /* Custom scrollbar styling */
 .announcement-scroll-container::-webkit-scrollbar {
     height: 8px; /* Height of the scrollbar */
