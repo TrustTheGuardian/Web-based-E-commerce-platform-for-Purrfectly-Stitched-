@@ -17,17 +17,27 @@
             <h2>Purrfectly Crochet</h2>
         </div>
         <div class="menu">
-            <a href="home.html">Home</a>
-            <a href="shop.html">Shop</a>
+            <a href="home.html" class="d-none d-sm-block">Home</a>
+            <a href="shop.html" class="d-none d-sm-block">Shop</a>
             <div class="btn-group custom-dropdown">
-              <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
+              <button type="button" class="dropdown-toggle d-sm-block d-none" data-bs-toggle="dropdown">
                   Profile
               </button>
               <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#">Log in</a></li>
                   <li><a class="dropdown-item" href="#">Create account</a></li>
               </ul>
-          </div>
+            </div>
+            <div class="btn-group custom-dropdown d-sm-none">
+              <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
+                  Menu
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Home</a></li>
+                  <li><a class="dropdown-item" href="#">Shop</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+              </ul>
+            </div>
           
         </div>
     </header>
@@ -77,36 +87,6 @@
         </div>
     </section>
 
-    <!-- <section class="announcements-section">
-      <h2>Announcements</h2>
-  
-      <div class="announcement-scroll-container">
-          <div class="announcement-card">
-              <h3>Fresh Start!</h3>
-              <p class="announcement-date">August 22, 2024</p>
-              <p>We are excited to announce that our store is now here to bring you your favorite footwear.</p>
-          </div>
-  
-          <div class="announcement-card">
-              <h3>Ber-Months Sale</h3>
-              <p class="announcement-date">September 1, 2024</p>
-              <p>Enjoy up to 50% off on selected sneakers and other products during our Holiday Sale.</p>
-          </div>
-  
-          <div class="announcement-card">
-              <h3>New Arrivals</h3>
-              <p class="announcement-date">December 1, 2024</p>
-              <p>Check out our latest arrivals from Nike, Adidas, and Puma, available in stores and online.</p>
-          </div>
-  
-          <div class="announcement-card">
-              <h3>Special Weekend Discounts</h3>
-              <p class="announcement-date">December 5, 2024</p>
-              <p>Avail exclusive discounts in-store this weekend on various sneakers and accessories.</p>
-          </div>
-      </div>
-  </section> -->
-
     <section id="announcement-section">
       <h2>Announcements!</h2>
       <div class="announcement-scroll-container">
@@ -138,7 +118,7 @@
     
     <section id="products">   
       <div class="row mt-5">
-        <div class="productspacing col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
@@ -148,7 +128,7 @@
             </div>
           </div>
         </div>          
-        <div class="productspacing col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
@@ -158,7 +138,7 @@
             </div>
           </div>
         </div>
-        <div class="productspacing col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
@@ -168,7 +148,7 @@
             </div>
           </div>
         </div>
-        <div class="productspacing col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top" alt="...">
             <div class="card-body">
@@ -185,7 +165,44 @@
       &copy; 2025 Your Website | All Rights Reserved
     </div>
 
-    
+
+    <!--------------------------------------------------- GPT JAVASCRIPT ------------------------------------------------------------>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const scrollContainer = document.querySelector(".announcement-scroll-container");
+          
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+      
+          scrollContainer.addEventListener("mousedown", (e) => {
+              isDown = true;
+              scrollContainer.classList.add("grabbing");
+              startX = e.pageX - scrollContainer.offsetLeft;
+              scrollLeft = scrollContainer.scrollLeft;
+          });
+      
+          scrollContainer.addEventListener("mouseleave", () => {
+              isDown = false;
+              scrollContainer.classList.remove("grabbing");
+          });
+      
+          scrollContainer.addEventListener("mouseup", () => {
+              isDown = false;
+              scrollContainer.classList.remove("grabbing");
+          });
+      
+          scrollContainer.addEventListener("mousemove", (e) => {
+              if (!isDown) return;
+              e.preventDefault();
+              const x = e.pageX - scrollContainer.offsetLeft;
+              const walk = (x - startX) * 2; // Adjust scroll speed
+              scrollContainer.scrollLeft = scrollLeft - walk;
+          });
+      });
+      </script> 
+      <!--------------------------------------------------- GPT JAVASCRIPT ------------------------------------------------------------>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>

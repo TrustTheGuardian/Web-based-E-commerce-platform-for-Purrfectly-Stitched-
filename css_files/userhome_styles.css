@@ -77,7 +77,6 @@ body {
     border: none;
 }
 
-
 /* ----------------------Carousel------------------- */
 
 #slider {
@@ -181,12 +180,13 @@ body {
 /* ANNOUNCEMENT SECTION */
 
 #announcement-section {
-    width: 66%; /* Adjust width as needed */
+    width:100%; /* Adjust width as needed */
     margin: 50px auto;
     text-align: center;
 }
 
 .announcement-scroll-container {
+    margin: 0px 20px 0px 20px;
     max-width: 100%; /* Set max width instead of height */
     overflow-x: auto; /* Enables horizontal scrolling */
     white-space: nowrap; /* Prevents items from wrapping */
@@ -197,6 +197,7 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     display: flex; /* Enables flexbox */
     gap: 15px; /* Adds spacing between items */
+    cursor: grab;
 }
     
 /* Custom scrollbar styling */
@@ -211,6 +212,14 @@ body {
 
 .announcement-scroll-container::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Darker color on hover */
+}
+
+.announcement-scroll-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers */
+}
+
+.grabbing {
+    cursor: grabbing;
 }
 
 .announcement-card {
@@ -234,7 +243,7 @@ body {
     font-size: 1.5rem;
     color: #333; /* Match heading color */
     text-align: left;
-    padding-left: 10px;
+    padding-left: 30PX;
 }
 
 .footer {
