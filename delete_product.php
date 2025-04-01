@@ -1,44 +1,39 @@
 <?php
-include 'inventory_db.php'; // Database connection
+include 'inventory_db.php'; // Include the database connection
 
-// Enable error reporting (for debugging)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if (isset($_GET['id'])) {
+    $product_id = $_GET['id'];  // Get the product ID from the URL
 
-if (isset($_GET['id'])) {  
-    $product_id = intval($_GET['id']); 
-
-    // Fetch the product's image path
-    $query = "SELECT image FROM products WHERE product_id = $product_id"; 
+    // Get the image URL from the product_images table
+    $query = "SELECT image_url FROM product_images WHERE product_id = $product_id LIMIT 1";
     $result = mysqli_query($conn, $query);
 
-    if (!$result) {
-        die("Error fetching product: " . mysqli_error($conn)); // Debugging
-    }
+    if ($result) {
+        $product = mysqli_fetch_assoc($result);
+        $image_path = $product['image_url'];
 
-    $product = mysqli_fetch_assoc($result);
-    
-    if ($product) {
-        $image_path = $product['image'];
-
-        // Delete image file from server if it exists
+        // If an image exists, delete it from the server
         if (!empty($image_path) && file_exists($image_path)) {
-            unlink($image_path);
+            unlink($image_path);  // Delete the image file
         }
 
-        // Delete product from database
-        $deleteQuery = "DELETE FROM products WHERE product_id = $product_id"; 
+        // Delete the images from the product_images table
+        $deleteImagesQuery = "DELETE FROM product_images WHERE product_id = $product_id";
+        mysqli_query($conn, $deleteImagesQuery);
 
-        if (mysqli_query($conn, $deleteQuery)) {
+        // delete the product from the products table
+        $deleteProductQuery = "DELETE FROM products WHERE product_id = $product_id";
+        if (mysqli_query($conn, $deleteProductQuery)) {
+            // Redirect to inventory page after successful deletion
             header("Location: admin_inventory.php?success=Product+Deleted+Successfully");
             exit();
         } else {
-            die("Error deleting product: " . mysqli_error($conn)); // Debugging
+            echo "Error deleting product.";
         }
     } else {
-        die("Product not found.");
+        echo "Product not found.";
     }
 } else {
-    die("Invalid request: No product ID provided.");
+    echo "Invalid request.";
 }
 ?>

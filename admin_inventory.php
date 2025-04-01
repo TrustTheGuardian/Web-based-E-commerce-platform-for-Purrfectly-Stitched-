@@ -1,10 +1,11 @@
 <?php
-include 'inventory_db.php'; // Database connection
-
-// Fetch all products from database
-$query = "SELECT * FROM products";
+include 'inventory_db.php';
+$query = "SELECT p.*, GROUP_CONCAT(pi.image_url) AS images FROM products p 
+          LEFT JOIN product_images pi ON p.product_id = pi.product_id 
+          GROUP BY p.product_id";
 $result = mysqli_query($conn, $query);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,65 +32,53 @@ $result = mysqli_query($conn, $query);
     <h3 class="i-name">Inventory</h3>
 
     <div class="container mt-4">
-        <h4>Add New Product</h4>
-        <form action="add_product.php" method="POST" enctype="multipart/form-data">
-            <div class="row">
-                <div class="col-md-3">
-                    <input type="text" name="product_name" class="form-control" placeholder="Product Name" required>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" name="description" class="form-control" placeholder="Description" required>
-                </div>
-                <div class="col-md-2">
-                    <input type="number" step="0.01" name="price" class="form-control" placeholder="Price" required>
-                </div>
-                <div class="col-md-2">
-                    <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
-                </div>
-                <div class="col-md-2">
-                    <input type="number" name="category_id" class="form-control" placeholder="Category ID" required>
-                </div>
-                <div class="col-md-2 mt-2">
-                    <button type="submit" class="btn btn-primary">Add Product</button>
-                </div>
-            </div>
-        </form>
+        <a href="add_product.php" class="btn btn-primary">Add Product</a>
     </div>
 
     <div class="container mt-4">
         <h4>Product Inventory</h4>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Category ID</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
                     <tr>
-                        <td><?php echo $row['product_id']; ?></td>
-                        <td><?php echo $row['product_name']; ?></td>
-                        <td><?php echo $row['description']; ?></td>
-                        <td><?php echo $row['price']; ?></td>
-                        <td><?php echo $row['quantity']; ?></td>
-                        <td><?php echo $row['category_id']; ?></td>
-                        <td>
-                            <img src="<?php echo $row['image']; ?>" width="80" height="80" alt="Product Image">
-                        </td>
-                        <td>
-                            <a href="edit_product.php?id=<?php echo $row['product_id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="delete_product.php?id=<?php echo $row['product_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Category</th>
+                        <th>Images</th>
+                        <th>Actions</th>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <tr>
+                            <td><?php echo $row['product_id']; ?></td>
+                            <td><?php echo htmlspecialchars($row['product_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['description']); ?></td>
+                            <td><?php echo number_format($row['price'], 2); ?></td>
+                            <td><?php echo $row['quantity']; ?></td>
+                            <td><?php echo htmlspecialchars($row['category_id']); ?></td>
+                            <td>
+                                <?php
+                                $images = explode(',', $row['images']);
+                                foreach ($images as $image) {
+                                    if (!empty($image)) {
+                                        echo '<img src="' . htmlspecialchars($image) . '" width="50" height="50" alt="Product Image"> ';
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <a href="edit_product.php?id=<?php echo $row['product_id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="delete_product.php?id=<?php echo $row['product_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <footer class="footer">
