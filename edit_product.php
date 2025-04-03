@@ -7,13 +7,15 @@ if (isset($_GET['id'])) {
     $product = mysqli_fetch_assoc($result);
 }
 
+// Handle real-time update
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     $id = $_POST['product_id'];
     $name = $_POST['product_name'];
     $desc = $_POST['description'];
     $price = $_POST['price'];
     $qty = $_POST['quantity'];
-    $category = isset($_POST['category_id']) && !empty($_POST['category_id']) ? $_POST['category_id'] : 'NULL';
+    $category = isset($_POST['category_id']) && !empty($_POST['category_id']) ? "'".$_POST['category_id']."'" : "NULL";
+
 
     $query = "UPDATE products SET 
                 product_name='$name', 
@@ -21,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                 price='$price', 
                 quantity='$qty', 
                 category_id=$category 
-              WHERE product_id='$id'";
+            WHERE product_id='$id'";
+
 
     mysqli_query($conn, $query);
 
@@ -52,6 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
     
+    <!-- css link -->
+    <link rel="stylesheet" href="css_files/adminstyles.css">
+    <link rel="stylesheet" href="css_files/inventory_styles.css">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -108,11 +115,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-
+            
             <input type="file" name="product_images[]" multiple class="form-control mt-2" id="imageInput">
-            <button type="button" id="addImageBtn" class="btn btn-primary mt-2">Add Image</button>
-
-            <button type="submit" name="edit_product" class="btn btn-success d-block mb-2">Save Changes</button>
+            <button type="button" id="addImageBtn" class="btn btn-primary d-block mt-2">Add Image</button>
+            
+            <!-- Image upload section END-->   
+             
+            <button type="submit" name="edit_product" class="btn btn-success w-100 d-block mt-2 mb-2">Save Changes</button>
             <a href="admin_inventory.php" class="btn btn-secondary d-block">Cancel</a>
         </form>
     </div>

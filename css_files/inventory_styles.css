@@ -1,0 +1,24 @@
+#imageCarousel {
+    width: 50%;
+    height: auto;
+    border: 1px solid violet; 
+}
+
+.bi-file-earmark-image-fill {
+    font-size: 3rem; 
+    color: #6c757d; 
+}
+
+h5 {
+    text-decoration: none;
+}
+
+.carousel-item {
+    position: relative;
+}
+.deleteImageBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10; /* Ensures the button is above other elements */
+}

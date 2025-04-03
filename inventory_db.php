@@ -1,15 +1,15 @@
 <?php
-// Database credentials
-$servername = "localhost";  // If running locally
-$username = "root";         // Default XAMPP/MAMP/WAMP user
-$password = "";             // Default is empty for local servers
-$database = "inventory_db"; // Your database name
+    // inventory_db.php - Database Connection
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "inventory_db";
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $database);
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-?>
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    ?>

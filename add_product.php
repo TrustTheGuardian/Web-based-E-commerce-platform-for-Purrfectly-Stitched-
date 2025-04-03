@@ -1,6 +1,7 @@
 <?php
 include 'inventory_db.php';
 
+// Handle real-time update
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
     $name = $_POST['product_name'];
     $desc = $_POST['description'];
@@ -64,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_category'])) {
     
     <!-- css link -->
     <link rel="stylesheet" href="css_files/adminstyles.css">
+    <link rel="stylesheet" href="css_files/inventory_styles.css">
 
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -106,13 +108,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_category'])) {
             <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner" id="imagePreview">
                     <div class="carousel-item active">
-                        <img src="default_image.png" class="d-block w-100" alt="Product Image">
+                        <i class="bi bi-file-earmark-image-fill"></i>
                     </div>
                 </div>
+                <!-- Press left to go left -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
+                <!-- Press right to go right -->
                 <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
@@ -121,8 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_category'])) {
             <input type="file" name="product_images[]" multiple class="form-control mt-2" id="imageInput">
             <button type="button" id="addImageBtn" class="btn btn-primary mt-2">Add Image</button>
         </div>
-
-        <button type="submit" name="add_product" class="btn btn-success d-block mb-2">Add Product</button>
+        <!-- Image upload and carousel section END -->
+         
+        <button type="submit" name="add_product" class="btn btn-success w-100 d-block mb-2">Add Product</button>
         <a href="admin_inventory.php" class="btn btn-secondary d-block">Cancel</a>
     </form>
 </div>

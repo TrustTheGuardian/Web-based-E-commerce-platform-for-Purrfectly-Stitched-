@@ -6,7 +6,6 @@ $query = "SELECT p.*, GROUP_CONCAT(pi.image_url) AS images FROM products p
 $result = mysqli_query($conn, $query);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,10 +21,7 @@ $result = mysqli_query($conn, $query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Menu bar -->
     <?php include 'admin_menu.php'; ?>
-
-    <!-- main display -->
     <section id="interface">
     <?php include 'admin_topbar.php'; ?>
 
@@ -60,13 +56,11 @@ $result = mysqli_query($conn, $query);
                             <td><?php echo number_format($row['price'], 2); ?></td>
                             <td><?php echo $row['quantity']; ?></td>
                             <td><?php echo htmlspecialchars($row['category_id']); ?></td>
-                            <td>
+                            <td class="text-center">
                                 <?php
                                 $images = explode(',', $row['images']);
-                                foreach ($images as $image) {
-                                    if (!empty($image)) {
-                                        echo '<img src="' . htmlspecialchars($image) . '" width="50" height="50" alt="Product Image"> ';
-                                    }
+                                if (!empty($images[0])) {
+                                    echo '<img src="' . htmlspecialchars($images[0]) . '" class="img-fluid d-block mx-auto" style="max-width: 100px; height: auto;">';
                                 }
                                 ?>
                             </td>
@@ -88,7 +82,6 @@ $result = mysqli_query($conn, $query);
     </footer>
     </section>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
