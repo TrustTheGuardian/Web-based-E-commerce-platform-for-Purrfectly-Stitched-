@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                 category_id=$category 
             WHERE product_id='$id'";
 
-
     mysqli_query($conn, $query);
 
     // Handle image uploads
@@ -54,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
-    
+
     <!-- css link -->
     <link rel="stylesheet" href="css_files/adminstyles.css">
     <link rel="stylesheet" href="css_files/inventory_styles.css">
@@ -79,51 +78,86 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
             <textarea name="description" class="form-control mb-2" required><?php echo htmlspecialchars($product['description']); ?></textarea>
             <input type="number" name="price" value="<?php echo $product['price']; ?>" class="form-control mb-2" required>
             <input type="number" name="quantity" value="<?php echo $product['quantity']; ?>" class="form-control mb-2" required>
-            <select name="category_id" class="form-control mb-2">
-                <option value="">Select Category</option>
-                <?php
-                $categories = mysqli_query($conn, "SELECT * FROM categories");
-                while ($cat = mysqli_fetch_assoc($categories)) {
-                    $selected = ($cat['category_id'] == $product['category_id']) ? 'selected' : '';
-                    echo "<option value='" . htmlspecialchars($cat['category_id']) . "' $selected>" . htmlspecialchars($cat['category_id']) . "</option>";
-                }
-                ?>
-            </select>
+
+            <!-- Category selection -->
+            <div class="mb-2">
+                <select name="category_id" class="form-control">
+                    <option value="">Select Category</option>
+                    <?php
+                    $categories = mysqli_query($conn, "SELECT * FROM categories");
+                    while ($cat = mysqli_fetch_assoc($categories)) {
+                        echo "<option value='" . htmlspecialchars($cat['category_id']) . "'>" . htmlspecialchars($cat['category_id']) . "</option>";
+                    }
+                    ?>
+                </select>
+                <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add New Category</button>
+                <button type="button" class="btn btn-link p-0 text-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Delete Category</button>
+            </div>
 
             <!-- Image upload section -->
-            <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="imagePreview">
+            <div class="mb-3">
+                <input type="file" name="product_images[]" multiple class="form-control mb-2" id="imageInput">
+                <div id="imagePreviewContainer" class="d-flex overflow-auto gap-2 mt-3">
                     <?php
                     $query = "SELECT * FROM product_images WHERE product_id = {$product['product_id']}";
                     $result = mysqli_query($conn, $query);
-                    $active = true;
                     while ($image = mysqli_fetch_assoc($result)) {
-                        $activeClass = $active ? 'active' : '';
-                        echo "<div class='carousel-item $activeClass'>
-                                <img src='" . htmlspecialchars($image['image_url']) . "' class='d-block w-100' alt='Product Image'>
+                        echo "<div class='position-relative'>
+                                <img src='" . htmlspecialchars($image['image_url']) . "' class='rounded' style='width: 120px; height: 120px; object-fit: cover;'>
+                                <button type='button' class='btn btn-sm btn-danger position-absolute' style='top: 5px; right: 5px;' onclick='deleteImage(\"" . htmlspecialchars($image['image_url']) . "\")'>&times;</button>
                             </div>";
-                        $active = false;
                     }
                     ?>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
-            
-            <input type="file" name="product_images[]" multiple class="form-control mt-2" id="imageInput">
-            <button type="button" id="addImageBtn" class="btn btn-primary d-block mt-2">Add Image</button>
-            
-            <!-- Image upload section END-->   
-             
-            <button type="submit" name="edit_product" class="btn btn-success w-100 d-block mt-2 mb-2">Save Changes</button>
+
+            <button type="submit" name="edit_product" class="btn btn-success w-100 d-block mb-2">Save Changes</button>
             <a href="admin_inventory.php" class="btn btn-secondary d-block">Cancel</a>
         </form>
+    </div>
+
+    <!-- Modal for Adding Category -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="add_product.php" method="POST">
+                        <input type="text" name="new_category" required placeholder="Category Name" class="form-control mb-2">
+                        <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Deleting Category -->
+    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="add_product.php" method="POST">
+                        <select name="delete_category" class="form-control mb-2">
+                            <option value="">Select Category to Delete</option>
+                            <?php
+                            $categories = mysqli_query($conn, "SELECT * FROM categories");
+                            while ($cat = mysqli_fetch_assoc($categories)) {
+                                echo "<option value='" . htmlspecialchars($cat['category_id']) . "'>" . htmlspecialchars($cat['category_id']) . "</option>";
+                            }
+                            ?>
+                        </select>
+                        <button type="submit" class="btn btn-danger">Delete Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
@@ -137,24 +171,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.getElementById('addImageBtn').addEventListener('click', function() {
-            let input = document.getElementById('imageInput');
-            let files = input.files;
-            if (files.length > 0) {
-                let carouselInner = document.getElementById('imagePreview');
-                for (let i = 0; i < files.length; i++) {
-                    let reader = new FileReader();
-                    reader.onload = function(e) {
-                        let newItem = document.createElement('div');
-                        newItem.classList.add('carousel-item');
-                        if (i === 0) newItem.classList.add('active');
-                        newItem.innerHTML = `<img src="${e.target.result}" class="d-block w-100" alt="Product Image">`;
-                        carouselInner.appendChild(newItem);
+        const imageInput = document.getElementById('imageInput');
+        const previewContainer = document.getElementById('imagePreviewContainer');
+
+        imageInput.addEventListener('change', () => {
+            for (let i = 0; i < imageInput.files.length; i++) {
+                const file = imageInput.files[i];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'position-relative';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '120px';
+                    img.style.height = '120px';
+                    img.style.objectFit = 'cover';
+                    img.className = 'rounded';
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.innerHTML = '&times;';
+                    deleteBtn.type = 'button';
+                    deleteBtn.className = 'btn btn-sm btn-danger position-absolute';
+                    deleteBtn.style.top = '5px';
+                    deleteBtn.style.right = '5px';
+                    deleteBtn.onclick = function () {
+                        wrapper.remove();
                     };
-                    reader.readAsDataURL(files[i]);
-                }
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(deleteBtn);
+                    previewContainer.appendChild(wrapper);
+                };
+                reader.readAsDataURL(file);
             }
         });
+
+        function deleteImage(imageUrl) {
+            // Handle image deletion logic
+            // You can add an AJAX request here to delete the image from the database and server
+            alert('Image deleted: ' + imageUrl);
+        }
     </script>
 </body>
 </html>
