@@ -79,16 +79,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
             <textarea name="description" class="form-control mb-2" required><?php echo htmlspecialchars($product['description']); ?></textarea>
             <input type="number" name="price" value="<?php echo $product['price']; ?>" class="form-control mb-2" required>
             <input type="number" name="quantity" value="<?php echo $product['quantity']; ?>" class="form-control mb-2" required>
-            <select name="category_id" class="form-control mb-2">
-                <option value="">Select Category</option>
-                <?php
-                $categories = mysqli_query($conn, "SELECT * FROM categories");
-                while ($cat = mysqli_fetch_assoc($categories)) {
-                    $selected = ($cat['category_id'] == $product['category_id']) ? 'selected' : '';
-                    echo "<option value='" . htmlspecialchars($cat['category_id']) . "' $selected>" . htmlspecialchars($cat['category_id']) . "</option>";
-                }
-                ?>
-            </select>
+
+                    <!-- Category selection -->
+            <div class="mb-2">
+                <select name="category_id" class="form-control">
+                    <option value="">Select Category</option>
+                    <?php
+                    $categories = mysqli_query($conn, "SELECT * FROM categories");
+                    while ($cat = mysqli_fetch_assoc($categories)) {
+                        echo "<option value='" . htmlspecialchars($cat['category_id']) . "'>" . htmlspecialchars($cat['category_id']) . "</option>";
+                    }
+                    ?>
+                </select>
+                <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add New Category</button>
+                <button type="button" class="btn btn-link p-0 text-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal">Delete Category</button>
+            </div>
 
             <!-- Image upload section -->
             <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -100,22 +105,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                     while ($image = mysqli_fetch_assoc($result)) {
                         $activeClass = $active ? 'active' : '';
                         echo "<div class='carousel-item $activeClass'>
-                                <img src='" . htmlspecialchars($image['image_url']) . "' class='d-block w-100' alt='Product Image'>
+                                <div class='position-relative'>
+                                    <img src='" . htmlspecialchars($image['image_url']) . "' class='d-block w-100' alt='Product Image'>
+                                    <button type='button' class='btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-image-btn' data-image-id='" . htmlspecialchars($image['image_id']) . "'>&times;</button>
+                                </div>
                             </div>";
                         $active = false;
                     }
                     ?>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
-            
+            <!-- External Navigation Buttons -->
+            <div class="d-flex justify-content-between mt-2">
+                <button class="btn btn-secondary" id="prevImage" type="button">Previous</button>
+                <button class="btn btn-secondary" id="nextImage" type="button">Next</button>
+            </div>
+                        
             <input type="file" name="product_images[]" multiple class="form-control mt-2" id="imageInput">
             <button type="button" id="addImageBtn" class="btn btn-primary d-block mt-2">Add Image</button>
             
@@ -125,6 +130,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
             <a href="admin_inventory.php" class="btn btn-secondary d-block">Cancel</a>
         </form>
     </div>
+
+    <!-- Modal for Adding Category -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="add_product.php" method="POST">
+                    <input type="text" name="new_category" required placeholder="Category Name" class="form-control mb-2">
+                    <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Deleting Category -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="add_product.php" method="POST">
+                    <select name="delete_category" class="form-control mb-2">
+                        <option value="">Select Category to Delete</option>
+                        <?php
+                        $categories = mysqli_query($conn, "SELECT * FROM categories");
+                        while ($cat = mysqli_fetch_assoc($categories)) {
+                            echo "<option value='" . htmlspecialchars($cat['category_id']) . "'>" . htmlspecialchars($cat['category_id']) . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <button type="submit" class="btn btn-danger">Delete Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
     <footer class="footer">
         <div class="footer-bottom">
@@ -137,24 +186,86 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.getElementById('addImageBtn').addEventListener('click', function() {
+        document.getElementById('addImageBtn').addEventListener('click', function () {
             let input = document.getElementById('imageInput');
             let files = input.files;
             if (files.length > 0) {
                 let carouselInner = document.getElementById('imagePreview');
+
                 for (let i = 0; i < files.length; i++) {
                     let reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         let newItem = document.createElement('div');
                         newItem.classList.add('carousel-item');
-                        if (i === 0) newItem.classList.add('active');
-                        newItem.innerHTML = `<img src="${e.target.result}" class="d-block w-100" alt="Product Image">`;
+
+                        if (carouselInner.querySelectorAll('.carousel-item').length === 1) {
+                            newItem.classList.add('active');
+                            carouselInner.querySelector('.carousel-item').classList.remove('active');
+                        }
+
+                        newItem.innerHTML = `
+                            <div class="position-relative">
+                                <img src="${e.target.result}" class="d-block w-100" alt="Product Image">
+                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-image-btn">&times;</button>
+                            </div>
+                        `;
+
                         carouselInner.appendChild(newItem);
+                        updateNavigationVisibility(); // Update buttons visibility
+
+                        // Delete Image Function
+                        newItem.querySelector('.delete-image-btn').addEventListener('click', function () {
+                            let item = this.closest('.carousel-item');
+                            item.remove();
+                            updateNavigationVisibility(); // Update buttons visibility after deletion
+                        });
                     };
                     reader.readAsDataURL(files[i]);
                 }
+
+                input.value = '';
             }
         });
+
+        // External navigation
+        document.getElementById('prevImage').addEventListener('click', function () {
+            let activeItem = document.querySelector('.carousel-item.active');
+            let prevItem = activeItem.previousElementSibling;
+
+            if (prevItem) {
+                activeItem.classList.remove('active');
+                prevItem.classList.add('active');
+            }
+        });
+
+        document.getElementById('nextImage').addEventListener('click', function () {
+            let activeItem = document.querySelector('.carousel-item.active');
+            let nextItem = activeItem.nextElementSibling;
+
+            if (nextItem) {
+                activeItem.classList.remove('active');
+                nextItem.classList.add('active');
+            }
+        });
+
+        // Function to show/hide navigation buttons
+        function updateNavigationVisibility() {
+            let totalItems = document.querySelectorAll('.carousel-item').length;
+            let prevButton = document.getElementById('prevImage');
+            let nextButton = document.getElementById('nextImage');
+
+            if (totalItems > 1) {
+                prevButton.style.display = 'block';
+                nextButton.style.display = 'block';
+            } else {
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+            }
+        }
+
+        // Hide navigation buttons on page load (initially no images)
+        updateNavigationVisibility();
+
     </script>
 </body>
 </html>
