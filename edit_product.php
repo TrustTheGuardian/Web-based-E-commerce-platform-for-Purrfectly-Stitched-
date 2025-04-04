@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                 category_id=$category 
             WHERE product_id='$id'";
 
-
     mysqli_query($conn, $query);
 
     // Handle image uploads
@@ -54,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
-    
+
     <!-- css link -->
     <link rel="stylesheet" href="css_files/adminstyles.css">
     <link rel="stylesheet" href="css_files/inventory_styles.css">
@@ -80,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
             <input type="number" name="price" value="<?php echo $product['price']; ?>" class="form-control mb-2" required>
             <input type="number" name="quantity" value="<?php echo $product['quantity']; ?>" class="form-control mb-2" required>
 
-                    <!-- Category selection -->
+            <!-- Category selection -->
             <div class="mb-2">
                 <select name="category_id" class="form-control">
                     <option value="">Select Category</option>
@@ -96,84 +95,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
             </div>
 
             <!-- Image upload section -->
-            <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="imagePreview">
+            <div class="mb-3">
+                <input type="file" name="product_images[]" multiple class="form-control mb-2" id="imageInput">
+                <div id="imagePreviewContainer" class="d-flex overflow-auto gap-2 mt-3">
                     <?php
                     $query = "SELECT * FROM product_images WHERE product_id = {$product['product_id']}";
                     $result = mysqli_query($conn, $query);
-                    $active = true;
                     while ($image = mysqli_fetch_assoc($result)) {
-                        $activeClass = $active ? 'active' : '';
-                        echo "<div class='carousel-item $activeClass'>
-                                <div class='position-relative'>
-                                    <img src='" . htmlspecialchars($image['image_url']) . "' class='d-block w-100' alt='Product Image'>
-                                    <button type='button' class='btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-image-btn' data-image-id='" . htmlspecialchars($image['image_id']) . "'>&times;</button>
-                                </div>
+                        echo "<div class='position-relative'>
+                                <img src='" . htmlspecialchars($image['image_url']) . "' class='rounded' style='width: 120px; height: 120px; object-fit: cover;'>
+                                <button type='button' class='btn btn-sm btn-danger position-absolute' style='top: 5px; right: 5px;' onclick='deleteImage(\"" . htmlspecialchars($image['image_url']) . "\")'>&times;</button>
                             </div>";
-                        $active = false;
                     }
                     ?>
                 </div>
             </div>
-            <!-- External Navigation Buttons -->
-            <div class="d-flex justify-content-between mt-2">
-                <button class="btn btn-secondary" id="prevImage" type="button">Previous</button>
-                <button class="btn btn-secondary" id="nextImage" type="button">Next</button>
-            </div>
-                        
-            <input type="file" name="product_images[]" multiple class="form-control mt-2" id="imageInput">
-            <button type="button" id="addImageBtn" class="btn btn-primary d-block mt-2">Add Image</button>
-            
-            <!-- Image upload section END-->   
-             
-            <button type="submit" name="edit_product" class="btn btn-success w-100 d-block mt-2 mb-2">Save Changes</button>
+
+            <button type="submit" name="edit_product" class="btn btn-success w-100 d-block mb-2">Save Changes</button>
             <a href="admin_inventory.php" class="btn btn-secondary d-block">Cancel</a>
         </form>
     </div>
 
     <!-- Modal for Adding Category -->
-<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="add_product.php" method="POST">
-                    <input type="text" name="new_category" required placeholder="Category Name" class="form-control mb-2">
-                    <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
-                </form>
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="add_product.php" method="POST">
+                        <input type="text" name="new_category" required placeholder="Category Name" class="form-control mb-2">
+                        <button type="submit" name="add_category" class="btn btn-primary">Add Category</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal for Deleting Category -->
-<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="add_product.php" method="POST">
-                    <select name="delete_category" class="form-control mb-2">
-                        <option value="">Select Category to Delete</option>
-                        <?php
-                        $categories = mysqli_query($conn, "SELECT * FROM categories");
-                        while ($cat = mysqli_fetch_assoc($categories)) {
-                            echo "<option value='" . htmlspecialchars($cat['category_id']) . "'>" . htmlspecialchars($cat['category_id']) . "</option>";
-                        }
-                        ?>
-                    </select>
-                    <button type="submit" class="btn btn-danger">Delete Category</button>
-                </form>
+    <!-- Modal for Deleting Category -->
+    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="add_product.php" method="POST">
+                        <select name="delete_category" class="form-control mb-2">
+                            <option value="">Select Category to Delete</option>
+                            <?php
+                            $categories = mysqli_query($conn, "SELECT * FROM categories");
+                            while ($cat = mysqli_fetch_assoc($categories)) {
+                                echo "<option value='" . htmlspecialchars($cat['category_id']) . "'>" . htmlspecialchars($cat['category_id']) . "</option>";
+                            }
+                            ?>
+                        </select>
+                        <button type="submit" class="btn btn-danger">Delete Category</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <footer class="footer">
         <div class="footer-bottom">
@@ -186,86 +171,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.getElementById('addImageBtn').addEventListener('click', function () {
-            let input = document.getElementById('imageInput');
-            let files = input.files;
-            if (files.length > 0) {
-                let carouselInner = document.getElementById('imagePreview');
+        const imageInput = document.getElementById('imageInput');
+        const previewContainer = document.getElementById('imagePreviewContainer');
 
-                for (let i = 0; i < files.length; i++) {
-                    let reader = new FileReader();
-                    reader.onload = function (e) {
-                        let newItem = document.createElement('div');
-                        newItem.classList.add('carousel-item');
+        imageInput.addEventListener('change', () => {
+            for (let i = 0; i < imageInput.files.length; i++) {
+                const file = imageInput.files[i];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'position-relative';
 
-                        if (carouselInner.querySelectorAll('.carousel-item').length === 1) {
-                            newItem.classList.add('active');
-                            carouselInner.querySelector('.carousel-item').classList.remove('active');
-                        }
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '120px';
+                    img.style.height = '120px';
+                    img.style.objectFit = 'cover';
+                    img.className = 'rounded';
 
-                        newItem.innerHTML = `
-                            <div class="position-relative">
-                                <img src="${e.target.result}" class="d-block w-100" alt="Product Image">
-                                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-image-btn">&times;</button>
-                            </div>
-                        `;
-
-                        carouselInner.appendChild(newItem);
-                        updateNavigationVisibility(); // Update buttons visibility
-
-                        // Delete Image Function
-                        newItem.querySelector('.delete-image-btn').addEventListener('click', function () {
-                            let item = this.closest('.carousel-item');
-                            item.remove();
-                            updateNavigationVisibility(); // Update buttons visibility after deletion
-                        });
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.innerHTML = '&times;';
+                    deleteBtn.type = 'button';
+                    deleteBtn.className = 'btn btn-sm btn-danger position-absolute';
+                    deleteBtn.style.top = '5px';
+                    deleteBtn.style.right = '5px';
+                    deleteBtn.onclick = function () {
+                        wrapper.remove();
                     };
-                    reader.readAsDataURL(files[i]);
-                }
 
-                input.value = '';
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(deleteBtn);
+                    previewContainer.appendChild(wrapper);
+                };
+                reader.readAsDataURL(file);
             }
         });
 
-        // External navigation
-        document.getElementById('prevImage').addEventListener('click', function () {
-            let activeItem = document.querySelector('.carousel-item.active');
-            let prevItem = activeItem.previousElementSibling;
-
-            if (prevItem) {
-                activeItem.classList.remove('active');
-                prevItem.classList.add('active');
-            }
-        });
-
-        document.getElementById('nextImage').addEventListener('click', function () {
-            let activeItem = document.querySelector('.carousel-item.active');
-            let nextItem = activeItem.nextElementSibling;
-
-            if (nextItem) {
-                activeItem.classList.remove('active');
-                nextItem.classList.add('active');
-            }
-        });
-
-        // Function to show/hide navigation buttons
-        function updateNavigationVisibility() {
-            let totalItems = document.querySelectorAll('.carousel-item').length;
-            let prevButton = document.getElementById('prevImage');
-            let nextButton = document.getElementById('nextImage');
-
-            if (totalItems > 1) {
-                prevButton.style.display = 'block';
-                nextButton.style.display = 'block';
-            } else {
-                prevButton.style.display = 'none';
-                nextButton.style.display = 'none';
-            }
+        function deleteImage(imageUrl) {
+            alert('Image deleted: ' + imageUrl);
         }
-
-        // Hide navigation buttons on page load (initially no images)
-        updateNavigationVisibility();
-
     </script>
 </body>
 </html>
