@@ -208,8 +208,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
         });
 
         function deleteImage(imageUrl) {
-            // Handle image deletion logic
-            // You can add an AJAX request here to delete the image from the database and server
             alert('Image deleted: ' + imageUrl);
         }
     </script>
