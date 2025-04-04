@@ -31,7 +31,8 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
         <img src="pictures/Purrfectly Stitch.png" alt="Purrfectly Stitch" width="320px" height="200px">
     </div>
     <ul class="items">  <!-- Changed from div to ul for proper structure -->
-        <li class="nav_item <?php echo ($page == 'admin_dashboard.php' || $page == 'admin_dashboard') ? 'active' : ''; ?>">
+        <li class="nav_item <?php echo ($page == 'admin_dashboard.php') ? 'active' : ''; ?>">
+
             <a href="admin_dashboard.php" class="nav-link">
                 <i class="bi bi-clipboard2-data-fill"></i> Dashboard
             </a>
@@ -43,7 +44,7 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
             </a>
         </li>
 
-        <li class="nav_item <?php echo ($page == 'admin_orders.php' || $page == 'admin_orders.php') ? 'active' : ''; ?>">
+        <li class="nav_item <?php echo ($page == 'admin_orders.php') ? 'active' : ''; ?>">
             <a href="admin_orders.php" class="nav-link">
                 <i class="bi bi-bag-check-fill"></i> Purchase Order
             </a>
@@ -55,7 +56,7 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
             </a>
         </li>
 
-        <li class="nav_item <?php echo ($page == 'admin_products.php') ? 'active' : ''; ?>">
+        <li class="nav_item <?php echo ($page == 'admin_inventory.php') ? 'active' : ''; ?>">
             <a href="admin_inventory.php" class="nav-link">
                 <i class="bi bi-box2-heart-fill"></i> Inventory
             </a>
