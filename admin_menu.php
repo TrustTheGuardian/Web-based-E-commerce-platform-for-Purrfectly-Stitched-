@@ -8,24 +8,6 @@ $page = end($components); // Get the last part of the URL
 echo "<script>console.log('Current Page: " . $page . "');</script>";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="css_files/admin_menu_and_topbar.css">
-
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-</head>
-<body>
-    
 <section id="menu">
     <div class="logo">
         <img src="pictures/Purrfectly Stitch.png" alt="Purrfectly Stitch" width="320px" height="200px">
@@ -50,8 +32,8 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
             </a>
         </li>
 
-        <li class="nav_item <?php echo ($page == 'admin_users.php') ? 'active' : ''; ?>">
-            <a href="admin_users.php" class="nav-link">
+        <li class="nav_item <?php echo ($page == 'admin_user.php') ? 'active' : ''; ?>">
+            <a href="admin_user.php" class="nav-link">
                 <i class="bi bi-people-fill"></i> Users
             </a>
         </li>
@@ -63,9 +45,3 @@ echo "<script>console.log('Current Page: " . $page . "');</script>";
         </li>
     </ul>
 </section>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
