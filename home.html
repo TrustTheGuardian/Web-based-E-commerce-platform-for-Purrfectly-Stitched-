@@ -49,7 +49,6 @@
             <p>Shop now and customize your own Crochet Products</p>
             <a href="" class="btn btn-custom">Shop Now &#10140;</a>
         </div>
-        </div>
         <div class="carouselcontainer col-12 col-md-6">
           <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -165,44 +164,9 @@
       &copy; 2025 Your Website | All Rights Reserved
     </div>
 
-
-    <!--------------------------------------------------- GPT JAVASCRIPT ------------------------------------------------------------>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          const scrollContainer = document.querySelector(".announcement-scroll-container");
-          
-          let isDown = false;
-          let startX;
-          let scrollLeft;
-      
-          scrollContainer.addEventListener("mousedown", (e) => {
-              isDown = true;
-              scrollContainer.classList.add("grabbing");
-              startX = e.pageX - scrollContainer.offsetLeft;
-              scrollLeft = scrollContainer.scrollLeft;
-          });
-      
-          scrollContainer.addEventListener("mouseleave", () => {
-              isDown = false;
-              scrollContainer.classList.remove("grabbing");
-          });
-      
-          scrollContainer.addEventListener("mouseup", () => {
-              isDown = false;
-              scrollContainer.classList.remove("grabbing");
-          });
-      
-          scrollContainer.addEventListener("mousemove", (e) => {
-              if (!isDown) return;
-              e.preventDefault();
-              const x = e.pageX - scrollContainer.offsetLeft;
-              const walk = (x - startX) * 2; // Adjust scroll speed
-              scrollContainer.scrollLeft = scrollLeft - walk;
-          });
-      });
-      </script> 
-      <!--------------------------------------------------- GPT JAVASCRIPT ------------------------------------------------------------>
-
+    
+    
+    <script src=".vscode/jsforhome.js"></script>    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
