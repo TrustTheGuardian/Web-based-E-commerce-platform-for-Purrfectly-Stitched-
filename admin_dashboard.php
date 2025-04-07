@@ -7,6 +7,7 @@
 
     <!-- css link -->
     <link rel="stylesheet" href="css_files/adminstyles.css">
+    <link rel="stylesheet" href="css_files/admin_menu_and_topbar.css">
 
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -65,6 +66,30 @@
     
         <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuIcon = document.getElementById("menu_icon");
+            const menu = document.getElementById("menu");
+            const interface = document.getElementById("interface");
+        
+            function toggleMenu() {
+                menu.classList.toggle("active");
+        
+                if (menu.classList.contains("active")) {
+                    interface.style.marginLeft = "270px"; // Sidebar open
+                } else {
+                    interface.style.marginLeft = "0"; // Sidebar closed
+                }
+            }
+        
+            if (menuIcon && menu) {
+                menuIcon.addEventListener("click", toggleMenu);
+            } else {
+                console.error("Menu or icon not found!");
+            }
+        });
+    </script>
     
 </body>
 </html>
