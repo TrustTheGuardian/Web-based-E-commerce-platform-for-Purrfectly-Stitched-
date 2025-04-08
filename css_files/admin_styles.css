@@ -355,6 +355,7 @@ main .recent-order a {
 .right .top{
     display: flex;
     justify-content: end;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -544,8 +545,7 @@ main .recent-order a {
 
     .right .top .theme-toggler {
         width: 4.4rem;
-        position: absolute;
-        left: 66%;
+        position: relative;
     }
 
     .right .top button {
