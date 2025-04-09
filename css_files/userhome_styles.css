@@ -139,6 +139,21 @@ body {
     color: #28a745;
 }
 
+.custom-btn {
+    background: #AA60C8;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-btn:hover {
+    background-color: #AA60C8; 
+    color: black;
+}
+
 .btn-custom {
     background-color: #BE5985 !important;
     color: white !important;
