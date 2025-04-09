@@ -33,6 +33,12 @@ body {
 .logo{
     display: flex;
     text-align: center;
+    text-decoration: none;
+}
+
+.logo a{
+    text-decoration: none;
+    display: flex;
 }
 
 .logo h2, .menu a{
@@ -52,6 +58,12 @@ body {
 .menu a:hover {
     color: #AA60C8; /* Changes color when hovered */
 }
+
+.menu a:hover i{
+    color: #AA60C8; /* Changes color of text and icon when hovered */
+}
+
+
 
 .logo h2{
     font-size: 25px;
@@ -282,6 +294,22 @@ body {
   
   .categoryname{
     display: flex;
+  }
+
+  .categoryname{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .categoryname h2{
+    font-family: "Poppins, sans-serif";
+    font-weight: bold;
+    letter-spacing: 10px;
+    text-shadow: 10rem;
+    padding-top: 2%;
+    
   }
 
 @media (max-width: 768px) {
