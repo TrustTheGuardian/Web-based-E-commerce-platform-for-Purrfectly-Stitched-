@@ -25,6 +25,7 @@
                 $last_name = $_POST['last_name'];
                 $gender = $_POST['gender'];
                 $email = $_POST['email'];
+                $mobile = $_POST['mobile'];
                 $house_street = $_POST['house_street'];
                 $barangay = $_POST['barangay'];
                 $city = $_POST['city'];
@@ -34,6 +35,7 @@
                 $confirm_password = $_POST['confirm_password'];
 
                 // Combine address parts into a single string
+                $full_name = "$first_name, $last_name";
                 $full_address = "$house_street, $barangay, $city, $province, $postal_code";
 
                 // Verifying if the email is unique
@@ -55,8 +57,8 @@
                         // Hash the password before storing
                         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                        mysqli_query($con, "INSERT INTO users (FirstName, LastName, Gender, Email, Address, Password) 
-                        VALUES ('$first_name', '$last_name', '$gender', '$email', '$full_address', '$hashed_password')") 
+                        mysqli_query($con, "INSERT INTO users (FirstName, LastName, Gender, Email, Mobile, Address, Password) 
+                        VALUES ('$full_name', '$gender', '$email', $mobile, '$full_address', '$hashed_password')") 
                         or die("Error Occurred");
 
                         echo "<div class='message'>
@@ -106,11 +108,19 @@
                                         </div>
             
                                         <!-- Email -->
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
                                         </div>
-            
+
+                                        <!-- Mobile Number -->
+                                        <div class="col-md-4">
+                                            <label for="mobile" class="form-label">Mobile Number</label>
+                                            <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Enter your mobile number" 
+                                                pattern="0[0-9]{10}" required oninput="formatMobile()">
+                                            <small class="form-text text-muted">Please enter an 11-digit mobile number</small>
+                                        </div>
+
                                         <!-- House No./Street -->
                                         <div class="col-md-4">
                                             <label for="houseStreet" class="form-label">House No./Blk or Lot No., Street</label>
@@ -226,6 +236,31 @@
             }
         }
         </script>
+        
+        <script>
+    function formatMobile() {
+        const mobileInput = document.getElementById("mobile");
+        let mobileValue = mobileInput.value;
+
+        // Remove non-numeric characters
+        mobileValue = mobileValue.replace(/\D/g, '');
+
+        // Add the leading '0' if necessary
+        if (mobileValue.charAt(0) !== "0") {
+            mobileValue = "0" + mobileValue;
+        }
+
+        // Format the mobile number with spaces
+        if (mobileValue.length > 3 && mobileValue.length <= 6) {
+            mobileValue = mobileValue.slice(0, 4) + ' ' + mobileValue.slice(4);
+        } else if (mobileValue.length > 6) {
+            mobileValue = mobileValue.slice(0, 4) + ' ' + mobileValue.slice(4, 7) + ' ' + mobileValue.slice(7, 11);
+        }
+
+        // Set the formatted value back to the input field
+        mobileInput.value = mobileValue;
+    }
+</script>
 
     <?php } ?>
 </body>
