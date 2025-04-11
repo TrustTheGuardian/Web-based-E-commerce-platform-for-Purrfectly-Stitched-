@@ -25,8 +25,8 @@
               Profile
           </button>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Log in</a></li>
-              <li><a class="dropdown-item" href="#">Create account</a></li>
+              <li><a class="dropdown-item" href="#loginModal" data-bs-toggle="modal">Log in</a></li>
+              <li><a class="dropdown-item" href="registration.php">Create account</a></li>
           </ul>
           
         </div>
@@ -55,14 +55,19 @@
           </div>
           <div class="modal-body">
             <!-- Your login form goes here -->
-            <form>
+            <form id="loginForm">
               <div class="mb-3">
-                <label for="loginEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="loginEmail" required>
+                <label for="loginEmail" class="form-label" >Email address</label>
+                <input placeholder="Enter your Email" type="email" class="form-control" id="loginEmail" required>
               </div>
               <div class="mb-3">
-                <label for="loginPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="loginPassword" required>
+                <label for="visiblePassword" class="form-label">Password with toggle</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="visiblePassword" placeholder="Enter your password" minlength="8" required>
+                  <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('visiblePassword', this)">
+                    <i class="bi bi-eye-slash"></i>
+                  </button>
+                </div>
               </div>
               <button type="submit" class="custom-btn">Log in</button>
             </form>
@@ -193,6 +198,38 @@
       &copy; 2025 Your Website | All Rights Reserved
     </div>
 
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // Stop form from submitting normally
+    
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("visiblePassword").value; // FIXED ID
+    
+        // Check if guest entered the specific credentials
+        if (email === "Yoonieshin21@gmail.com" && password === "ilovemeshin2121") {
+          window.location.href = "admin_dashboard.html"; // Redirect to admin dashboard
+        } else {
+          alert("Invalid email or password.");
+        }
+      });
+    </script>
+
+    <script>
+      function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector("i");
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        } else {
+          input.type = "password";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        }
+      }
+    </script>
     
     
     <script src=".vscode/jsforhome.js"></script>    
