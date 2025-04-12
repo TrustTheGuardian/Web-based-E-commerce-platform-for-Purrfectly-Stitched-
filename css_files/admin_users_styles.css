@@ -2,7 +2,7 @@
 :root {
     --color-primary: #7380ec;
     --color-danger: #ff7782;
-    --color-success: #41f1b6;
+    --color-success: #1DBC60;
     --color-warning: #ffbb55;
     --color-white: #fff;
     --color-info-dark: #7d8da1;
@@ -415,11 +415,11 @@ main table tbody tr:last-child td{
         width: 83vw;
     }
 
-    main table thead tr th:nth-child(4), main table thead tr th:nth-child(6), main table thead tr th:nth-child(7){
+    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
         display: none;
     }
 
-    main table tbody tr td:nth-child(4), main table tbody tr td:nth-child(6), main table tbody tr td:nth-child(7){
+     main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
         display: none;
     }
 }

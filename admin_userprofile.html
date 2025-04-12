@@ -12,7 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- css link -->
-        <link rel="stylesheet" href="css_files/admin_users_styles.css">
+        <link rel="stylesheet" href="css_files/admin_profile_styles.css">
 
 </head>
 <body>
@@ -55,73 +55,56 @@
         <!-- end of aside / side bar -->
 
         <main>
-            <h1>Manage Users</h1>
-            <div class="search">
-                <i class="bi bi-search"></i>
-                <input type="text">
-                <button class="btn-search">Search</button>
+            <h1>User Profile</h1>
+
+            <div class="profile">
+                <div class="dp">
+                    <div class="user-profile">
+                    <img src="pictures/joshuam.png" alt="profile-photo">
+                    </div>
+                </div>
+                <div class="details">
+                    <p><strong>Email:</strong> manansalapogi17@gmail.com</p>
+                    <p><strong>Full Name:</strong> Joshua Manansala</p>
+                    <p><strong>Mobile Number:</strong> 09994132900</p>
+                    <p><strong>Address:</strong> Angeles City, Pampanga</p>
+                    <p><strong>Account Created:</strong> 09/25/2024</p>
+                    <p><strong>Account Updated:</strong> 01/25/2025</p>
+                    <p><strong>Account Status:</strong> <span class="success">Active</span></p>
+                </div>
             </div>
 
-            <!-- Users Table -->
-            <div class="users-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>User ID</th>
-                            <th>Full name</th>
-                            <th>Mobile Number</th>
-                            <th>Address</th>
-                            <th>Account Created</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><img class="user-icon" src="pictures/joshuam.png" alt="profile-photo"></td> 
-                            <td>10001</td>
-                            <td>Joshua Manansala</td>
-                            <td>09994132900</td>
-                            <td>Angeles City, Pampanga</td>
-                            <td>09/25/2024</td>
-                            <td class="actions">
-                                <a href="admin_userprofile.html" class="action-link view">View</a> |
-                                <span class="action-link delete">Delete</span> |
-                                <span class="action-link ban">Ban</span>
-                                <span class="action-link unban" style="display: none;">Unban</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="bi bi-person-fill user-icon"></i></td> <td>10002</td>
-                            <td>Jason Gomez</td>
-                            <td>09123456789</td>
-                            <td>Angeles City, Pampanga</td>
-                            <td>09/302024</td>
-                            <td class="actions">
-                                <span class="action-link view">View</span> |
-                                <span class="action-link delete">Delete</span> |
-                                <span class="action-link ban">Ban</span>
-                                <span class="action-link unban" style="display: none;">Unban</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="bi bi-person-fill user-icon"></i></td> <td>10003</td>
-                            <td>Wesly Cunanan</td>
-                            <td>09123456789</td>
-                            <td>Angeles City, Pampanga</td>
-                            <td>12/20/2024</td>
-                            <td class="actions">
-                                <span class="action-link view">View</span> |
-                                <span class="action-link delete">Delete</span> |
-                                <span class="action-link ban">Ban</span>
-                                <span class="action-link unban" style="display: none;">Unban</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                    
-                </table>
+            <div class="purchase-history">
+                <h2>Transaction History</h2>
+                    <table class="purchase-history-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Total Amount</th>
+                                <th>Shipping Address</th>
+                                <th>Date of Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1000000007</td>
+                                <td>stuffed crochet</td>
+                                <td>1</td>
+                                <td>₱800.50</td>
+                                <td>Meet up @ CCA</td>
+                                <td>03/24/25</td>
+                            </tr>
+                        </tbody>
+                    </table>
             </div>
 
+            <div class="actions">
+                <span class="action-link delete">Delete</span>
+                <span class="action-link ban">Ban</span>
+                <span class="action-link unban" style="display: none;">Unban</span>
+            </div>
         </main>
         <!-- END OF MAIN  -->
 
@@ -173,9 +156,9 @@
     
         // Toggle Ban and Unban
         document.addEventListener('DOMContentLoaded', function () {
-            const table = document.querySelector('.users-table');
+            const actions = document.querySelector('.actions');
     
-            table.addEventListener('click', function (e) {
+            actions.addEventListener('click', function (e) {
                 if (e.target.classList.contains('ban')) {
                     const ban = e.target;
                     const unban = ban.parentElement.querySelector('.unban');
