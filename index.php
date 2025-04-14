@@ -11,6 +11,38 @@
 </head>
 
 <body>
+      <?php
+      session_start();
+      include 'db_connection.php'; // Make sure this connects to your database
+
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          $email = $_POST["email"];
+          $password = $_POST["password"];
+
+          // Securely check the email in your database
+          $email = mysqli_real_escape_string($conn, $email);
+          $sql = "SELECT * FROM users WHERE email = '$email'";
+          $result = mysqli_query($conn, $sql);
+
+          if ($result && mysqli_num_rows($result) == 1) {
+              $user = mysqli_fetch_assoc($result);
+
+              // Verify hashed password
+              if (password_verify($password, $user['password'])) {
+                  $_SESSION['user_id'] = $user['id'];
+                  $_SESSION['user_email'] = $user['email'];
+
+                  // Redirect to homepage or user dashboard
+                  header("Location: http://localhost/E-COMMERCE_PROJECT_PURRFECTLY_STITCHED/admin_dashboard.php");
+                  exit();
+              } else {
+                  echo "<script>alert('Incorrect password.'); window.history.back();</script>";
+              }
+          } else {
+              echo "<script>alert('Email not found.'); window.history.back();</script>";
+          }
+      }
+      ?>
 
   <header class="header col-12">
     <div class="logo">
@@ -55,15 +87,15 @@
           </div>
           <div class="modal-body">
             <!-- Your login form goes here -->
-            <form id="loginForm">
+            <form id="loginForm" action="login.php" method="POST">
               <div class="mb-3">
-                <label for="loginEmail" class="form-label" >Email address</label>
-                <input placeholder="Enter your Email" type="email" class="form-control" id="loginEmail" required>
+                <label for="loginEmail" class="form-label">Email address</label>
+                <input placeholder="Enter your Email" type="email" class="form-control" name="email" id="loginEmail" required>
               </div>
               <div class="mb-3">
-                <label for="visiblePassword" class="form-label">Password with toggle</label>
+                <label for="visiblePassword" class="form-label">Password</label>
                 <div class="input-group">
-                  <input type="password" class="form-control" id="visiblePassword" placeholder="Enter your password" minlength="8" required>
+                  <input type="password" class="form-control" name="password" id="visiblePassword" placeholder="Enter your password" minlength="8" required>
                   <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('visiblePassword', this)">
                     <i class="bi bi-eye-slash"></i>
                   </button>
@@ -200,7 +232,7 @@
 
 
     
-    <script>
+    <!-- <script>
       document.getElementById("loginForm").addEventListener("submit", function(e) {
         e.preventDefault(); // Stop form from submitting normally
     
@@ -214,7 +246,7 @@
           alert("Invalid email or password.");
         }
       });
-    </script>
+    </script> -->
 
     <script>
       function togglePassword(inputId, btn) {

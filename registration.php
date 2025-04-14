@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row justify-content-center">
     <?php 
-            include("php/config.php");
+            include("db_connection.php");
             if(isset($_POST['submit'])){
 
                 $first_name = $_POST['first_name'];
@@ -189,7 +189,7 @@
             
                             <!-- Sign In Link -->
                             <div class="card-footer text-center">
-                                Already have an account? <a href="home.html" class="text-primary">Sign In</a>
+                                Already have an account? <a href="index.php" class="text-primary">Sign In</a>
                             </div>
                         </div>
                     </div>
