@@ -35,7 +35,6 @@
                 $confirm_password = $_POST['confirm_password'];
 
                 // Combine address parts into a single string
-                $full_name = "$first_name, $last_name";
                 $full_address = "$house_street, $barangay, $city, $province, $postal_code";
 
                 // Verifying if the email is unique
@@ -58,13 +57,13 @@
                         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
                         mysqli_query($con, "INSERT INTO users (FirstName, LastName, Gender, Email, Mobile, Address, Password) 
-                        VALUES ('$full_name', '$gender', '$email', $mobile, '$full_address', '$hashed_password')") 
+                        VALUES ('$first_name', '$last_name', '$gender', '$email', $mobile, '$full_address', '$hashed_password')") 
                         or die("Error Occurred");
 
                         echo "<div class='message'>
                                 <p>Registration successful!</p>
                             </div> <br>";
-                        echo "<a href='index.php'><button class='btn'>Login Now</button></a>";
+                        echo "<a href='home.html'><button class='btn'>Login Now</button></a>";
                     }
                 }
             } else {
@@ -239,27 +238,20 @@
         
         <script>
     function formatMobile() {
-        const mobileInput = document.getElementById("mobile");
-        let mobileValue = mobileInput.value;
+    const mobileInput = document.getElementById("mobile");
+    let mobileValue = mobileInput.value;
 
-        // Remove non-numeric characters
-        mobileValue = mobileValue.replace(/\D/g, '');
+    // Remove all non-numeric characters
+    mobileValue = mobileValue.replace(/\D/g, '');
 
-        // Add the leading '0' if necessary
-        if (mobileValue.charAt(0) !== "0") {
-            mobileValue = "0" + mobileValue;
-        }
-
-        // Format the mobile number with spaces
-        if (mobileValue.length > 3 && mobileValue.length <= 6) {
-            mobileValue = mobileValue.slice(0, 4) + ' ' + mobileValue.slice(4);
-        } else if (mobileValue.length > 6) {
-            mobileValue = mobileValue.slice(0, 4) + ' ' + mobileValue.slice(4, 7) + ' ' + mobileValue.slice(7, 11);
-        }
-
-        // Set the formatted value back to the input field
-        mobileInput.value = mobileValue;
+    // Limit to 11 digits
+    if (mobileValue.length > 11) {
+        mobileValue = mobileValue.slice(0, 11);
     }
+
+    // Set the cleaned value back (without formatting)
+    mobileInput.value = mobileValue;
+}
 </script>
 
     <?php } ?>

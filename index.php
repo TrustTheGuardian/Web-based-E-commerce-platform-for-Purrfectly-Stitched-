@@ -14,7 +14,7 @@
 
   <header class="header col-12">
     <div class="logo">
-        <a href="home.html"><img src="pictures/Purrfectly Stitch.png" alt="sample logo" width="60px" height = "50px">
+        <a href="index.php"><img src="pictures/Purrfectly Stitch.png" alt="sample logo" width="60px" height = "50px">
         <h2>Purrfectly Stitched</h2></a>
     </div>
 
