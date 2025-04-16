@@ -183,43 +183,39 @@
     
     <section id="products">   
       <div class="row mt-5">
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2" onclick="goToProductPage(event)">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>          
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 " onclick="goToProductPage(event)">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 " onclick="goToProductPage(event)">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 ">
+        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 " onclick="goToProductPage(event)">
           <div class="card product-card">
             <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
             <div class="card-body">
               <h5 class="card-title">Crochet Products</h5>
               <p class="card-text">₱159.00</p>
-              <a href="#" class="btn btn-custom">Add to cart</a>
             </div>
           </div>
         </div>
@@ -263,6 +259,15 @@
           icon.classList.add("bi-eye-slash");
         }
       }
+    </script>
+
+    <script>
+    function goToProductPage(event) {
+    // Prevent navigation if "Add to cart" was clicked
+    if (event.target.closest('.add-to-cart')) return;
+
+    // Replace with your actual product page URL
+    window.location.href = "aboutproduct.html";}
     </script>
     
     
