@@ -16,6 +16,7 @@
 
 </head>
 <body>
+
     <div class="container">
         <!-- SIDEBAR -->
         <aside>
@@ -73,51 +74,49 @@
                             <th>Mobile Number</th>
                             <th>Address</th>
                             <th>Account Created</th>
-                            <th>Actions</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img class="user-icon" src="pictures/joshuam.png" alt="profile-photo"></td> 
-                            <td>10001</td>
-                            <td>Joshua Manansala</td>
-                            <td>09994132900</td>
-                            <td>Angeles City, Pampanga</td>
-                            <td>09/25/2024</td>
-                            <td class="actions">
-                                <a href="admin_userprofile.html" class="action-link view">View</a> |
-                                <span class="action-link delete">Delete</span> |
-                                <span class="action-link ban">Ban</span>
-                                <span class="action-link unban" style="display: none;">Unban</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="bi bi-person-fill user-icon"></i></td> <td>10002</td>
-                            <td>Jason Gomez</td>
-                            <td>09123456789</td>
-                            <td>Angeles City, Pampanga</td>
-                            <td>09/302024</td>
-                            <td class="actions">
-                                <span class="action-link view">View</span> |
-                                <span class="action-link delete">Delete</span> |
-                                <span class="action-link ban">Ban</span>
-                                <span class="action-link unban" style="display: none;">Unban</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="bi bi-person-fill user-icon"></i></td> <td>10003</td>
-                            <td>Wesly Cunanan</td>
-                            <td>09123456789</td>
-                            <td>Angeles City, Pampanga</td>
-                            <td>12/20/2024</td>
-                            <td class="actions">
-                                <span class="action-link view">View</span> |
-                                <span class="action-link delete">Delete</span> |
-                                <span class="action-link ban">Ban</span>
-                                <span class="action-link unban" style="display: none;">Unban</span>
-                            </td>
-                        </tr>
+                        <?php
+                            include 'db_connection.php';
+
+                            $query = "SELECT * FROM users";
+                            $result = mysqli_query($con, $query);
+
+                            while($row = mysqli_fetch_assoc($result)) {
+                                $id = $row['ID'];
+                                $name = $row['FirstName'] . ' ' . $row['LastName'];
+                                $mobile = $row['Mobile'];
+                                $address = $row['Address'];
+                                $status = $row['status'];
+                                $created = date("m/d/Y", strtotime($row['CreatedAt']));
+
+                                echo "<tr>
+                                    <td><i class='bi bi-person-fill user-icon'></i></td>
+                                    <td>$id</td>
+                                    <td>$name</td>
+                                    <td>$mobile</td>
+                                    <td>$address</td>
+                                    <td>$created</td>
+                                    <td>$status</td>
+                                    <td class='actions'>
+                                        <a href='admin_userprofile.php?id=$id' class='action-link view'>View</a> |
+                                        <a href='admin/admin_user_function/delete_user.php?id=$id' class='action-link delete'>Delete</a> |";
+
+                                if($status == 'active') {
+                                    echo "<a href='admin/admin_user_function/adminban_user.php?id=$id' class='action-link ban'>Ban</a>
+                                        <span class='action-link unban' style='display:none;'>Unban</span>";
+                                } else {
+                                    echo "<a href='admin/admin_user_function/adminunban_user.php?id=$id' class='action-link unban'>Unban</a>
+                                        <span class='action-link ban' style='display:none;'>Ban</span>";
+                                }
+
+                                echo "</td></tr>";
+                            }
+                        ?>
                     </tbody>
+
                     
                 </table>
             </div>
