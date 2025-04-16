@@ -133,3 +133,48 @@ body {
     border-radius: 10px;
     border: 2px solid transparent;
 }
+
+.carousel-item img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cartwithquantity{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.cartwithquantity button:hover{
+    color: #ffffff;
+    background-color: #AA60C8;
+}
+
+/* Override Bootstrap's default blue background when accordion is open */
+.accordion-button:not(.collapsed) {
+    background-color: #AA60C8 !important;  /* Purple */
+    color: white !important;
+}
+
+/* Optional: Normal button hover state */
+.accordion-button:hover {
+    background-color: #9a4fba;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.star {
+    color: #AA60C8;
+}
+
+.star i,
+#starRating i {
+    color: #AA60C8;
+}
+
+#starRating i:hover,
+#starRating i.hovered {
+    color: #7a3e99; /* Slightly darker purple for hover */
+    cursor: pointer;
+}
+
