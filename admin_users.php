@@ -35,11 +35,11 @@
                     <i class="bi bi-grid-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="admin_users.html" class="">
+                <a href="admin_users.php" class="">
                     <i class="bi bi-people-fill"></i>
                     <h3>Users</h3>
                 </a>
-                <a href="admin_inventory_v2.html" class="">
+                <a href="admin_inventory_v2.php" class="">
                     <i class="bi bi-box2-heart-fill"></i>
                     <h3>Products</h3>
                 </a>
