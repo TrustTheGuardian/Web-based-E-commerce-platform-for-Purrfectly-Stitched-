@@ -299,7 +299,7 @@ main .dp {
 
   #addImagesBtn {
     padding: 8px 16px;
-    background-color: var(--color-success);
+    background-color: var(--color-primary);
     color: var(--color-white);
     font-size: 1rem;
     font-weight: bold;
@@ -429,6 +429,10 @@ main .actions {
 }
 
 .action-link.add {
+    background-color: var(--color-success);
+}
+
+.action-link.update {
     background-color: var(--color-success);
 }
 
