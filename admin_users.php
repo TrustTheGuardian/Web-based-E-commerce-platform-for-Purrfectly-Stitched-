@@ -85,12 +85,12 @@
                             $result = mysqli_query($con, $query);
 
                             while($row = mysqli_fetch_assoc($result)) {
-                                $id = $row['ID'];
+                                $id = $row['user_ID'];
                                 $name = $row['FirstName'] . ' ' . $row['LastName'];
                                 $mobile = $row['Mobile'];
                                 $address = $row['Address'];
-                                $status = $row['status'];
                                 $created = date("m/d/Y", strtotime($row['CreatedAt']));
+                                $status = $row['status'];
 
                                 echo "<tr>
                                     <td><i class='bi bi-person-fill user-icon'></i></td>
@@ -101,14 +101,14 @@
                                     <td>$created</td>
                                     <td>$status</td>
                                     <td class='actions'>
-                                        <a href='admin_userprofile.php?id=$id' class='action-link view'>View</a> |
-                                        <a href='admin/admin_user_function/delete_user.php?id=$id' class='action-link delete'>Delete</a> |";
+                                        <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a>
+                                        <a href='admindelete_user.php?user_ID=$id' class='action-link delete'>Delete</a> |";
 
                                 if($status == 'active') {
-                                    echo "<a href='admin/admin_user_function/adminban_user.php?id=$id' class='action-link ban'>Ban</a>
+                                    echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
                                         <span class='action-link unban' style='display:none;'>Unban</span>";
                                 } else {
-                                    echo "<a href='admin/admin_user_function/adminunban_user.php?id=$id' class='action-link unban'>Unban</a>
+                                    echo "<a href='adminunban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
                                         <span class='action-link ban' style='display:none;'>Ban</span>";
                                 }
 
