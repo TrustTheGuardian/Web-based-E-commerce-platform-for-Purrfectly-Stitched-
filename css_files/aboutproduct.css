@@ -178,3 +178,7 @@ body {
     cursor: pointer;
 }
 
+.buttoncolor:hover{
+    color: #ffffff !important;
+    background-color: #AA60C8 !important;
+}
