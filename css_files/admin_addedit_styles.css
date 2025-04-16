@@ -241,7 +241,7 @@ main .dp {
     width: 400px;
     height: 400px;
     background-color: var(--color-white);
-    border-radius: 10%;
+    border-radius: var(--border-radius-3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -252,7 +252,7 @@ main .dp {
     width: 350px;
     height: 350px;
     overflow: hidden;
-    border-radius: 1rem;
+    border-radius: var(--border-radius-3);
 }
 
 .carousel-images {
@@ -271,7 +271,7 @@ main .dp {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1rem;
+    border-radius: var(--border-radius-3);
 }
 
 
@@ -462,6 +462,69 @@ main .actions {
     filter: brightness(0.9); /* Makes the button appear slightly darker when hovered */
     transform: scale(1.03);  
 }
+
+/* ==================== CUSTOMER REVIEWS ==================== */
+
+main .customer-reviews .star{
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.customer-reviews .comments {
+    margin-top: 2rem;
+}
+
+.customer-reviews .comments .comment{
+    margin-top: 1rem;
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--border-radius-3);
+}
+
+.customer-reviews .comments .comment-action {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+.customer-reviews .comments .action-link {
+    padding: 0; 
+    background-color: transparent;
+    border-radius: 0; 
+    color: var(--color-primary); 
+    font-weight: 500;
+    
+}
+
+.customer-reviews .comments .action-link.remove {
+    color: var(--color-danger);
+}
+
+.reply-box input {
+    padding: 0.4rem;
+    width: 70%;
+    margin-right: 0.5rem;
+}
+
+.reply-box button {
+    padding: 0.4rem 0.8rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+}
+
+.admin-reply p {
+    background-color: #f1f1f1;
+    padding: 0.5rem;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 5px;
+    margin: 0.2rem 0;
+}
+
 
 /* ======================CATEGORY MODAL ================== */
 

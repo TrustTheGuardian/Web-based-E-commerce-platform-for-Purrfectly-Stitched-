@@ -126,10 +126,114 @@
                 <span class="action-link update">Update</span>
                 <a href="admin_inventory_v2.html"><span class="action-link cancel">Cancel</span></a>
             </div>
+
+            <div class="customer-reviews">
+                <h2>
+                    Customer Reviews and Comments
+                </h2>
+                <div class="star">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-half"></i>
+                    <i class="bi bi-star"></i>
+                    <small class="text-muted">(12 reviews)</small>
+                </div>
+
+                <div class="comments">
+                    <div id="reviewsContainer">
+                        <!-- Example review -->
+                        <div class="comment">
+                            <strong>Jane Doe</strong>
+                                <div class="star text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p>Love the texture and quality!</p>
+                                <div class="comment-action">
+                                    <span class="action-link reply">reply</span> | 
+                                    <span class="action-link remove">remove</span>
+                                </div>
+                                <div class="reply-box" style="display: none; margin-top: 0.5rem;">
+                                    <input type="text" class="reply-input" placeholder="Type your reply..." />
+                                    <button class="submit-reply">Post</button>
+                                </div>
+                                <div class="admin-reply" style="margin-top: 0.5rem;"></div>
+                        </div>
+
+                        <div class="comment">
+                            <strong>Chris P. Bacon</strong>
+                                <div class="star text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p>Love the texture and quality!</p>
+                                <div class="comment-action">
+                                    <span class="action-link reply">reply</span> | 
+                                    <span class="action-link remove">remove</span>
+                                </div>
+                        </div>
+
+                        <div class="comment">
+                            <strong>Deez Nuts</strong>
+                                <div class="star text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p>Love the texture and quality!</p>
+                                <div class="comment-action">
+                                    <span class="action-link reply">reply</span> | 
+                                    <span class="action-link remove">remove</span>
+                                </div>
+                        </div>
+
+                        <div class="comment">
+                            <strong>Hephep Hooray</strong>
+                                <div class="star text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p>Love the texture and quality!</p>
+                                <div class="comment-action">
+                                    <span class="action-link reply">reply</span> | 
+                                    <span class="action-link remove">remove</span>
+                                </div>
+                        </div>
+
+                        <div class="comment">
+                            <strong>Ina D. Pota</strong>
+                                <div class="star text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p>Love the texture and quality!</p>
+                                <div class="comment-action">
+                                    <span class="action-link reply">reply</span> | 
+                                    <span class="action-link remove">remove</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- END OF MAIN  -->
 
-         <div class="right">
+        <div class="right">
             <div class="top">
                 <button id="menu-btn">
                     <i class="bi bi-list"></i>
@@ -366,7 +470,35 @@
                 deleteCategoryModal.style.display = 'none';
             }
         });
-                
+        
+        
+document.querySelectorAll('.reply').forEach(button => {
+    button.addEventListener('click', () => {
+        const commentBox = button.closest('.comment');
+        const replyBox = commentBox.querySelector('.reply-box');
+        replyBox.style.display = replyBox.style.display === 'none' ? 'block' : 'none';
+    });
+});
+
+document.querySelectorAll('.submit-reply').forEach(button => {
+    button.addEventListener('click', () => {
+        const commentBox = button.closest('.comment');
+        const input = commentBox.querySelector('.reply-input');
+        const reply = input.value.trim();
+
+        if (reply !== '') {
+            const replyContainer = commentBox.querySelector('.admin-reply');
+            const replyElement = document.createElement('p');
+            replyElement.innerHTML = `<strong>Admin:</strong> ${reply}`;
+            replyContainer.appendChild(replyElement);
+
+            // Reset input
+            input.value = '';
+            commentBox.querySelector('.reply-box').style.display = 'none';
+        }
+    });
+});
+
     </script>    
     
 
