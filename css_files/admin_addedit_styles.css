@@ -228,17 +228,18 @@ main .product-description {
     margin-top: 2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     grid-template-columns: 2fr;
-    gap: 5rem;
     margin-bottom: 2rem;
+    gap: 10rem;
     background: var(--color-light);
     padding: 1.5rem;
     border-radius: var(--border-radius-3);
 }
 
 main .dp {
-    width: 250px;
-    height: 250px;
+    width: 400px;
+    height: 400px;
     background-color: var(--color-white);
     border-radius: 10%;
     display: flex;
@@ -246,63 +247,132 @@ main .dp {
     justify-content: center;
 }
 
-main .profile .dp .product-image{
-    width: 200px;
-    height: 200px;
-    background-color: var(--color-dark-variant);
-    font-size: 3rem;
-    border-radius: 2rem;
+.carousel {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 1rem;
+}
+
+.carousel-images {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: transform 300ms ease-in-out;
 }
 
-main .profile .dp .product-image img{
-    border-radius: 1.2rem;
+.carousel-images .image-wrapper {
+    flex: 0 0 100%;
+    height: 100%;
 }
 
-main .details p {
+.carousel-images .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+
+  
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .carousel-btn.prev {
+    left: 10px;
+  }
+  
+  .carousel-btn.next {
+    right: 10px;
+  }
+  
+
+  #addImagesBtn {
+    padding: 8px 16px;
+    background-color: var(--color-success);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--border-radius-2);
+    margin-top: 10px;
+}
+
+#addImagesBtn:hover {
+    filter: brightness(0.9); 
+    transform: scale(1.03);  
+}
+
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 22px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Input fieldbox control */
+
+main .product-details {
     font-size: 1.3rem;
     margin: 0.3rem 0;
+    color: var(--color-dark-variant);
+    width: 100%;
 }
 
-/* drop down fieldbox */
-
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-  }
+    flex-direction: column;
+}
+
+.styled-input,
+.styled-input:focus,
+.styled-input:active {
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-2);
+    border: 1px solid var(--color-info-light);
+    font-size: 1rem;
+    background: var(--color-white);
+    color: var(--color-dark);
+    transition: border 0.3s ease;
+}
+
+.styled-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(115, 128, 236, 0.25);
+}
 
   .custom-select-wrapper {
     position: relative;
     width: 100%;
 }
 
-.custom-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 10px 40px 10px 12px;
-    font-size: 16px;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
+#category {
+    color: var(--color-dark-variant);
 }
 
-.custom-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #555;
-    font-size: 1.2rem;
-}
 .custom-select-wrapper {
     position: relative;
     width: 100%;
@@ -312,12 +382,12 @@ main .details p {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: #fff;
-    border: 1px solid #ccc;
+    background: var(--color-white);
+    border: 1px solid var(--color-info-light);
     padding: 10px 40px 10px 12px;
     font-size: 16px;
     width: 100%;
-    border-radius: 5px;
+    border-radius: var(--border-radius-2);
     cursor: pointer;
 }
 
@@ -327,56 +397,15 @@ main .details p {
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    color: #555;
+    color: var(--color-dark-variant);
     font-size: 1.2rem;
 }
 
   .custom-select:focus {
-    border-color: #666;
+    border-color: var(--color-primary);
     outline: none;
+    box-shadow: 0 0 0 2px rgba(115, 128, 236, 0.25);
   }
-/* ============= MAIN - Purchase-history ================= */
-
-main .purchase-history {
-    margin-top: 2rem;
-}
-
-main .purchase-history table {
-    margin-top: 1rem;
-    background: var(--color-white);
-    width: 100%;
-    border-radius: var(--card-border-radius);
-    padding: var(--card-padding);
-    text-align: center;
-    box-shadow: var(--box-shadow);
-    transition: all 300ms ease;
-}
-
-main .purchase-history table:hover {
-    box-shadow: none;
-}
-
-main table tbody td{
-    height: 2.8rem;
-    border-bottom: 1px solid var(--color-light);
-    color: var(--color-dark-variant);
-}
-
-main table tbody tr:last-child td{
-    border: none;
-}
-
-.user-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    background-color: var(--color-primary);
-    color: var(--color-white);
-}
 
 /* ===================== MAIN - ACTION ===================== */
 
@@ -399,17 +428,83 @@ main .actions {
     margin-right: 5px; 
 }
 
-.action-link.delete {
-    background-color: var(--color-danger);
-}
-.action-link.ban {
-    background-color: var(--color-warning);
-}
-.action-link.unban {
+.action-link.add {
     background-color: var(--color-success);
 }
 
+.action-link.cancel {
+    background-color: var(--color-warning);
+}
+
+.category-actions {
+    margin-top: -15px;
+    font-size: 0.9rem;
+}
+
+.category-actions .action-link {
+    padding: 0; 
+    background-color: transparent;
+    border-radius: 0; 
+    color: var(--color-primary); 
+    font-weight: 500;
+}
+
+
+.action-link.delete {
+    color: var(--color-danger);
+}
+
 .action-link:hover {
+    filter: brightness(0.9); /* Makes the button appear slightly darker when hovered */
+    transform: scale(1.03);  
+}
+
+/* ======================CATEGORY MODAL ================== */
+
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.custom-modal-content {
+    background-color: var(--color-white);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-button {
+    padding: 10px 20px;
+    background-color: var(--color-success);
+    color: white;
+    border: none;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
     filter: brightness(0.9); /* Makes the button appear slightly darker when hovered */
     transform: scale(1.03);  
 }
@@ -487,24 +582,26 @@ main .actions {
 
     /* MAIN CONTENT CHANGES */
 
-    main .users-table {
-        width: 94%;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 2rem 0 0 8.8rem;
+    main .product-description {
+        display: block;
     }
 
-    main .users-table table{
-        width: 83vw;
+    main .add-images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
-        display: none;
+    main .dp {
+        margin: 0 auto; /* Center horizontally */
     }
 
-     main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
-        display: none;
+    .carousel {
+        margin: 0 auto; /* Center the carousel too if needed */
+    }
+
+    main .product-details {
+        margin-top: 2rem;
     }
 }
 

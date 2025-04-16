@@ -55,70 +55,76 @@
         <!-- end of aside / side bar -->
 
         <main>
-            <h1>User Profile</h1>
+            <h1>Add Product</h1>
 
             <!-- ACCOUNT PROFILE AND DETAILS -->
             <div class="product-description">
-                <div class="dp">
-                    <div class="product-image">
-                    <img src="pictures/joshuam.png" alt="profile-photo">
+                <div class="add-images">
+                    <div class="dp">
+                        <div class="carousel">
+                            <div class="carousel-images" id="carouselImages">
+                                <div class="image-wrapper">
+                                    <img src="pictures/Purrfectly Stitch.png" alt="product Image">
+                                    <span class="remove-btn">&times;</span>
+                                </div>
+                            </div>
+                            <button class="carousel-btn prev">&lt;</button>
+                            <button class="carousel-btn next">&gt;</button>
+                        </div>
                     </div>
+                    
+                    <button id="addImagesBtn">Add Images</button>
+                    <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">                    
+                    
                 </div>
+
                 <div class="product-details">
-                    <p><Strong>Product Title: </Strong><input type="text" name="product_title" class="form-control"></p>
-                    <p><Strong>Product Description: </Strong><textarea name="description" class="form-control"></textarea></p>
-                    <p><Strong>Product Price: ₱</Strong><input type="number" step="0.01" name="price" class="form-control"></p>
-                    <p><Strong>Product Quantity: </Strong><input type="number" name="quantity" class="form-control"></p>
                     <div class="form-group">
-                        <label for="category"><strong>Category: </strong></label>
-                        <select id="category" name="category_id" class="custom-select" required>
-                          <option value="" disabled selected>Select a category</option>
-                          <option value="Category_1">Category 1</option>
-                          <option value="Category_2">Category 2</option>
-                          <option value="Category_3">Category 3</option>
-                          <option value="Category_4">Category 4</option>
-                        </select>
-                        <i class="bi bi-chevron-compact-down"></i>
+                        <label for="product_title"><strong>Product Title:</strong></label>
+                        <input type="text" id="product_title" name="product_title" class="styled-input">
                     </div>
-                    <div class="actions">
-                        <span class="action-link success">Add Category</span> |
+                
+                    <div class="form-group">
+                        <label for="description"><strong>Product Description:</strong></label>
+                        <textarea id="description" name="description" class="styled-input"></textarea>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="price"><strong>Product Price:</strong> ₱</label>
+                        <input type="number" id="price" step="0.01" name="price" class="styled-input">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="quantity"><strong>Product Quantity:</strong></label>
+                        <input type="number" id="quantity" name="quantity" class="styled-input">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="category"><strong>Category:</strong></label>
+                        <div class="custom-select-wrapper">
+                            <select id="category" name="category_id" class="custom-select" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="Category_1">Category 1</option>
+                                <option value="Category_2">Category 2</option>
+                                <option value="Category_3">Category 3</option>
+                                <option value="Category_4">Category 4</option>
+                            </select>
+                            <i class="bi bi-chevron-down custom-icon"></i>
+                        </div>
+                    </div>
+                
+                    <div class="category-actions">
+                        <span class="action-link add-category">Add Category</span> |
                         <span class="action-link delete">Delete Category</span>
                     </div>
                 </div>
+                
             </div>
             
 
-            <!-- TRANSACTION HISTORY  -->
-            <div class="purchase-history">
-                <h2>Transaction History</h2>
-                    <table class="purchase-history-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Total Amount</th>
-                                <th>Shipping Address</th>
-                                <th>Date of Order</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1000000007</td>
-                                <td>stuffed crochet</td>
-                                <td>1</td>
-                                <td>₱800.50</td>
-                                <td>Meet up @ CCA</td>
-                                <td>03/24/25</td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </div>
-
             <div class="actions">
-                <span class="action-link delete">Delete</span>
-                <span class="action-link ban">Ban</span>
-                <span class="action-link unban" style="display: none;">Unban</span>
+                <span class="action-link add">Add</span>
+                <span class="action-link cancel">Cancel</span>
             </div>
         </main>
         <!-- END OF MAIN  -->
@@ -140,7 +146,28 @@
             <!-- END OF TOP AREA -->
 
         </div>
+    </div>
 
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close-modal" data-modal="addCategoryModal">&times;</span>
+            <h2>Add Category</h2>
+            <input type="text" id="newCategoryInput" placeholder="Enter new category name" class="styled-input">
+            <button id="confirmAddCategory" class="modal-button">Add</button>
+        </div>
+    </div>
+
+    <!-- Delete Category Modal -->
+    <div id="deleteCategoryModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close-modal" data-modal="deleteCategoryModal">&times;</span>
+            <h2>Delete Category</h2>
+            <select id="deleteCategorySelect" class="styled-input">
+                <!-- JS will populate this -->
+            </select>
+            <button id="confirmDeleteCategory" class="modal-button">Delete</button>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -148,26 +175,25 @@
     <script>
         const sideMenu = document.querySelector("aside");
         const menuBtn = document.querySelector("#menu-btn");
-        const closeBtn = document.querySelector("#close-btn")
-        const themeToggler = document.querySelector(".theme-toggler")
+        const closeBtn = document.querySelector("#close-btn");
+        const themeToggler = document.querySelector(".theme-toggler");
     
-        //show sidebar
+        // Show sidebar
         menuBtn.addEventListener('click', () => {
             sideMenu.style.display = 'block';
-        })
+        });
     
-        //close sidebar
+        // Close sidebar
         closeBtn.addEventListener('click', () => {
             sideMenu.style.display = 'none';
-        })
+        });
     
-        //change theme
+        // Change theme
         themeToggler.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme-variables')
-    
+            document.body.classList.toggle('dark-theme-variables');
             themeToggler.querySelector('i:nth-child(1)').classList.toggle('active');
             themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
-        })
+        });
     
         // Toggle Ban and Unban
         document.addEventListener('DOMContentLoaded', function () {
@@ -189,9 +215,140 @@
                 }
             });
         });
+    
+        // IMAGE CAROUSEL WITH ADD & REMOVE
+        let currentIndex = 0;
+        const carouselImages = document.querySelector('.carousel-images');
+        const imageInput = document.getElementById('imageInput');
+        const addImagesBtn = document.getElementById('addImagesBtn');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+    
+        addImagesBtn.addEventListener('click', () => {
+            imageInput.click(); // Trigger hidden input
+        });
+    
+        imageInput.addEventListener('change', function () {
+            const files = Array.from(this.files);
+            files.forEach(file => {
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const wrapper = document.createElement('div');
+                        wrapper.classList.add('image-wrapper');
+    
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+    
+                        const removeBtn = document.createElement('span');
+                        removeBtn.classList.add('remove-btn');
+                        removeBtn.innerHTML = '&times;';
+                        removeBtn.onclick = () => {
+                            wrapper.remove();
+                            if (currentIndex >= carouselImages.children.length) {
+                                currentIndex = carouselImages.children.length - 1;
+                            }
+                            updateCarousel();
+                        };
+    
+                        wrapper.appendChild(img);
+                        wrapper.appendChild(removeBtn);
+                        carouselImages.appendChild(wrapper);
+    
+                        currentIndex = carouselImages.children.length - 1;
+                        updateCarousel();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    
+        // IMAGE CAROUSEL PREV & NEXT
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+    
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < carouselImages.children.length - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+    
+        function updateCarousel() {
+            const offset = currentIndex * 350; // Adjust width per image including margin
+            carouselImages.style.transform = `translateX(-${offset}px)`;
+        }
 
-        
-    </script>
+        // Show/Hide Modals
+        const addCategoryBtn = document.querySelector('.add-category');
+        const deleteCategoryBtn = document.querySelector('.delete');
+        const addCategoryModal = document.getElementById('addCategoryModal');
+        const deleteCategoryModal = document.getElementById('deleteCategoryModal');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+
+        addCategoryBtn.addEventListener('click', () => {
+            addCategoryModal.style.display = 'block';
+        });
+
+        deleteCategoryBtn.addEventListener('click', () => {
+            const select = document.getElementById('deleteCategorySelect');
+            const currentOptions = document.querySelectorAll('#category option:not([disabled])');
+            select.innerHTML = '';
+            currentOptions.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.textContent;
+                select.appendChild(option);
+            });
+            deleteCategoryModal.style.display = 'block';
+        });
+
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById(btn.dataset.modal).style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', e => {
+            if (e.target.classList.contains('custom-modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Add Category Logic
+        document.getElementById('confirmAddCategory').addEventListener('click', () => {
+            const input = document.getElementById('newCategoryInput');
+            const categorySelect = document.getElementById('category');
+
+            if (input.value.trim()) {
+                const newOption = document.createElement('option');
+                newOption.value = input.value.trim();
+                newOption.textContent = input.value.trim();
+                categorySelect.appendChild(newOption);
+                input.value = '';
+                addCategoryModal.style.display = 'none';
+            } else {
+                alert('Please enter a category name.');
+            }
+        });
+
+        // Delete Category Logic
+        document.getElementById('confirmDeleteCategory').addEventListener('click', () => {
+            const deleteSelect = document.getElementById('deleteCategorySelect');
+            const categorySelect = document.getElementById('category');
+
+            const optionToDelete = Array.from(categorySelect.options).find(opt => opt.value === deleteSelect.value);
+            if (optionToDelete) {
+                categorySelect.removeChild(optionToDelete);
+                deleteCategoryModal.style.display = 'none';
+            }
+        });
+                
+    </script>    
     
 
 </body>
