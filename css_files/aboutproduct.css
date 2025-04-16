@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.contain{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the header span the full width */
+    display: flex;
+    justify-content: space-around; /* Ensures logo and menu are on opposite sides */
+    align-items: center;
+    background-color: #ffffff; /* Add background to prevent content from overlapping */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+.logo{
+    display: flex;
+    text-align: center;
+    text-decoration: none;
+}
+
+.logo a{
+    text-decoration: none;
+    display: flex;
+}
+
+.logo h2, .menu a{
+    color: black;
+    font-weight: 100;
+    margin: 0; /* Removes default margin */
+    line-height: 2; /* proper vertical centering */
+    text-decoration: none;
+    text-align: center;
+}
+
+.menu {
+    display: flex; /* Ensures menu items are in a row */
+    gap: 20px; /* Adds spacing between menu links */
+}
+
+.menu a:hover {
+    color: #AA60C8; /* Changes color when hovered */
+}
+
+.menu a:hover i{
+    color: #AA60C8; /* Changes color of text and icon when hovered */
+}
+
+
+
+.logo h2{
+    font-size: 25px;
+}
+
+.custom-dropdown .dropdown-toggle {
+    background: none;
+    border: none;
+    color: black;
+    font-weight: 100;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 0;
+}
+
+.custom-dropdown .dropdown-toggle:hover {
+    color: #AA60C8;
+}
+
+.custom-dropdown .dropdown-menu {
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+
+#carouselExampleCaptions {
+    max-width: 1000px; /* Set a maximum width */
+    max-height: 1000px; /* Set a maximum height */
+    margin: auto; /* Center the carousel */
+    overflow: hidden; /* Prevents overflow issues */
+
+}
+
+#carouselExampleCaptions .carousel-item img {
+    height: 500px; /* Adjust the height */
+    width: 100%; /* Ensure it takes full width */
+    object-fit: cover; /* Ensures images fit nicely without stretching */
+    border-radius: 15px; /* Optional: Rounds the corners */
+}
+
+.carouselcontainer{
+    padding: 40px;
+}
+
+.aboutproduct{
+    padding: 40px;
+}
+
+.aboutproduct p{
+    color: grey;
+}
+
+.pricerating{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.star{
+    color: #AA60C8;
+}
+
+.thumb-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+}
