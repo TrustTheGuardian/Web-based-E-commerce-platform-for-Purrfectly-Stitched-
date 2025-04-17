@@ -179,10 +179,7 @@
                         <div class="mt-4">
                             <h5>Leave a Review</h5>
                             <form id="reviewForm">
-                                <div class="mb-2">
-                                    <label for="reviewerName" class="form-label">Your Name</label>
-                                    <input type="text" class="form-control" id="reviewerName" required>
-                                </div>
+
                                 <div class="mb-2">
                                     <label class="form-label">Your Rating</label>
                                     <div id="starRating" class="text-warning fs-5">
@@ -231,7 +228,6 @@
         const reviewForm = document.getElementById('reviewForm');
         reviewForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            const name = document.getElementById('reviewerName').value;
             const text = document.getElementById('reviewText').value;
     
             if (selectedRating === 0) {
