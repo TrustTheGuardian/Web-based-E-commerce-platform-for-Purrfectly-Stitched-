@@ -192,7 +192,6 @@ body {
     text-transform: uppercase;
 }
 
-
 .productspacing{
     padding-bottom: 10px;
 }
@@ -354,6 +353,11 @@ body {
     border-color: #AA60C8;
     box-shadow: 0 0 5px rgba(170, 96, 200, 0.3);
   }
+
+  .imgproduct{
+    width: 70px;
+    height: 70px;
+}
   
   
   
