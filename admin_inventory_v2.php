@@ -73,7 +73,20 @@ include 'db_connection.php';
                     $statusClass = ($row['product_quantity'] <= 5) ? 'warning' : '';
                 ?>
                     <tr>
-                        <td><img class="product-image" src="pictures/default.png" alt="Product Image"></td>
+                    <?php
+                        $product_ID = $row['product_ID'];
+
+                        $img_sql = "SELECT image_path FROM product_images WHERE product_ID = $product_ID LIMIT 1";
+                        $img_result = mysqli_query($con, $img_sql);
+
+                        if ($img_row = mysqli_fetch_assoc($img_result)) {
+                            $imagePath = $img_row['image_path'];
+                        } else {
+                            $imagePath = 'pictures/default.png';
+                        }
+                        ?>
+
+                        <td><img class="product-image" src="<?= $imagePath ?>" alt="Product Image" width="80"></td>
                         <td><?= $row['product_ID']; ?></td>
                         <td><?= htmlspecialchars($row['product_title']); ?></td>
                         <td>₱ <?= number_format($row['product_price'], 2); ?></td>
@@ -81,7 +94,16 @@ include 'db_connection.php';
                         <td class="<?= $statusClass; ?>"><?= ucfirst($row['product_status']); ?></td>
                         <td class="actions">
                             <a href="admin_edit_product.php?id=<?= $row['product_ID']; ?>" class="action-link edit">Manage</a>
-                            <a href="admin_delete_product.php?id=<?= $row['product_ID']; ?>" class="action-link delete" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a href="#" class="action-link delete" data-id="<?= $row['product_ID']; ?>" onclick="openDeleteModal(<?= $row['product_ID']; ?>)">Delete</a>
+                             <!-- Delete Confirmation Modal -->
+                                <div id="deleteModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                                    background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
+                                    <div style="background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center;">
+                                        <p>Are you sure you want to delete this product?</p>
+                                        <button onclick="confirmDelete()">Yes</button>
+                                        <button onclick="closeDeleteModal()">Cancel</button>
+                                    </div>
+                                </div>
                             <?php if ($row['product_status'] == 'active'): ?>
                                 <a href="admin_deactivate_product.php?id=<?= $row['product_ID']; ?>" class="action-link deactivate">Deactivate</a>
                             <?php else: ?>
@@ -136,6 +158,26 @@ document.querySelector(".theme-toggler").addEventListener('click', () => {
     toggler.querySelector('i:nth-child(1)').classList.toggle('active');
     toggler.querySelector('i:nth-child(2)').classList.toggle('active');
 });
+</script>
+
+<script>
+    let productIdToDelete = null;
+
+    function openDeleteModal(productId) {
+        productIdToDelete = productId;
+        document.getElementById("deleteModal").style.display = "flex";
+    }
+
+    function closeDeleteModal() {
+        document.getElementById("deleteModal").style.display = "none";
+        productIdToDelete = null;
+    }
+
+    function confirmDelete() {
+        if (productIdToDelete) {
+            window.location.href = `admin_delete_product.php?id=${productIdToDelete}`;
+        }
+    }
 </script>
 
 </body>

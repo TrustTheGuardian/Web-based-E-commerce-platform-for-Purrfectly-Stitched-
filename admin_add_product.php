@@ -4,41 +4,59 @@ include('db_connection.php');
 
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $product_title = $_POST['product_title'];
-    $product_description = $_POST['product_description'];
-    $product_price = $_POST['product_price'];
-    $product_quantity = $_POST['product_quantity'];
-    $product_category_id = $_POST['product_category_id'];
-    $product_status = 'active'; // You can modify this based on your logic
+    // Sanitize inputs
+    $product_title = trim($_POST['product_title']);
+    $product_description = trim($_POST['product_description']);
+    $product_price = floatval($_POST['product_price']);
+    $product_quantity = intval($_POST['product_quantity']);
+    $product_category_id = intval($_POST['product_category_id']);
+    $product_status = 'active'; // You can change this based on logic
 
-    // Insert product into the database (without product_image since we use multiple images now)
-    $sql = "INSERT INTO products (product_title, product_description, product_price, product_quantity, product_status, product_category_ID) 
-            VALUES ('$product_title', '$product_description', '$product_price', '$product_quantity', '$product_status', '$product_category_id')";
+    // Prepare insert query for product
+    $stmt = $con->prepare("INSERT INTO products (product_title, product_description, product_price, product_quantity, product_status, product_category_ID) 
+                           VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssdisi", $product_title, $product_description, $product_price, $product_quantity, $product_status, $product_category_id);
 
-    if (mysqli_query($con, $sql)) {
-        // Get the ID of the newly inserted product
-        $product_ID = mysqli_insert_id($con);
+    if ($stmt->execute()) {
+        // Get the newly inserted product ID
+        $product_ID = $stmt->insert_id;
+        $stmt->close();
+
+        // Upload path
+        $targetDir = "uploads/";
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0755, true);
+        }
 
         // Handle multiple image uploads
-        if (isset($_FILES['product_image'])) {
-            $targetDir = "uploads/";
+        if (isset($_FILES['product_images'])) {
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            $maxFileSize = 5 * 1024 * 1024; // 5MB
 
-            foreach ($_FILES['product_image']['tmp_name'] as $key => $tmp_name) {
-                $fileName = basename($_FILES['product_image']['name'][$key]);
-                $targetFilePath = $targetDir . $fileName;
+            foreach ($_FILES['product_images']['tmp_name'] as $key => $tmp_name) {
+                $fileName = basename($_FILES['product_images']['name'][$key]);
+                $fileType = $_FILES['product_images']['type'][$key];
+                $fileSize = $_FILES['product_images']['size'][$key];
+                $error = $_FILES['product_images']['error'][$key];
 
-                // Move file to uploads directory
-                if (move_uploaded_file($tmp_name, $targetFilePath)) {
-                    // Insert image path into product_images table
-                    $img_sql = "INSERT INTO product_images (product_ID, image_path) VALUES ('$product_ID', '$targetFilePath')";
-                    mysqli_query($con, $img_sql);
+                if ($error === UPLOAD_ERR_OK && in_array($fileType, $allowedTypes) && $fileSize <= $maxFileSize) {
+                    $uniqueName = uniqid() . "_" . $fileName;
+                    $targetFilePath = $targetDir . $uniqueName;
+
+                    if (move_uploaded_file($tmp_name, $targetFilePath)) {
+                        // Insert image path
+                        $img_stmt = $con->prepare("INSERT INTO product_images (product_ID, image_path) VALUES (?, ?)");
+                        $img_stmt->bind_param("is", $product_ID, $targetFilePath);
+                        $img_stmt->execute();
+                        $img_stmt->close();
+                    }
                 }
             }
         }
 
         echo "New product and images added successfully.";
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($con);
+        echo "Error: " . htmlspecialchars($stmt->error);
     }
 }
 ?>
