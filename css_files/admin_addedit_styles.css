@@ -465,6 +465,11 @@ main .actions {
 
 /* ==================== CUSTOMER REVIEWS ==================== */
 
+main .name-and-date {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+}
 main .customer-reviews .star{
     font-size: 2rem;
     color: var(--color-primary);
