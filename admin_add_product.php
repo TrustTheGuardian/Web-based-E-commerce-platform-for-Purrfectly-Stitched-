@@ -183,6 +183,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <i class="bi bi-chevron-down custom-icon"></i>
                             </div>
                         </div>
+
+                        <!-- Adding Category -->
+                         <div class=""
                     </div>
                 </div>
 
@@ -193,6 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </form>
         </main>
+
 
         <div class="right">
             <div class="top">
