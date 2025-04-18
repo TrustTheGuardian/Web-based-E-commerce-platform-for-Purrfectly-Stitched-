@@ -58,9 +58,10 @@
             <h1>Manage Orders</h1>
             <div class="search">
                 <i class="bi bi-search"></i>
-                <input type="text">
+                <input type="text" placeholder="Search by Order ID or Customer Name">
                 <button class="btn-search">Search</button>
             </div>
+            <b>Filter Orders by Date: </b>
             <div class="date">
                 <input type="date">
             </div>
@@ -68,14 +69,14 @@
         
             <!--    MAIN CONTENT - ORDER TABLE   -->
             <div class="orders">
-                <h2>Recent Orders</h2>
                 <table>
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Product Number</th>
-                            <th>Product Name</th>
+                            <th>Date Ordered</th>
                             <th>Customer Name</th>
+                            <th>Products Ordered</th>
+                            <th>Total Amount</th>
                             <th>Payment</th>
                             <th>Status</th>
                         </tr>
@@ -83,39 +84,41 @@
                     <tbody>
                         <tr>
                             <td>1234567890</td>
-                            <td>01</td>
-                            <td>Keychain</td>
+                            <td>03/05/2025</td>
                             <td>John Doe</td>
+                            <td>Keychain (1),<br>variant: 1</td>
+                            <td>₱ 50.00</td>
                             <td>Paid</td>
                             <td class="warning">Pending</td>
-                            <td class="primary">Details</td>
                         </tr>
                         <tr>
                             <td>1234567890</td>
-                            <td>03</td>
-                            <td>1/100 crochet</td>
+                            <td>02/14/2025</td>
                             <td>Chris P. Bacon</td>
+                            <td>stuffed Toy (2),<br>variant: 4</td>
+                            <td>₱ 500.00</td>
                             <td>Cash on Meetup</td>
                             <td class="warning">Pending</td>
-                            <td class="primary">Details</td>
                         </tr>
                         <tr>
                             <td>1234567890</td>
-                            <td>05</td>
-                            <td>bite-sized crochet</td>
+                            <td>01/25/2025</td>
                             <td>Mama Mo</td>
+                            <td>bite-sized crochet (5),<br>variant: 2<br>Keychain (1),<br>variant: 1</td>
+                            <td>₱ 250.00</td>
                             <td>Paid</td>
-                            <td class="warning">Pending</td>
-                            <td class="primary">Details</td>
+                            <td class="success">Completed</td>
                         </tr>
                     </tbody>
                 </table>
-                <span> 1 </span> |
-                <span> 2 </span> |
-                <span> 3 </span> |
-                <span> 4 </span> |
-                <span> 5 </span> |
-                <span> ... </span> 
+                <div class="pagination">
+                    <span>1</span> |
+                    <span>2</span> |
+                    <span>3</span> |
+                    <span>4</span> |
+                    <span>5</span> |
+                    <span>...</span>
+                </div>                
             </div>
 
         </main>

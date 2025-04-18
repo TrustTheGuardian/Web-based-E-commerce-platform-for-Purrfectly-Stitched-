@@ -293,7 +293,7 @@ main .orders table:hover {
 }
 
 main table tbody td{
-    height: 3.5rem;
+    height: 4rem;
     border-bottom: 1px solid var(--color-light);
     color: var(--color-dark-variant);
 }
@@ -303,14 +303,15 @@ main table tbody tr:last-child td{
 }
 
 
-main .orders span {
-    text-align: center;
-    display: inline-block;
+main .pagination {
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem auto;
+    margin-top: 1rem;
+    gap: 0.5rem;
     color: var(--color-primary);
 }
+
 
 /* ======================= RIGHT =================== */
 .right {
@@ -396,11 +397,11 @@ main .orders span {
         width: 83vw;
     }
 
-    main table thead tr th:nth-child(3), main table thead tr th:nth-child(5){
+    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
         display: none;
     }
 
-     main table tbody tr td:nth-child(3), main table tbody tr td:nth-child(5){
+    main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
         display: none;
     }
 
@@ -480,13 +481,13 @@ main .orders span {
         padding: 0 1rem;
     }
 
-    main .product-table {
+    main .orders {
         position: relative;
         margin: 3rem 0 0 0;
         width: 100%;
     }
 
-    main .product-table table {
+    main .orders table {
         width: 100%;
         margin: 0;
     }
@@ -494,18 +495,15 @@ main .orders span {
     main table tbody td{
         height: 13rem;
     }
-    .product-image {
-        width: 10rem;
-        height: 10rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        background-color: var(--color-primary);
-        color: var(--color-white);
-        transition: all 300ms ease;
-    }
     
+    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
+        display: none;
+    }
+
+     main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
+        display: none;
+    }
+
     .right {
         width: 94%;
         margin: 0 auto 4rem;
