@@ -69,7 +69,57 @@
       <!-- Total Section -->
       <div style="text-align: right; margin-top: 30px;">
         <h3>Total: <span id="total-price">₱299</span></h3>
-        <button class="btn-custom">Proceed to Checkout</button>
+        <button class="btn-custom" data-bs-toggle="modal" data-bs-target="#checkout-modal">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="checkout-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="staticBackdropLabel">Checkout Confirmation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="summary-container">
+            <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold;">Order Summary</h2>
+
+            <div class="item-row">
+              <span>Crochet Beanie (x1)</span>
+              <span>₱15.00</span>
+            </div>
+        
+            <div class="item-row">
+              <span>Handmade Plushie (x2)</span>
+              <span>₱30.00</span>
+            </div>
+        
+            <div class="total-row">
+              <span>Total</span>
+              <span>₱50.00</span>
+            </div>
+
+            
+          </div>
+
+          <div class="formcontainer">
+            <form id="delivery-form">
+              <h5>Select Payment Method:</h5>
+              <select name="delivery" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="pickup">Online Payment</option>
+                <option value="standard">Cash on meet-up</option>
+              </select>
+
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn confirm-btn" data-bs-dismiss="modal">Confirm</button>
+        </div>
       </div>
     </div>
   </div>

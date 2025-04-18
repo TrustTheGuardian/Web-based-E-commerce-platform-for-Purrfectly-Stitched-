@@ -163,7 +163,7 @@ body {
 
 .custom-btn:hover {
     background-color: #AA60C8; 
-    color: black;
+    color: white;
 }
 
 .btn-custom {
@@ -368,7 +368,95 @@ body {
     margin: 0;
     padding: 0;
   }
-  
+
+.modal-header h1{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#checkout-modal .confirm-btn{
+    background-color: #AA60C8;
+    color: white;
+}
+
+#checkout-modal .confirm-btn:hover {
+    background-color: #e63946;
+    color: white;
+}
+
+/* ----------------------------------  */
+.summary-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    padding: 25px;
+  }
+
+  .item-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .item-row:last-child {
+    border-bottom: none;
+  }
+
+  .total-row {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+.formcontainer{
+    padding-top: 20px;
+}
+
+#delivery-form h5{
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+}
+
+.formcontainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+#delivery-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#delivery-form h5 {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+#delivery-form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+#delivery-form select:focus {
+    border-color: #AA60C8;
+    box-shadow: 0 0 5px rgba(170, 96, 200, 0.5);
+}
+
+
+
 @media (max-width: 768px) {
     #carouselExampleCaptions {
         max-height: 300px; /* Reduce height on smaller screens */
