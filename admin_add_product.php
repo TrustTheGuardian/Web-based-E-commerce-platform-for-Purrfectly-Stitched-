@@ -182,10 +182,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </select>
                                 <i class="bi bi-chevron-down custom-icon"></i>
                             </div>
+                             <!-- New Category Input -->
+                            
                         </div>
-
-                        <!-- Adding Category -->
-                         <div class=""
+                        <div style="margin-top: 10px;">
+                                <input type="text" id="new_category" placeholder="Add new category" class="styled-input">
+                                <button type="button" id="addCategoryBtn">Add Category</button>
+                        </div>
+                        
                     </div>
                 </div>
 
@@ -217,6 +221,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+    <script>
+document.getElementById("addCategoryBtn").addEventListener("click", function () {
+    const newCategory = document.getElementById("new_category").value;
+
+    if (newCategory.trim() === "") {
+        alert("Please enter a category name.");
+        return;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "admin_add_category.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                const select = document.getElementById("category");
+                const option = document.createElement("option");
+                option.value = response.category_id;
+                option.textContent = newCategory;
+                option.selected = true;
+                select.appendChild(option);
+                document.getElementById("new_category").value = "";
+            } else {
+                alert("Failed to add category.");
+            }
+        }
+    };
+
+    xhr.send("category_name=" + encodeURIComponent(newCategory));
+});
+</script>
 
     <script>
 
@@ -400,6 +437,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 alert('Please enter a category name.');
             }
         });
+        
 
         // Delete Category Logic
         document.getElementById('confirmDeleteCategory').addEventListener('click', () => {

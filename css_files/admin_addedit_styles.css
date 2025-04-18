@@ -313,6 +313,22 @@ main .dp {
     filter: brightness(0.9); 
     transform: scale(1.03);  
 }
+#addCategoryBtn {
+    padding: 8px 16px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--border-radius-2);
+    margin-top: 10px;
+}
+
+#addCategoryBtn:hover {
+    filter: brightness(0.9); 
+    transform: scale(1.03);  
+}
 
 .remove-btn {
     position: absolute;
