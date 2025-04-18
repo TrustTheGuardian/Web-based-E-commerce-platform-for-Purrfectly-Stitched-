@@ -475,6 +475,14 @@ main .recent-order a {
         width: 83vw;
     }
 
+    main table thead tr th:nth-child(3), main table thead tr th:nth-child(5){
+        display: none;
+    }
+
+     main table tbody tr td:nth-child(3), main table tbody tr td:nth-child(5){
+        display: none;
+    }
+
 }
 
 /* ============== RESPONSIVE PHONE ================= */
