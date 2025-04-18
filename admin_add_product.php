@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <i class="bi bi-box2-heart-fill"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="" class="">
+                <a href="admin_orders.html" class="">
                     <i class="bi bi-bag-check-fill"></i>
                     <h3>Orders</h3>
                 </a>
