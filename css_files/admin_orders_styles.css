@@ -375,10 +375,10 @@ main .pagination {
 
 /* Button Styling */
 .modal-content button {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--color-success);
+    color: white;
     font-weight: 600;
-    transition: all 200ms ease;
+    transition: all 300ms ease;
 }
 
 .modal-content button:hover {
