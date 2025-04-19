@@ -513,6 +513,16 @@ body {
       width: fit-content;
       align-self: flex-start;
     }
+
+    .logo h2{
+        font-size: 15px;
+        color: black;
+        font-weight: 100;
+        margin: 0; /* Removes default margin */
+        line-height: 3; /* proper vertical centering */
+        text-decoration: none;
+        text-align: center;
+    }
   }
   
   
