@@ -94,10 +94,10 @@ $user = mysqli_fetch_assoc($result);
                 $orders = mysqli_query($con, "SELECT * FROM orders WHERE user_id = '$id'");
                 while ($order = mysqli_fetch_assoc($orders)) {
                     echo "<tr>
-                            <td>{$order['order_id']}</td>
-                            <td>{$order['product_name']}</td>
-                            <td>{$order['quantity']}</td>
-                            <td>₱{$order['total_amount']}</td>
+                            <td>{$order['order_ID']}</td>
+                            <td>{$order['product_title']}</td>
+                            <td>{$order['order_quantity']}</td>
+                            <td>₱{$order['product_total_amount']}</td>
                             <td>{$order['shipping_address']}</td>
                             <td>{$order['order_date']}</td>
                           </tr>";

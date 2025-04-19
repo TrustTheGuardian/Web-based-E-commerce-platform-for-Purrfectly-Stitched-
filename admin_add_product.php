@@ -75,185 +75,169 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css_files/admin_addedit_styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- SIDEBAR -->
-        <aside>
-            <div class="top">
-                <div class="logo">
-                    <img src="pictures/Purrfectly Stitch.png" alt="Purrfectly Stitched Logo">
-                </div>
-            
-                <div class="close" id="close-btn">
-                    <i class="bi bi-x-lg"></i>
-                </div>
+<div class="container">
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="top">
+            <div class="logo">
+                <img src="pictures/Purrfectly Stitch.png" alt="Purrfectly Stitched Logo">
             </div>
-
-            <div class="sidebar">
-                <a href="admin_dashboard.html" class="">
-                    <i class="bi bi-grid-fill"></i>
-                    <h3>Dashboard</h3>
-                </a>
-                <a href="admin_users.php" class="">
-                    <i class="bi bi-people-fill"></i>
-                    <h3>Users</h3>
-                </a>
-                <a href="admin_inventory_v2.php" class="">
-                    <i class="bi bi-box2-heart-fill"></i>
-                    <h3>Products</h3>
-                </a>
-                <a href="admin_orders.html" class="">
-                    <i class="bi bi-bag-check-fill"></i>
-                    <h3>Orders</h3>
-                </a>
-                <a href="" class=""> 
-                    <i class="bi bi-file-earmark-text-fill"></i>
-                    <h3>Reports</h3>
-                </a>
+        
+            <div class="close" id="close-btn">
+                <i class="bi bi-x-lg"></i>
             </div>
-        </aside>
-        <!-- end of aside / side bar -->
+        </div>
 
-        <main>
-            <h1>Add Product</h1>
+        <div class="sidebar">
+            <a href="admin_dashboard.html" class="">
+                <i class="bi bi-grid-fill"></i>
+                <h3>Dashboard</h3>
+            </a>
+            <a href="admin_users.php" class="">
+                <i class="bi bi-people-fill"></i>
+                <h3>Users</h3>
+            </a>
+            <a href="admin_inventory_v2.php" class="">
+                <i class="bi bi-box2-heart-fill"></i>
+                <h3>Products</h3>
+            </a>
+            <a href="admin_orders.html" class="">
+                <i class="bi bi-bag-check-fill"></i>
+                <h3>Orders</h3>
+            </a>
+            <a href="" class=""> 
+                <i class="bi bi-file-earmark-text-fill"></i>
+                <h3>Reports</h3>
+            </a>
+        </div>
+    </aside>
+    <!-- end of aside / side bar -->
 
-            <!-- PRODUCT FORM -->
-                <form action="admin_add_product.php" method="POST" enctype="multipart/form-data">
-                <div class="product-description">
-                    <!-- Image Upload Section -->
-                    <div class="add-images">
-                        <div class="dp">
-                            <div class="carousel">
-                                <div class="carousel-images" id="carouselImages">
-                                    <div class="image-wrapper">
-                                        <img src="pictures/Purrfectly Stitch.png" alt="Product Image">
-                                        <span class="remove-btn">&times;</span>
-                                    </div>
+    <main>
+        <h1>Add Product</h1>
+
+        <!-- PRODUCT FORM -->
+        <form action="admin_add_product.php" method="POST" enctype="multipart/form-data">
+            <div class="product-description">
+                <!-- Image Upload Section -->
+                <div class="add-images">
+                    <div class="dp">
+                        <div class="carousel">
+                            <div class="carousel-images" id="carouselImages">
+                                <div class="image-wrapper">
+                                    <img src="pictures/Purrfectly Stitch.png" alt="Product Image">
+                                    <span class="remove-btn">&times;</span>
                                 </div>
-                                <button type="button" class="carousel-btn prev">&lt;</button>
-                                <button type="button" class="carousel-btn next">&gt;</button>
                             </div>
+                            <button type="button" class="carousel-btn prev">&lt;</button>
+                            <button type="button" class="carousel-btn next">&gt;</button>
                         </div>
-
-                        <!-- Add Images Button -->
-                        <button type="button" id="addImagesBtn">Add Images</button>
-                        <input type="file" id="imageInput" name="product_images[]" accept="image/*" multiple hidden>
                     </div>
 
-                    <!-- Product Details Section -->
-                    <div class="product-details">
-                        <!-- Product Title -->
-                        <div class="form-group">
-                            <label for="product_title"><strong>Product Title:</strong></label>
-                            <input type="text" id="product_title" name="product_title" class="styled-input" required>
-                        </div>
+                    <!-- Add Images Button -->
+                    <button type="button" id="addImagesBtn">Add Images</button>
+                    <input type="file" id="imageInput" name="product_images[]" accept="image/*" multiple hidden>
+                </div>
 
-                        <!-- Product Description -->
-                        <div class="form-group">
-                            <label for="description"><strong>Product Description:</strong></label>
-                            <textarea id="description" name="product_description" class="styled-input" required></textarea>
-                        </div>
+                <!-- Product Details Section -->
+                <div class="product-details">
+                    <!-- Product Title -->
+                    <div class="form-group">
+                        <label for="product_title"><strong>Product Title:</strong></label>
+                        <input type="text" id="product_title" name="product_title" class="styled-input" required>
+                    </div>
 
-                        <!-- Product Price -->
-                        <div class="form-group">
-                            <label for="price"><strong>Product Price:</strong> ₱</label>
-                            <input type="number" id="price" name="product_price" class="styled-input" step="0.01" required>
-                        </div>
+                    <!-- Product Description -->
+                    <div class="form-group">
+                        <label for="description"><strong>Product Description:</strong></label>
+                        <textarea id="description" name="product_description" class="styled-input" required></textarea>
+                    </div>
 
-                        <!-- Product Quantity -->
-                        <div class="form-group">
-                            <label for="quantity"><strong>Product Quantity:</strong></label>
-                            <input type="number" id="quantity" name="product_quantity" class="styled-input" required>
-                        </div>
+                    <!-- Product Price -->
+                    <div class="form-group">
+                        <label for="price"><strong>Product Price:</strong> ₱</label>
+                        <input type="number" id="price" name="product_price" class="styled-input" step="0.01" required>
+                    </div>
 
-                        <!-- Product Category -->
-                        <div class="form-group">
-                            <label for="category"><strong>Category:</strong></label>
-                            <div class="custom-select-wrapper">
-                                <select id="category" name="product_category_id" class="custom-select" required>
-                                    <option value="" disabled selected>Select a category</option>
-                                    <?php
-                                        // Fetch categories from the database
-                                        $category_sql = "SELECT * FROM product_category";
-                                        $category_result = mysqli_query($con, $category_sql);
-                                        while ($row = mysqli_fetch_assoc($category_result)) {
-                                            echo "<option value='{$row['product_category_ID']}'>{$row['category_name']}</option>";
-                                        }
-                                    ?>
-                                </select>
-                                <i class="bi bi-chevron-down custom-icon"></i>
-                            </div>
-                             <!-- New Category Input -->
-                            
+                    <!-- Product Quantity -->
+                    <div class="form-group">
+                        <label for="quantity"><strong>Product Quantity:</strong></label>
+                        <input type="number" id="quantity" name="product_quantity" class="styled-input" required>
+                    </div>
+
+                    <!-- Product Category -->
+                    <div class="form-group">
+                        <label for="category"><strong>Category:</strong></label>
+                        <div class="custom-select-wrapper">
+                            <select id="category" name="product_category_id" class="custom-select" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <?php
+                                    // Fetch categories from the database
+                                    $category_sql = "SELECT * FROM product_category";
+                                    $category_result = mysqli_query($con, $category_sql);
+                                    while ($row = mysqli_fetch_assoc($category_result)) {
+                                        echo "<option value='{$row['product_category_ID']}'>{$row['category_name']}</option>";
+                                    }
+                                ?>
+                            </select>
+                            <i class="bi bi-chevron-down custom-icon"></i>
                         </div>
-                        <div style="margin-top: 10px;">
-                                <input type="text" id="new_category" placeholder="Add new category" class="styled-input">
-                                <button type="button" id="addCategoryBtn">Add Category</button>
-                        </div>
-                        
+                    </div>
+                    <div class="category-actions">
+                        <span class="action-link add-category">Add Category</span> |
+                        <span class="action-link delete">Delete Category</span>
                     </div>
                 </div>
+            </div>
 
-                <!-- Action Buttons -->
-                <div class="actions">
-                    <button type="submit" class="action-link add">Add</button>
-                    <a href="admin_inventory_v2.php" class="action-link cancel">Cancel</a>
-                </div>
-            </form>
-        </main>
+            <!-- Action Buttons -->
+            <div class="actions">
+                <button type="submit" class="action-link add">Add</button>
+                <a href="admin_inventory_v2.php" class="action-link cancel">Cancel</a>
+            </div>
+        </form>
+    </main>
 
 
-        <div class="right">
-            <div class="top">
-                <button id="menu-btn">
-                    <i class="bi bi-list"></i>
-                </button>
-                <div class="theme-toggler">
-                    <i class="bi bi-brightness-high-fill active"></i>
-                    <i class="bi bi-moon-fill"></i>
-                </div>
-                <div class="log-out">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <h3>Log Out</h3>
-                </div>
+    <div class="right">
+        <div class="top">
+            <button id="menu-btn">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="theme-toggler">
+                <i class="bi bi-brightness-high-fill active"></i>
+                <i class="bi bi-moon-fill"></i>
+            </div>
+            <div class="log-out">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <h3>Log Out</h3>
             </div>
         </div>
     </div>
 
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close-modal" data-modal="addCategoryModal">&times;</span>
+            <h2>Add Category</h2>
+            <input type="text" id="newCategoryInput" placeholder="Enter new category name" class="styled-input">
+            <button id="confirmAddCategory" class="modal-button">Add</button>
+        </div>
+    </div>
+
+    <!-- Delete Category Modal -->
+    <div id="deleteCategoryModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="close-modal" data-modal="deleteCategoryModal">&times;</span>
+            <h2>Delete Category</h2>
+            <select id="deleteCategorySelect" class="styled-input">
+                <!-- JS will populate this -->
+            </select>
+            <button id="confirmDeleteCategory" class="modal-button">Delete</button>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script>
-document.getElementById("addCategoryBtn").addEventListener("click", function () {
-    const newCategory = document.getElementById("new_category").value;
-
-    if (newCategory.trim() === "") {
-        alert("Please enter a category name.");
-        return;
-    }
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "admin_add_category.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            const response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                const select = document.getElementById("category");
-                const option = document.createElement("option");
-                option.value = response.category_id;
-                option.textContent = newCategory;
-                option.selected = true;
-                select.appendChild(option);
-                document.getElementById("new_category").value = "";
-            } else {
-                alert("Failed to add category.");
-            }
-        }
-    };
-
-    xhr.send("category_name=" + encodeURIComponent(newCategory));
-});
-</script>
 
     <script>
 
@@ -385,7 +369,7 @@ document.getElementById("addCategoryBtn").addEventListener("click", function () 
         carouselImages.style.transform = `translateX(-${offset}px)`;
             }
 
-        // Show/Hide Modals
+            // Show/Hide Modals
         const addCategoryBtn = document.querySelector('.add-category');
         const deleteCategoryBtn = document.querySelector('.delete');
         const addCategoryModal = document.getElementById('addCategoryModal');
@@ -409,6 +393,10 @@ document.getElementById("addCategoryBtn").addEventListener("click", function () 
             deleteCategoryModal.style.display = 'block';
         });
 
+        </script>
+
+        <script>
+
         closeModalBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.getElementById(btn.dataset.modal).style.display = 'none';
@@ -423,34 +411,78 @@ document.getElementById("addCategoryBtn").addEventListener("click", function () 
 
         // Add Category Logic
         document.getElementById('confirmAddCategory').addEventListener('click', () => {
-            const input = document.getElementById('newCategoryInput');
-            const categorySelect = document.getElementById('category');
+        const input = document.getElementById('newCategoryInput');
+        const categoryName = input.value.trim();
 
-            if (input.value.trim()) {
-                const newOption = document.createElement('option');
-                newOption.value = input.value.trim();
-                newOption.textContent = input.value.trim();
-                categorySelect.appendChild(newOption);
-                input.value = '';
-                addCategoryModal.style.display = 'none';
-            } else {
-                alert('Please enter a category name.');
-            }
-        });
-        
+        if (categoryName) {
+            fetch('admin_add_category.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'category_name=' + encodeURIComponent(categoryName),
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    const categorySelect = document.getElementById('category');
+                    const newOption = document.createElement('option');
+                    newOption.value = categoryName;
+                    newOption.textContent = categoryName;
+                    categorySelect.appendChild(newOption);
+                    input.value = '';
+                    addCategoryModal.style.display = 'none';
+                } else {
+                    alert('Error: ' + data);
+                }
+            });
+        } else {
+            alert('Please enter a category name.');
+        }
+    });
 
         // Delete Category Logic
         document.getElementById('confirmDeleteCategory').addEventListener('click', () => {
             const deleteSelect = document.getElementById('deleteCategorySelect');
-            const categorySelect = document.getElementById('category');
+            const categoryId = deleteSelect.value;
 
-            const optionToDelete = Array.from(categorySelect.options).find(opt => opt.value === deleteSelect.value);
-            if (optionToDelete) {
-                categorySelect.removeChild(optionToDelete);
-                deleteCategoryModal.style.display = 'none';
+            if (!categoryId) {
+                alert("Please select a category to delete.");
+                return;
             }
+
+            // AJAX request to delete the category
+            const formData = new FormData();
+            formData.append('category_id', categoryId);
+
+            fetch('admin_delete_category.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "success") {
+                    // Remove from category dropdown
+                    const categorySelect = document.getElementById('category');
+                    const optionToRemove = categorySelect.querySelector(`option[value="${categoryId}"]`);
+                    if (optionToRemove) categorySelect.removeChild(optionToRemove);
+
+                    deleteSelect.querySelector(`option[value="${categoryId}"]`).remove();
+                    deleteCategoryModal.style.display = 'none';
+                    alert("Category deleted successfully.");
+                } else if (data.trim() === "in_use") {
+                    alert("This category is still in use by products and cannot be deleted.");
+                } else {
+                    alert("An error occurred while deleting the category.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Something went wrong.");
+            });
         });
-                
-    </script>      
+        </script>
+
+    
 </body>
 </html>

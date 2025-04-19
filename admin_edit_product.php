@@ -1,3 +1,46 @@
+<?php
+include 'db_connection.php';
+
+// Get the product ID from query string
+$product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$product = null;
+
+// Fetch product details
+if ($product_id > 0) {
+    $query = "SELECT * FROM products WHERE product_ID = $product_id";
+    $result = mysqli_query($con, $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $product = mysqli_fetch_assoc($result);
+    } else {
+        echo "Product not found.";
+        exit;
+    }
+}
+
+// Handle update
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_product'])) {
+    $title = mysqli_real_escape_string($con, $_POST['product_title']);
+    $desc = mysqli_real_escape_string($con, $_POST['product_description']);
+    $price = floatval($_POST['product_price']);
+    $quantity = intval($_POST['product_quantity']);
+    $category = intval($_POST['product_category_ID']);
+
+    $updateQuery = "UPDATE products SET 
+                    product_title = '$title',
+                    product_description = '$desc',
+                    product_price = $price,
+                    product_quantity = $quantity,
+                    product_category_ID = $category
+                    WHERE product_ID = $product_id";
+
+    if (mysqli_query($con, $updateQuery)) {
+        echo "<script>alert('Product updated successfully'); window.location.href='admin_inventory_v2.php';</script>";
+    } else {
+        echo "Error updating product: " . mysqli_error($con);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,47 +120,56 @@
                     <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">                    
                     
                 </div>
-
-                <div class="product-details">
-                    <div class="form-group">
-                        <label for="product_title"><strong>Product Title:</strong></label>
-                        <input type="text" id="product_title" name="product_title" class="styled-input">
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="description"><strong>Product Description:</strong></label>
-                        <textarea id="description" name="description" class="styled-input"></textarea>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="price"><strong>Product Price:</strong> ₱</label>
-                        <input type="number" id="price" step="0.01" name="price" class="styled-input">
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="quantity"><strong>Product Quantity:</strong></label>
-                        <input type="number" id="quantity" name="quantity" class="styled-input">
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="category"><strong>Category:</strong></label>
-                        <div class="custom-select-wrapper">
-                            <select id="category" name="category_id" class="custom-select" required>
-                                <option value="" disabled selected>Select a category</option>
-                                <option value="Category_1">Category 1</option>
-                                <option value="Category_2">Category 2</option>
-                                <option value="Category_3">Category 3</option>
-                                <option value="Category_4">Category 4</option>
-                            </select>
-                            <i class="bi bi-chevron-down custom-icon"></i>
+                <form method="POST" action="">
+                    <div class="product-details">
+                        <div class="form-group">
+                            <label for="product_title"><strong>Product Title:</strong></label>
+                            <input type="text" id="product_title" name="product_title" class="styled-input" 
+                                value="<?php echo htmlspecialchars($product['product_title']); ?>">
                         </div>
+
+                        <div class="form-group">
+                            <label for="description"><strong>Product Description:</strong></label>
+                            <textarea id="description" name="product_description" class="styled-input"><?php echo htmlspecialchars($product['product_description']); ?></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price"><strong>Product Price:</strong> ₱</label>
+                            <input type="number" id="price" step="0.01" name="product_price" class="styled-input"
+                                value="<?php echo htmlspecialchars($product['product_price']); ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity"><strong>Product Quantity:</strong></label>
+                            <input type="number" id="quantity" name="product_quantity" class="styled-input"
+                                value="<?php echo htmlspecialchars($product['product_quantity']); ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category"><strong>Category:</strong></label>
+                            <div class="custom-select-wrapper">
+                                <select id="category" name="product_category_ID" class="custom-select" required>
+                                    <option value="" disabled>Select a category</option>
+                                    <?php
+                                    $catQuery = "SELECT * FROM product_category";
+                                    $catResult = mysqli_query($con, $catQuery);
+                                    while ($cat = mysqli_fetch_assoc($catResult)) {
+                                        $selected = ($cat['product_category_ID'] == $product['product_category_ID']) ? 'selected' : '';
+                                        echo "<option value='{$cat['product_category_ID']}' $selected>{$cat['category_name']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <i class="bi bi-chevron-down custom-icon"></i>
+                            </div>
+                        </div>
+                        <div class="category-actions">
+                            <span class="action-link add-category">Add Category</span> |
+                            <span class="action-link delete">Delete Category</span>
+                         </div>
+
+                        <button type="submit" name="update_product" class="modal-button">Update Product</button>
                     </div>
-                
-                    <div class="category-actions">
-                        <span class="action-link add-category">Add Category</span> |
-                        <span class="action-link delete">Delete Category</span>
-                    </div>
-                </div>
+                </form>
                 
             </div>
             
@@ -445,6 +497,7 @@
             deleteCategoryModal.style.display = 'block';
         });
 
+
         closeModalBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.getElementById(btn.dataset.modal).style.display = 'none';
@@ -459,31 +512,75 @@
 
         // Add Category Logic
         document.getElementById('confirmAddCategory').addEventListener('click', () => {
-            const input = document.getElementById('newCategoryInput');
-            const categorySelect = document.getElementById('category');
+        const input = document.getElementById('newCategoryInput');
+        const categoryName = input.value.trim();
 
-            if (input.value.trim()) {
-                const newOption = document.createElement('option');
-                newOption.value = input.value.trim();
-                newOption.textContent = input.value.trim();
-                categorySelect.appendChild(newOption);
-                input.value = '';
-                addCategoryModal.style.display = 'none';
-            } else {
-                alert('Please enter a category name.');
-            }
-        });
+        if (categoryName) {
+            fetch('admin_add_category.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'category_name=' + encodeURIComponent(categoryName),
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    const categorySelect = document.getElementById('category');
+                    const newOption = document.createElement('option');
+                    newOption.value = categoryName;
+                    newOption.textContent = categoryName;
+                    categorySelect.appendChild(newOption);
+                    input.value = '';
+                    addCategoryModal.style.display = 'none';
+                } else {
+                    alert('Error: ' + data);
+                }
+            });
+        } else {
+            alert('Please enter a category name.');
+        }
+    });
 
         // Delete Category Logic
         document.getElementById('confirmDeleteCategory').addEventListener('click', () => {
             const deleteSelect = document.getElementById('deleteCategorySelect');
-            const categorySelect = document.getElementById('category');
+            const categoryId = deleteSelect.value;
 
-            const optionToDelete = Array.from(categorySelect.options).find(opt => opt.value === deleteSelect.value);
-            if (optionToDelete) {
-                categorySelect.removeChild(optionToDelete);
-                deleteCategoryModal.style.display = 'none';
+            if (!categoryId) {
+                alert("Please select a category to delete.");
+                return;
             }
+
+            // AJAX request to delete the category
+            const formData = new FormData();
+            formData.append('category_id', categoryId);
+
+            fetch('admin_delete_category.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "success") {
+                    // Remove from category dropdown
+                    const categorySelect = document.getElementById('category');
+                    const optionToRemove = categorySelect.querySelector(`option[value="${categoryId}"]`);
+                    if (optionToRemove) categorySelect.removeChild(optionToRemove);
+
+                    deleteSelect.querySelector(`option[value="${categoryId}"]`).remove();
+                    deleteCategoryModal.style.display = 'none';
+                    alert("Category deleted successfully.");
+                } else if (data.trim() === "in_use") {
+                    alert("This category is still in use by products and cannot be deleted.");
+                } else {
+                    alert("An error occurred while deleting the category.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Something went wrong.");
+            });
         });
         
         

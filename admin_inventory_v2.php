@@ -58,6 +58,7 @@ include 'db_connection.php';
                         <th></th>
                         <th>Product ID</th>
                         <th>Product Title</th>
+                        <th>Product Category</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Status</th>
@@ -65,37 +66,42 @@ include 'db_connection.php';
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                $query = "SELECT * FROM products";
-                $result = mysqli_query($con, $query);
-
-                while ($row = mysqli_fetch_assoc($result)):
-                    $statusClass = ($row['product_quantity'] <= 5) ? 'warning' : '';
-                ?>
-                    <tr>
                     <?php
-                        $product_ID = $row['product_ID'];
+                    $query = "
+                        SELECT 
+                            p.*, 
+                            c.category_name 
+                        FROM 
+                            products p
+                        JOIN 
+                            product_category c 
+                        ON 
+                            p.product_category_ID = c.product_category_ID
+                    ";
+                    $result = mysqli_query($con, $query);
 
+                    while ($row = mysqli_fetch_assoc($result)):
+                        $statusClass = ($row['product_quantity'] <= 5) ? 'warning' : '';
+
+                        $product_ID = $row['product_ID'];
                         $img_sql = "SELECT image_path FROM product_images WHERE product_ID = $product_ID LIMIT 1";
                         $img_result = mysqli_query($con, $img_sql);
 
-                        if ($img_row = mysqli_fetch_assoc($img_result)) {
-                            $imagePath = $img_row['image_path'];
-                        } else {
-                            $imagePath = 'pictures/default.png';
-                        }
-                        ?>
+                        $imagePath = ($img_row = mysqli_fetch_assoc($img_result)) ? $img_row['image_path'] : 'pictures/default.png';
+                    ?>
+                        <tr>
+                            <td><img class="product-image" src="<?= $imagePath ?>" alt="Product Image" width="80"></td>
+                            <td><?= $row['product_ID']; ?></td>
+                            <td><?= htmlspecialchars($row['product_title']); ?></td>
+                            <td><?= htmlspecialchars($row['category_name']); ?></td>
+                            <td>₱ <?= number_format($row['product_price'], 2); ?></td>
+                            <td><?= $row['product_quantity']; ?></td>
+                            <td class="<?= $statusClass; ?>"><?= ucfirst($row['product_status']); ?></td>
+                            <td class="actions">
+                                <a href="admin_edit_product.php?id=<?= $row['product_ID']; ?>" class="action-link edit">Manage</a>
+                                <a href="#" class="action-link delete" data-id="<?= $row['product_ID']; ?>" onclick="openDeleteModal(<?= $row['product_ID']; ?>)">Delete</a>
 
-                        <td><img class="product-image" src="<?= $imagePath ?>" alt="Product Image" width="80"></td>
-                        <td><?= $row['product_ID']; ?></td>
-                        <td><?= htmlspecialchars($row['product_title']); ?></td>
-                        <td>₱ <?= number_format($row['product_price'], 2); ?></td>
-                        <td><?= $row['product_quantity']; ?></td>
-                        <td class="<?= $statusClass; ?>"><?= ucfirst($row['product_status']); ?></td>
-                        <td class="actions">
-                            <a href="admin_edit_product.php?id=<?= $row['product_ID']; ?>" class="action-link edit">Manage</a>
-                            <a href="#" class="action-link delete" data-id="<?= $row['product_ID']; ?>" onclick="openDeleteModal(<?= $row['product_ID']; ?>)">Delete</a>
-                             <!-- Delete Confirmation Modal -->
+                                <!-- Delete Confirmation Modal -->
                                 <div id="deleteModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
                                     background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
                                     <div style="background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center;">
@@ -104,15 +110,16 @@ include 'db_connection.php';
                                         <button onclick="closeDeleteModal()">Cancel</button>
                                     </div>
                                 </div>
-                            <?php if ($row['product_status'] == 'active'): ?>
-                                <a href="admin_deactivate_product.php?id=<?= $row['product_ID']; ?>" class="action-link deactivate">Deactivate</a>
-                            <?php else: ?>
-                                <a href="admin_activate_product.php?id=<?= $row['product_ID']; ?>" class="action-link activate">Activate</a>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-                </tbody>
+
+                                <?php if ($row['product_status'] == 'active'): ?>
+                                    <a href="admin_deactivate_product.php?id=<?= $row['product_ID']; ?>" class="action-link deactivate">Deactivate</a>
+                                <?php else: ?>
+                                    <a href="admin_activate_product.php?id=<?= $row['product_ID']; ?>" class="action-link activate">Activate</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                    </tbody>
             </table>
         </div>
     </main>
