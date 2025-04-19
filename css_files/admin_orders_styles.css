@@ -312,6 +312,78 @@ main .pagination {
     color: var(--color-primary);
 }
 
+/* Modal Background */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+/* Modal Box */
+.modal-content {
+    background-color: var(--color-white);
+    color: var(--color-dark);
+    margin: 10% auto;
+    padding: var(--card-padding);
+    width: 350px;
+    max-width: 90%;
+    border-radius: var(--card-border-radius);
+    position: relative;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+    text-align: left;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: var(--color-info-dark);
+    transition: color 200ms ease;
+}
+.close-btn:hover {
+    color: var(--color-danger);
+}
+
+/* Form Elements */
+.modal-content select,
+.modal-content button {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    width: 100%;
+    font-size: 1rem;
+    border-radius: var(--border-radius-2);
+    border: 1px solid var(--color-info-light);
+    background: var(--color-background);
+    color: var(--color-dark);
+}
+
+.modal-content select:focus,
+.modal-content button:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+/* Button Styling */
+.modal-content button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 600;
+    transition: all 200ms ease;
+}
+
+.modal-content button:hover {
+    background-color: var(--color-primary-variant);
+}
 
 /* ======================= RIGHT =================== */
 .right {
