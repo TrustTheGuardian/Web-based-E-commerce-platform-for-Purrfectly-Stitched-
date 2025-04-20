@@ -49,7 +49,7 @@ $user = mysqli_fetch_assoc($result);
             <a href="admin_users.html"><i class="bi bi-people-fill"></i><h3>Users</h3></a>
             <a href="admin_inventory_v2.html"><i class="bi bi-box2-heart-fill"></i><h3>Products</h3></a>
             <a href="admin_orders.html"><i class="bi bi-bag-check-fill"></i><h3>Orders</h3></a>
-            <a href="#"><i class="bi bi-file-earmark-text-fill"></i><h3>Reports</h3></a>
+            <a href="admin_reports.html"><i class="bi bi-file-earmark-text-fill"></i><h3>Reports</h3></a>
         </div>
     </aside>
 
