@@ -1,3 +1,30 @@
+<?php
+include 'db_connection.php'; 
+
+if (!isset($_GET['productId'])) {
+    exit("No product specified.");
+}
+
+$product_id = intval($_GET['productId']);
+
+$query = "
+  SELECT p.*, pi.image_path
+  FROM products p
+  LEFT JOIN product_images pi 
+    ON p.product_ID = pi.product_ID
+  WHERE p.product_ID = $product_id
+  LIMIT 1
+";
+$result = mysqli_query($con, $query) 
+    or exit("Database error: " . mysqli_error($con));
+
+if (mysqli_num_rows($result) === 0) {
+    exit("Product not found.");
+}
+
+$product = mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +46,7 @@
         </div>
     
         <div class="menu">
-            <a href="shop.html" class="d-none d-sm-block">Shop</a>
+            <a href="shop.php" class="d-none d-sm-block">Shop</a>
             <div class="btn-group custom-dropdown">
               <button type="button" class="dropdown-toggle d-sm-block d-none" data-bs-toggle="dropdown">
                   Profile
@@ -30,7 +57,9 @@
               </ul>
               
             </div>
-            <a href="cart.html"><i class="bi bi-cart"></i></a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <i class="bi bi-cart"></i>
+        </a>
             <div class="btn-group custom-dropdown d-sm-none">
               <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
                   Menu
@@ -45,73 +74,104 @@
         </div>
     </header>
 
-    <section>
-
-        <div class="d-flex flex-column flex-md-row">
-            <div class="carouselcontainer col-12 col-md-6">
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img src="https://img.freepik.com/free-photo/wool-elements-space-right_23-2147691749.jpg" class="d-block w-100" alt="...">
-                      <div class="carousel-caption">
-                        <h5>First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="https://static.vecteezy.com/system/resources/thumbnails/023/801/960/small/crochet-and-knitting-hobby-colorful-balls-of-yarn-knitting-needles-on-table-with-copy-space-flat-lay-and-wood-background-photo.jpg" class="d-block w-100" alt="...">
-                      <div class="carousel-caption">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://d2culxnxbccemt.cloudfront.net/ccc/content/uploads/2021/03/17133353/1-ProcessProductCrochet-768x576.jpg" class="d-block w-100" alt="...">
-                        <div class="carousel-caption">
-                          <h5>Second slide label</h5>
-                          <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjzDmmsbHwXIxFM9SyvBa3fIfzCKL17U3ODA&s" class="d-block w-100" alt="...">
-                        <div class="carousel-caption">
-                          <h5>Second slide label</h5>
-                          <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
-
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered"> <!-- Centered modal -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Your login form goes here -->
+            <form id="loginForm" action="login.php" method="POST">
+              <div class="mb-3">
+                <label for="loginEmail" class="form-label">Email address</label>
+                <input placeholder="Enter your Email" type="email" class="form-control" name="Email" id="loginEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="visiblePassword" class="form-label">Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" name="Password" id="visiblePassword" placeholder="Enter your password" minlength="8" required>
+                  <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('visiblePassword', this)">
+                    <i class="bi bi-eye-slash"></i>
                   </button>
                 </div>
+              </div>
+              <button type="submit" class="custom-btn">Log in</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                <div class="thumbnail">
-                    <div class="thumbnail-gallery d-flex justify-content-center mt-3 gap-2">
-                        <img src="https://img.freepik.com/free-photo/wool-elements-space-right_23-2147691749.jpg" class="thumb-img" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" alt="Thumbnail 1">
+    <section>
 
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/023/801/960/small/crochet-and-knitting-hobby-colorful-balls-of-yarn-knitting-needles-on-table-with-copy-space-flat-lay-and-wood-background-photo.jpg" class="thumb-img" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" alt="Thumbnail 2">
+    <div class="d-flex flex-column flex-md-row">
+            <div class="carouselcontainer col-12 col-md-6">
+            <?php
+                    // 1) Grab all images for this product
+                    $imgResult = mysqli_query(
+                        $con,
+                        "SELECT image_path 
+                        FROM product_images 
+                        WHERE product_ID = $product_id
+                        ORDER BY image_ID ASC"
+                    ) or exit("Image query failed: " . mysqli_error($con));
 
-                        <img src="https://d2culxnxbccemt.cloudfront.net/ccc/content/uploads/2021/03/17133353/1-ProcessProductCrochet-768x576.jpg" class="thumb-img" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" alt="Thumbnail 3">
+                    $images = [];
+                    while ($row = mysqli_fetch_assoc($imgResult)) {
+                        $images[] = $row['image_path'];
+                    }
+                    ?>
 
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjzDmmsbHwXIxFM9SyvBa3fIfzCKL17U3ODA&s" class="thumb-img" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" alt="Thumbnail 4">
-                        
+                <!-- 2) Dynamic Carousel -->
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <?php foreach ($images as $idx => $imgPath): ?>
+                    <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
+                        <img src="<?= htmlspecialchars($imgPath) ?>"
+                            class="d-block w-100"
+                            alt="Product image <?= $idx + 1 ?>">
                     </div>
-                </div> 
+                    <?php endforeach; ?>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div>
+
+                <!-- 3) Dynamic Thumbnail Gallery -->
+                <div class="thumbnail">
+                <div class="thumbnail-gallery d-flex justify-content-center mt-3 gap-2">
+                    <?php foreach ($images as $idx => $imgPath): ?>
+                    <img
+                        src="<?= htmlspecialchars($imgPath) ?>"
+                        class="thumb-img"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide-to="<?= $idx ?>"
+                        aria-label="Go to slide <?= $idx + 1 ?>"
+                        style="cursor:pointer;"
+                        alt="Thumbnail <?= $idx + 1 ?>"
+                    >
+                    <?php endforeach; ?>
+                </div>
+                </div>
+
               </div>
               <div class="col-12 col-md-6">
                 <div class="aboutproduct">
-                    <H1>Crochet Product</H1>
-                    <p class="text-success mt-2">In stock</p>
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium est earum vitae. Laboriosam, expedita quisquam rerum quaerat magnam odio errors.</p>
+                    <!-- Title -->
+                    <h1><?= htmlspecialchars($product['product_title']) ?></h1>
+                    <p class="text-success mt-2"><?= $product['product_quantity'] > 0 ? 'In stock' : 'Out of stock' ?></p>
+                    <p><?= htmlspecialchars($product['product_description']) ?></p>
                     <br>
                     <div class="pricerating">
-                        <h3>₱159.00</h3>
+                    <h3>₱<?= number_format($product['product_price'], 2) ?></h3>
                         <div class="star">
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
@@ -145,13 +205,7 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show">
                                     <div class="accordion-body">
-                                        <ul>
-                                            <li>Lorem ipsum dolor sit amet.</li>
-                                            <li>Lorem, ipsum dolor.</li>
-                                            <li>Lorem ipsum dolor sit amet.</li>
-                                            <li>Lorem.</li>
-                                            <li>Lorem ipsum dolor sit amet consectetur.</li>
-                                        </ul>
+                                        <p><?= htmlspecialchars($product['product_description']) ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -268,6 +322,23 @@
         if (!isNaN(current)) {
             qtyInput.value = Math.max(1, current + delta); // prevent going below 1
         }}
+    </script>
+
+    <script>
+      function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector("i");
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        } else {
+          input.type = "password";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        }
+      }
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

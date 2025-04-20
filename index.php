@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    // Already logged in? Send them to the members’ area.
+    header('Location: user_home.php');
+    exit;
+}
+?>
+      
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,38 +20,7 @@
 </head>
 
 <body>
-      <?php
-      session_start();
-      include 'db_connection.php'; // Make sure this connects to your database
-
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $email = $_POST["Email"];
-          $password = $_POST["Password"];
-
-          // Securely check the email in your database
-          $email = mysqli_real_escape_string($conn, $email);
-          $sql = "SELECT * FROM users WHERE Email = '$email'";
-          $result = mysqli_query($conn, $sql);
-
-          if ($result && mysqli_num_rows($result) == 1) {
-              $user = mysqli_fetch_assoc($result);
-
-              // Verify hashed password
-              if (password_verify($password, $user['Password'])) {
-                  $_SESSION['user_id'] = $user['user_ID'];
-                  $_SESSION['user_email'] = $user['Email'];
-
-                  // Redirect to homepage or user dashboard
-                  header("Location: admin_dashboard.php");
-                  exit();
-              } else {
-                  echo "<script>alert('Incorrect password.'); window.history.back();</script>";
-              }
-          } else {
-              echo "<script>alert('Email not found.'); window.history.back();</script>";
-          }
-      }
-      ?>
+    
 
   <header class="header col-12">
     <div class="logo">
@@ -51,7 +29,7 @@
     </div>
 
     <div class="menu">
-        <a href="shop.html" class="d-none d-sm-block">Shop</a>
+        <a href="shop.php" class="d-none d-sm-block">Shop</a>
         <div class="btn-group custom-dropdown">
           <button type="button" class="dropdown-toggle d-sm-block d-none" data-bs-toggle="dropdown">
               Profile
@@ -62,7 +40,9 @@
           </ul>
           
         </div>
-        <a href="cart.html"><i class="bi bi-cart"></i></a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <i class="bi bi-cart"></i>
+        </a>
         <div class="btn-group custom-dropdown d-sm-none">
           <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
               Menu
@@ -77,43 +57,47 @@
     </div>
 </header>
 
-    
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered"> <!-- Centered modal -->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModalLabel">Log in</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Your login form goes here -->
-            <form id="loginForm" action="login.php" method="POST">
-              <div class="mb-3">
-                <label for="loginEmail" class="form-label">Email address</label>
-                <input placeholder="Enter your Email" type="email" class="form-control" name="email" id="loginEmail" required>
-              </div>
-              <div class="mb-3">
-                <label for="visiblePassword" class="form-label">Password</label>
-                <div class="input-group">
-                  <input type="password" class="form-control" name="password" id="visiblePassword" placeholder="Enter your password" minlength="8" required>
-                  <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('visiblePassword', this)">
-                    <i class="bi bi-eye-slash"></i>
-                  </button>
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" 
+              aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                  <button type="button" class="btn-close" 
+                          data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="login.php" method="POST">
+                    <div class="mb-3">
+                      <label for="loginEmail" class="form-label">Email address</label>
+                      <input type="email" name="Email" id="loginEmail" 
+                            class="form-control" placeholder="Enter your Email" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="visiblePassword" class="form-label">Password</label>
+                      <div class="input-group">
+                        <input type="password" name="Password" id="visiblePassword" 
+                              class="form-control" placeholder="Enter your password" minlength="8" required>
+                        <button type="button" class="btn btn-outline-secondary"
+                                onclick="togglePassword('visiblePassword', this)">
+                          <i class="bi bi-eye-slash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="submit" class="custom-btn">Log in</button>
+                  </form>
                 </div>
               </div>
-              <button type="submit" class="custom-btn">Log in</button>
-            </form>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
     
 
     <section id="slider" class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
         <div class="welcometextdesign col-12 col-md-6 mb-4">
             <h1><br>Your Crochet Products</h1>
             <p>Shop now and customize your own Crochet Products</p>
-            <a href="shop.html" class="btn btn-custom">Shop Now &#10140;</a>
+            <a href="shop.php" class="btn btn-custom">Shop Now &#10140;</a>
         </div>
         <div class="carouselcontainer col-12 col-md-6">
           <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -132,13 +116,7 @@
                   <p>Some representative placeholder content for the second slide.</p>
                 </div>
               </div>
-              <div class="carousel-item">
-                <img src="https://img.freepik.com/premium-photo/crochet-landscape-art-showcasing-vibrant-trees-flowers-serene-scene_1033130-32880.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                  <h5>Third slide label</h5>
-                  <p>Some representative placeholder content for the third slide.</p>
-                </div>
-              </div>
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -167,58 +145,50 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, sit.</p>
         </div>
 
-        <div class="announcement-card">
-            <h3>New Arrivals</h3>
-            <p class="announcement-date">December 1, 2024</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, dicta.</p>
-        </div>
-
-        <div class="announcement-card">
-            <h3>Special Weekend Discounts</h3>
-            <p class="announcement-date">December 5, 2024</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, quisquam!</p>
-        </div>
       </div>
     </section>
     
-    <section id="products">   
-      <div class="row mt-5">
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2" onclick="goToProductPage(event)">
-          <div class="card product-card">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
+          <section id="products">   
+            <div class="row mt-5">         
+            <?php
+      include 'db_connection.php'; // make sure this defines $con (or change to $conn everywhere)
+
+      $result = mysqli_query($con, "
+        SELECT p.product_ID, p.product_title, p.product_price, pi.image_path
+        FROM products p
+        LEFT JOIN product_images pi ON p.product_ID = pi.product_ID
+        GROUP BY p.product_ID
+      ") or die(mysqli_error($con));
+
+      if ($result && mysqli_num_rows($result) > 0):
+      ?>
+        <div class="row mt-5">
+          <?php while ($row = mysqli_fetch_assoc($result)): 
+            $productID = $row['product_ID'];
+            $title     = htmlspecialchars($row['product_title']);
+            $price     = number_format($row['product_price'], 2);
+            $image     = $row['image_path'];
+          ?>
+            <div 
+              class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2"
+              onclick="goToProductPage(event, <?= $productID ?>)"
+            >
+              <div class="card product-card">
+                <img src="<?= $image ?>" 
+                    class="card-img-top img-thumbnail" 
+                    alt="<?= $title ?>">
+                <div class="card-body">
+                  <h5 class="card-title"><?= $title ?></h5>
+                  <p class="card-text">₱<?= $price ?></p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>          
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 " onclick="goToProductPage(event)">
-          <div class="card product-card">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-            </div>
-          </div>
+          <?php endwhile; ?>
         </div>
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 " onclick="goToProductPage(event)">
-          <div class="card product-card">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-            </div>
-          </div>
-        </div>
-        <div class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2 " onclick="goToProductPage(event)">
-          <div class="card product-card">
-            <img src="https://thewoobles.com/cdn/shop/files/88BKY-1b_600x600@2x.jpg?v=1689725518" class="card-img-top img-thumbnail" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Crochet Products</h5>
-              <p class="card-text">₱159.00</p>
-            </div>
-          </div>
-        </div>
+      <?php else: ?>
+        <p class="text-center">No products available.</p>
+      <?php endif; ?>
+
       </div>
     </section>
 
@@ -262,12 +232,10 @@
     </script>
 
     <script>
-    function goToProductPage(event) {
-    // Prevent navigation if "Add to cart" was clicked
-    if (event.target.closest('.add-to-cart')) return;
-
-    // Replace with your actual product page URL
-    window.location.href = "aboutproduct.html";}
+    function goToProductPage(event, productId) {
+      if (event.target.closest('.add-to-cart')) return;
+      window.location.href = "aboutproduct.php?productId=" + productId;
+    }
     </script>
     
     

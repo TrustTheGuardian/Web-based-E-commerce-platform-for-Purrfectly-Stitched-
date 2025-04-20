@@ -63,7 +63,7 @@
                         echo "<div class='message'>
                                 <p>Registration successful!</p>
                             </div> <br>";
-                        echo "<a href='home.html'><button class='btn'>Login Now</button></a>";
+                        echo "<a href='index.php'><button class='btn'>Login Now</button></a>";
                     }
                 }
             } else {
