@@ -339,6 +339,7 @@ main table tbody tr:last-child td{
 
 .table-wrapper {
     max-height: calc(4rem * 10); /* 4rem = row height, 7 rows max */
+    overflow-x: auto;
     overflow-y: auto;
     border-radius: var(--card-border-radius);
 }
@@ -452,7 +453,7 @@ main .total-sales h1, main .total-sales h2{
 @media screen and (max-width: 1200px) {
     .container {
         width: 94%;
-        grid-template-columns: 7rem auto 23rem;
+        grid-template-columns: 7rem auto 15rem;
     }
 
     aside .sidebar h3 {
@@ -466,25 +467,49 @@ main .total-sales h1, main .total-sales h2{
 
     /* MAIN CONTENT CHANGES */
 
+    
+    .filter-button {
+        width: 100%;
+        text-align: center;
+      }
+    
+      main .total-sales h1,
+      main .total-sales h2 {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
     main .table-wrapper {
-        width: 94%;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 2rem 0 0 8.8rem;
+        position: relative;
+        margin: 3rem 0 0 0;
+        width: 100%;
     }
 
-    main .table-wrapper table{
-        width: 83vw;
+    main .table-wrapper table {
+        width: 100%;
+        margin: 0;
     }
 
-    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
-        display: none;
+    main table tbody td{
+        height: 4.5rem;
     }
+    
 
-    main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
-        display: none;
-    }
+
+    main .filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    
+      main .filter-item {
+        width: 100%;
+        justify-content: space-between;
+      }
+    
+      main .custom-select-wrapper select {
+        width: 100%;
+      }
 
     .actions {
         display: flex;
@@ -561,27 +586,12 @@ main .total-sales h1, main .total-sales h2{
         margin-top: 8rem;
         padding: 0 1rem;
     }
-
-    main .table-wrapper {
-        position: relative;
-        margin: 3rem 0 0 0;
-        width: 100%;
-    }
-
-    main .table-wrapper table {
-        width: 100%;
-        margin: 0;
-    }
-
-    main table tbody td{
-        height: 4.5rem;
-    }
-    
-    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
+      
+    main table thead tr th:nth-child(4) {
         display: none;
     }
 
-     main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
+     main table tbody tr td:nth-child(4) {
         display: none;
     }
 
