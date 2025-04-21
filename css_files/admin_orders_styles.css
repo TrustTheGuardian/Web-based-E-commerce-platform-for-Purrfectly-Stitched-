@@ -457,7 +457,7 @@ main .pagination {
 
     /* MAIN CONTENT CHANGES */
 
-    main .product-table {
+    main .orders {
         width: 94%;
         position: absolute;
         left: 50%;
@@ -465,7 +465,7 @@ main .pagination {
         margin: 2rem 0 0 8.8rem;
     }
 
-    main .product-table table{
+    main .orders table{
         width: 83vw;
     }
 
@@ -565,7 +565,7 @@ main .pagination {
     }
 
     main table tbody td{
-        height: 13rem;
+        height: 4.5rem;
     }
     
     main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
