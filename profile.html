@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sole Society - Profile</title>
-    <link rel="stylesheet" href="css_files/profile.css" type="text/css" media="all">
+    <title>Profile</title>
+    <link rel="stylesheet" href="css_files/userhome_styles.css">
+    <link rel="stylesheet" href="css_files/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,34 +16,129 @@
 <!-- header section starts -->
 <header class="header col-12">
     <div class="logo">
-        <img src="https://media.istockphoto.com/id/1287550606/vector/handmade-with-love-round-beautiful-sign-vector.jpg?s=612x612&w=0&k=20&c=f6vj0YcNCCRQNwp2HFJI47ZDWdBcz6nJTJk5h0xf6Eo=" alt="sample logo" width="50px" height = "50px">
-        <h2>Purrfectly Crochet</h2>
+        <a href="index.php"><img src="pictures/Purrfectly Stitch.png" alt="sample logo" width="60px" height = "50px">
+        <h2>Purrfectly Stitched</h2></a>
     </div>
+
     <div class="menu">
-        <a href="home.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="profile.html">Profile</a>
+        <a href="shop.php" class="d-none d-sm-block">Shop</a>
+        <div class="btn-group custom-dropdown">
+          <button type="button" class="dropdown-toggle d-sm-block d-none" data-bs-toggle="dropdown">
+              Profile
+          </button>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#loginModal" data-bs-toggle="modal">Log in</a></li>
+              <li><a class="dropdown-item" href="registration.php">Create account</a></li>
+          </ul>
+          
+        </div>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <i class="bi bi-cart"></i>
+        </a>
+        <div class="btn-group custom-dropdown d-sm-none">
+          <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
+              Menu
+          </button>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Home</a></li>
+              <li><a class="dropdown-item" href="#">Shop</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+          </ul>
+        </div>
+      
     </div>
 </header>
 <!-- header section ends -->
 
 <!-- Profile Section -->
-<div class="profile-container">
-    <div class="profile-card">
-        <img src="https://scontent.fcrk1-5.fna.fbcdn.net/v/t39.30808-1/476174414_3903094259978335_8097277386218210467_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeG58Y4D2kFTodcBsPwuovdWNk4X0VT39M02ThfRVPf0ze4A5_AQJnHabrFJuTPi8j7lK3frj0n7POWkj7CLGQT5&_nc_ohc=33DEZ-R2UQ4Q7kNvgExVDal&_nc_oc=AdlHZ3v_W7lNer0ax4EL4B5eVMJG4fg4w096fqaTCry-jMqkEIsv9M57S9W6H38riz8&_nc_zt=24&_nc_ht=scontent.fcrk1-5.fna&_nc_gid=GMtTIysKnuEKljPjs3VHVQ&oh=00_AYH5e7K1QwdlH9FlQvxISTCdPlQmVpQF_pXCnnQd38-gsg&oe=67E2213A" alt="Profile Picture" class="profile-img">
-        <div class="profile-details">
-            <h2>Sebastian Baste</h2>
-            <p>Member Since: December 1999</p>
-            <form action="accountsettings.html" method="get">
-                <button type="submit" class="account-settings-btn">Account Settings</button>
-            </form>
-            <form action="logout.html" method="get">
-                <button type="submit" class="logout-btn">Logout</button>
-            </form>
+
+
+<section class="mt-5">
+    <div class="container-fluid">
+      <div class="row containerprofile">
+        <div class="space col-1 d-none d-sm-block d-md-block"></div>
+        <div class="profile col-12 col-lg-3">
+            <img src="pictures/Purrfectly Stitch.png" alt="" class="rounded-circle">
+            <h4>Wesly Cunanan</h4>
+            <button class="btn btn1 ">👤Profile</button>
+            <button class="btn btn1 ">⚙️Edit Profile</button>
+            <button class="btn btn1 ">🚪Log out</button>
         </div>
+      
+        <div class="purchases col-12 col-lg-7">
+          <h3>Recent Purchases</h3>
+          <div class="recentpurchaseproduct">
+            <img src="pictures/Purrfectly Stitch.png" alt="">
+            <div class="productcontent">
+              <div class="productinfo">
+                <h5 style="font-weight: bold;">Crochet Product</h5>
+                <p>Order #: 93021392013</p>
+                <p>Status: <span class="status delivered">Delivered</span></p>
+              </div>
+              <div class="productdateprice">
+                <p>April 21, 2025</p>
+                <p style="font-weight: bold;">₱150.00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="recentpurchaseproduct">
+            <img src="pictures/Purrfectly Stitch.png" alt="">
+            <div class="productcontent">
+              <div class="productinfo">
+                <h5 style="font-weight: bold;">Crochet Product</h5>
+                <p>Order #: 93021392013</p>
+                <p>Status: <span class="status delivered">Delivered</span></p>
+              </div>
+              <div class="productdateprice">
+                <p>April 21, 2025</p>
+                <p style="font-weight: bold;">₱150.00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="recentpurchaseproduct">
+            <img src="pictures/Purrfectly Stitch.png" alt="">
+            <div class="productcontent">
+              <div class="productinfo">
+                <h5 style="font-weight: bold;">Crochet Product</h5>
+                <p>Order #: 93021392013</p>
+                <p>Status: <span class="status delivered">Delivered</span></p>
+              </div>
+              <div class="productdateprice">
+                <p>April 21, 2025</p>
+                <p style="font-weight: bold;">₱150.00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="recentpurchaseproduct">
+            <img src="pictures/Purrfectly Stitch.png" alt="">
+            <div class="productcontent">
+              <div class="productinfo">
+                <h5 style="font-weight: bold;">Crochet Product</h5>
+                <p>Order #: 93021392013</p>
+                <p>Status: <span class="status delivered">Delivered</span></p>
+              </div>
+              <div class="productdateprice">
+                <p>April 21, 2025</p>
+                <p style="font-weight: bold;">₱150.00</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+        
+      
+        <div class="space col-1 d-none d-sm-block d-md-block"></div>
+      </div>
     </div>
-</div>
+</section>
 
+
+
+    <script src=".vscode/jsforhome.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-
 </html>

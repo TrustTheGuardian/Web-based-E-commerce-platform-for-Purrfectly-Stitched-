@@ -1,0 +1,163 @@
+/* General reset and fonts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Profile Container */
+  .profile-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  /* Sidebar Styling */
+  .sidebar {
+    flex: 1 1 250px;
+    background-color: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sidebar img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  
+  .sidebar h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+  
+  .sidebar p {
+    font-size: 0.95rem;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  /* Profile menu */
+  .profile-menu {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .profile-menu li {
+    padding: 12px 0;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    border-top: 1px solid #eee;
+    transition: background 0.2s;
+  }
+  
+  .profile-menu li:first-child {
+    border-top: none;
+  }
+  
+  .profile-menu li:hover,
+  .profile-menu li.active {
+    background-color: #f3f3f3;
+    font-weight: bold;
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    flex: 3 1 600px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .main-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  /* Purchase Card Styling */
+  .purchase-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .product-info img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .product-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .product-info p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .date-price {
+    text-align: right;
+  }
+  
+  .date-price p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+  }
+  
+  /* Status colors */
+  .status {
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+  
+  .status.delivered {
+    color: green;
+    background-color: #e6f5e6;
+  }
+  
+  .status.pending {
+    color: orange;
+    background-color: #fff4e5;
+  }
+  
+  /* Responsive Fixes */
+  @media (max-width: 768px) {
+    .purchase-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .date-price {
+      text-align: left;
+      margin-top: 10px;
+    }
+  }
+  
