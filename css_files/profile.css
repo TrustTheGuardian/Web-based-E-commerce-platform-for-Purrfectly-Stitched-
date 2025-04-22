@@ -22,7 +22,7 @@ border-radius: 20px;
 border: 1px solid #ddd;
 padding-bottom: 20px;
 margin: 20px;
-border: 1px solid #;
+border: 1px solid #ddd;
 }
 
 .purchases{
@@ -101,4 +101,19 @@ display: flex;
 
 .productdateprice{
   text-align: right;
+}
+
+.modal-header h1{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#checkout-modal .confirm-btn{
+  background-color: #AA60C8;
+  color: white;
+}
+
+#checkout-modal .confirm-btn:hover {
+  background-color: #e63946;
+  color: white;
 }
