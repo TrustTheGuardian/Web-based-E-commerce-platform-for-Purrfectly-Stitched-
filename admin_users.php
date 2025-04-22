@@ -74,7 +74,7 @@
                             <th>Mobile Number</th>
                             <th>Address</th>
                             <th>Account Created</th>
-                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,7 +90,7 @@
                                 $mobile = $row['Mobile'];
                                 $address = $row['Address'];
                                 $created = date("m/d/Y", strtotime($row['CreatedAt']));
-                                // $status = $row['status'];
+                                $isBanned = $row['is_banned'];
 
                                 echo "<tr>
                                     <td><i class='bi bi-person-fill user-icon'></i></td>
@@ -99,18 +99,19 @@
                                     <td>$mobile</td>
                                     <td>$address</td>
                                     <td>$created</td>
-                                     <td>$status</td>
                                     <td class='actions'>
-                                        <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a>
+                                        <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a> |
                                         <a href='admindelete_user.php?user_ID=$id' class='action-link delete'>Delete</a> |";
 
-                                if($status == 'active') {
-                                    echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
-                                        <span class='action-link unban' style='display:none;'>Unban</span>";
-                                } else {
-                                    echo "<a href='adminunban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
-                                        <span class='action-link ban' style='display:none;'>Ban</span>";
-                                }
+                                        if ($isBanned == 0) {
+                                            // Not banned — show Ban
+                                            echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
+                                                  <span class='action-link unban' style='display:none;'>Unban</span>";
+                                        } else {
+                                            // Banned — show Unban
+                                            echo "<a href='adminban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
+                                                  <span class='action-link ban' style='display:none;'>Ban</span>";
+                                        }
 
                                 echo "</td></tr>";
                             }

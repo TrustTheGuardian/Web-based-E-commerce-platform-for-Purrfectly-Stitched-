@@ -9,13 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['Password'];
 
     // 2) Lookup user
-    $stmt = $con->prepare("SELECT user_ID, Email, Password FROM users WHERE Email = ?");
+    $stmt = $con->prepare("SELECT user_ID, Email, Password, is_banned FROM users WHERE Email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $res = $stmt->get_result();
 
     if ($res && $res->num_rows === 1) {
         $user = $res->fetch_assoc();
+
+        // 🛑 Check if banned
+        if ($user['is_banned'] == 1) {
+            header("Location: index.php?banned=1");
+            exit;
+        }
+
         // 3) Verify
         if (password_verify($password, $user['Password'])) {
             $_SESSION['user_id']    = $user['user_ID'];

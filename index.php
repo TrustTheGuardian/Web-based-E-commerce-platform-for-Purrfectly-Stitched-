@@ -91,6 +91,24 @@ if (isset($_SESSION['user_id'])) {
               </div>
             </div>
           </div>
+
+          <!-- Banned Modal -->
+          <div class="modal fade" id="bannedModal" tabindex="-1" aria-labelledby="bannedModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content text-center">
+                <div class="modal-header bg-danger text-white">
+                  <h5 class="modal-title w-100" id="bannedModalLabel">Account Banned</h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Your account has been banned. Please contact support for assistance.
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
     
 
     <section id="slider" class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
@@ -236,6 +254,16 @@ if (isset($_SESSION['user_id'])) {
       if (event.target.closest('.add-to-cart')) return;
       window.location.href = "aboutproduct.php?productId=" + productId;
     }
+    </script>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('banned') === '1') {
+          const bannedModal = new bootstrap.Modal(document.getElementById('bannedModal'));
+          bannedModal.show();
+        }
+      });
     </script>
     
     
