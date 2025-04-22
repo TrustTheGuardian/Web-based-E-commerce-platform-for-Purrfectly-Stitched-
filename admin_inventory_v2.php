@@ -61,7 +61,7 @@ include 'db_connection.php';
                         <th>Product Category</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -96,7 +96,7 @@ include 'db_connection.php';
                             <td><?= htmlspecialchars($row['category_name']); ?></td>
                             <td>₱ <?= number_format($row['product_price'], 2); ?></td>
                             <td><?= $row['product_quantity']; ?></td>
-                            <td class="<?= $statusClass; ?>"><?= ucfirst($row['product_status']); ?></td>
+                            <!-- <td class="<?= $statusClass; ?>"><?= ucfirst($row['product_status']); ?></td> -->
                             <td class="actions">
                                 <a href="admin_edit_product.php?id=<?= $row['product_ID']; ?>" class="action-link edit">Manage</a>
                                 <a href="#" class="action-link delete" data-id="<?= $row['product_ID']; ?>" onclick="openDeleteModal(<?= $row['product_ID']; ?>)">Delete</a>

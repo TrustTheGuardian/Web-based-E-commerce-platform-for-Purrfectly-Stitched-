@@ -90,7 +90,7 @@
                                 $mobile = $row['Mobile'];
                                 $address = $row['Address'];
                                 $created = date("m/d/Y", strtotime($row['CreatedAt']));
-                                $status = $row['status'];
+                                // $status = $row['status'];
 
                                 echo "<tr>
                                     <td><i class='bi bi-person-fill user-icon'></i></td>
@@ -99,7 +99,7 @@
                                     <td>$mobile</td>
                                     <td>$address</td>
                                     <td>$created</td>
-                                    <td>$status</td>
+                                     <td>$status</td>
                                     <td class='actions'>
                                         <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a>
                                         <a href='admindelete_user.php?user_ID=$id' class='action-link delete'>Delete</a> |";
