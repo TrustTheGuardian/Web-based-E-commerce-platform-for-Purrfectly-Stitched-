@@ -1,26 +1,24 @@
-.containereditprofile {
-    background-color: #f0f0f0; /* light gray to show the full row */
+ .editprofile {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    height: 500px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
+    flex-direction: column;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
   }
 
-  .space {
-    background-color: #ffcccc; /* light red */
-    min-height: 100px; /* just to make it visible */
+  .editprofile h3{
+    align-items: left;
+    padding: 20px;
   }
 
-  .editprofile {
-    background-color: #cce5ff; /* light blue */
-    min-height: 300px; /* adjust as needed */
-  }
+  .editprofile img{
+    align-items: center;
+    max-height: 300px;
+    max-width: 300px;
+    align-items: center;
 
-  .header {
-    background-color: #d4edda; /* light green */
-    padding: 1rem;
-  }
-
-  .logo {
-    background-color: #fff3cd; /* light yellow */
-  }
-
-  .menu {
-    background-color: #f8d7da; /* pinkish */
   }
