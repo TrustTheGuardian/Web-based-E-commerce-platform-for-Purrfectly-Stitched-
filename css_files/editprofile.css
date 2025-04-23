@@ -1,0 +1,26 @@
+.containereditprofile {
+    background-color: #f0f0f0; /* light gray to show the full row */
+  }
+
+  .space {
+    background-color: #ffcccc; /* light red */
+    min-height: 100px; /* just to make it visible */
+  }
+
+  .editprofile {
+    background-color: #cce5ff; /* light blue */
+    min-height: 300px; /* adjust as needed */
+  }
+
+  .header {
+    background-color: #d4edda; /* light green */
+    padding: 1rem;
+  }
+
+  .logo {
+    background-color: #fff3cd; /* light yellow */
+  }
+
+  .menu {
+    background-color: #f8d7da; /* pinkish */
+  }
