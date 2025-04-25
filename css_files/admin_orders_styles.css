@@ -340,6 +340,16 @@ main .pagination {
     text-align: left;
 }
 
+.modal-content h2{
+    margin-bottom: 1rem;
+}
+
+
+.modal-content .change-status{
+    display: flex;
+    margin-top: 2rem;
+}
+
 /* Close Button */
 .close-btn {
     position: absolute;
@@ -516,14 +526,6 @@ main .pagination {
         width: 83vw;
     }
 
-    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
-        display: none;
-    }
-
-    main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
-        display: none;
-    }
-
     .actions {
         display: flex;
         flex-direction: column;
@@ -615,11 +617,11 @@ main .pagination {
         height: 4.5rem;
     }
     
-    main table thead tr th:nth-child(5), main table thead tr th:nth-child(6){
+    main table thead tr th:nth-child(3){
         display: none;
     }
 
-     main table tbody tr td:nth-child(5), main table tbody tr td:nth-child(6){
+     main table tbody tr td:nth-child(3){
         display: none;
     }
 
