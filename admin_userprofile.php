@@ -128,8 +128,44 @@ $user = mysqli_fetch_assoc($result);
     </div>
 </div>
 
-<script>
-// Your existing JS for sidebar and theme toggling
-</script>
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p>Are you sure you want to log out?</p>
+            <div class="custom-modal-buttons">
+                <button id="confirmLogout">Yes</button>
+                <button id="cancelLogout">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        // Logout modal logic
+        const logoutBtn = document.querySelector('.log-out');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogout = document.getElementById('confirmLogout');
+        const cancelLogout = document.getElementById('cancelLogout');
+
+        logoutBtn.addEventListener('click', () => {
+            logoutModal.style.display = 'block';
+        });
+
+        cancelLogout.addEventListener('click', () => {
+            logoutModal.style.display = 'none';
+        });
+
+        confirmLogout.addEventListener('click', () => {
+            window.location.href = "logout.php"; // Update as needed
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === logoutModal) {
+                logoutModal.style.display = 'none';
+            }
+        });
+        
+    </script>
 </body>
 </html>

@@ -399,6 +399,53 @@ main .actions {
     align-items: center;
 }
 
+/* Logout Modal Styles */
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.custom-modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.custom-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.custom-modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#confirmLogout {
+    background-color: #e74c3c;
+    color: white;
+}
+
+#cancelLogout {
+    background-color: #bdc3c7;
+    color: black;
+}
 
 /* ============== RESPONSIVE TABLET ================= */
 @media screen and (max-width: 1200px) {
