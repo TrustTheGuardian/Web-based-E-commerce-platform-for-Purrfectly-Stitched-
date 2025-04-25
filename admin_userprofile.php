@@ -165,6 +165,48 @@ $user = mysqli_fetch_assoc($result);
                 logoutModal.style.display = 'none';
             }
         });
+
+
+        // Get current page URL (excluding query strings and hashes)
+        const currentPage = window.location.pathname.split('/').pop();
+
+        // Get all sidebar links
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+        sidebarLinks.forEach(link => {
+            // Extract the filename from the href attribute
+            const linkPage = link.getAttribute('href').split('/').pop();
+
+            // If it matches the current page, add 'active' class
+            if (linkPage === currentPage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        const sideMenu = document.querySelector("aside");
+        const menuBtn = document.querySelector("#menu-btn");
+        const closeBtn = document.querySelector("#close-btn")
+        const themeToggler = document.querySelector(".theme-toggler")
+
+        //show sidebar
+        menuBtn.addEventListener('click', () => {
+            sideMenu.style.display = 'block';
+        })
+
+        //close sidebar
+        closeBtn.addEventListener('click', () => {
+            sideMenu.style.display = 'none';
+        })
+
+        //change theme
+        themeToggler.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme-variables')
+
+            themeToggler.querySelector('i:nth-child(1)').classList.toggle('active');
+            themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
+        })
         
     </script>
 </body>
