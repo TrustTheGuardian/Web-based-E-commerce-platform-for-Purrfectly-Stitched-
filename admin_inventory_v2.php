@@ -139,52 +139,86 @@ include 'db_connection.php';
     </div>
 </div>
 
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p>Are you sure you want to log out?</p>
+            <div class="custom-modal-buttons">
+                <button id="confirmLogout">Yes</button>
+                <button id="cancelLogout">No</button>
+            </div>
+        </div>
+    </div>
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-// Highlight active sidebar link
-const currentPage = window.location.pathname.split('/').pop();
-document.querySelectorAll('.sidebar a').forEach(link => {
-    const linkPage = link.getAttribute('href').split('/').pop();
-    link.classList.toggle('active', linkPage === currentPage);
-});
+        // Highlight active sidebar link
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            const linkPage = link.getAttribute('href').split('/').pop();
+            link.classList.toggle('active', linkPage === currentPage);
+        });
 
-// Sidebar toggle
-document.querySelector("#menu-btn").addEventListener('click', () => {
-    document.querySelector("aside").style.display = 'block';
-});
-document.querySelector("#close-btn").addEventListener('click', () => {
-    document.querySelector("aside").style.display = 'none';
-});
+        // Sidebar toggle
+        document.querySelector("#menu-btn").addEventListener('click', () => {
+            document.querySelector("aside").style.display = 'block';
+        });
+        document.querySelector("#close-btn").addEventListener('click', () => {
+            document.querySelector("aside").style.display = 'none';
+        });
 
-// Theme toggle
-document.querySelector(".theme-toggler").addEventListener('click', () => {
-    document.body.classList.toggle('dark-theme-variables');
-    const toggler = document.querySelector(".theme-toggler");
-    toggler.querySelector('i:nth-child(1)').classList.toggle('active');
-    toggler.querySelector('i:nth-child(2)').classList.toggle('active');
-});
-</script>
+        // Theme toggle
+        document.querySelector(".theme-toggler").addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme-variables');
+            const toggler = document.querySelector(".theme-toggler");
+            toggler.querySelector('i:nth-child(1)').classList.toggle('active');
+            toggler.querySelector('i:nth-child(2)').classList.toggle('active');
+        });
 
-<script>
-    let productIdToDelete = null;
+        let productIdToDelete = null;
 
-    function openDeleteModal(productId) {
-        productIdToDelete = productId;
-        document.getElementById("deleteModal").style.display = "flex";
-    }
-
-    function closeDeleteModal() {
-        document.getElementById("deleteModal").style.display = "none";
-        productIdToDelete = null;
-    }
-
-    function confirmDelete() {
-        if (productIdToDelete) {
-            window.location.href = `admin_delete_product.php?id=${productIdToDelete}`;
+        function openDeleteModal(productId) {
+            productIdToDelete = productId;
+            document.getElementById("deleteModal").style.display = "flex";
         }
-    }
+
+        function closeDeleteModal() {
+            document.getElementById("deleteModal").style.display = "none";
+            productIdToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (productIdToDelete) {
+                window.location.href = `admin_delete_product.php?id=${productIdToDelete}`;
+            }
+        }
+    
+        // Logout modal logic
+        const logoutBtn = document.querySelector('.log-out');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogout = document.getElementById('confirmLogout');
+        const cancelLogout = document.getElementById('cancelLogout');
+
+        logoutBtn.addEventListener('click', () => {
+            logoutModal.style.display = 'block';
+        });
+
+        cancelLogout.addEventListener('click', () => {
+            logoutModal.style.display = 'none';
+        });
+
+        confirmLogout.addEventListener('click', () => {
+            window.location.href = "logout.php"; // Update as needed
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === logoutModal) {
+                logoutModal.style.display = 'none';
+            }
+        });
+
 </script>
 
 </body>
