@@ -1,24 +1,106 @@
- .editprofile {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    height: 500px;
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
-    flex-direction: column;
-    display: flex;
-    margin-left: 10px;
-    margin-right: 10px;
-    align-items: center;
-  }
+/* Profile Edit Section */
+.editprofile {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .editprofile h3{
-    align-items: left;
-    padding: 20px;
-  }
+.editprofile h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a4a4a;
+  text-align: center;
+}
 
-  .editprofile img{
-    align-items: center;
-    max-height: 300px;
-    max-width: 300px;
-    align-items: center;
+.editprofile img {
+  margin-bottom: 20px;
+  border: 3px solid #4a4a4a;
+}
 
+#editProfileForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.formstyle {
+  margin-bottom: 20px;
+}
+
+.formstyle label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.formstyle input,
+.formstyle select {
+  border-radius: 5px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.formstyle input:focus,
+.formstyle select:focus {
+  border-color: #AA60C8;
+  outline: none;
+}
+
+.submitbutton button {
+  background: #AA60C8;
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.submitbutton button:hover {
+  background: #e63946;
+  color: white;
+}
+
+.modal-footer .btn-primary1{
+  background: #AA60C8;
+  color: white;
+}
+
+.modal-footer .btn-primary1:hover{
+  background: #e63946;
+  color: white;
+}
+
+.modal-footer .btn-danger1{
+  background: #AA60C8;
+  color: white;
+}
+
+.modal-footer .btn-danger1:hover{
+  background: #e63946;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .editprofile {
+      padding: 20px;
+      max-width: 100%;
   }
+  .formstyle input,
+  .formstyle select {
+      font-size: 14px;
+  }
+}
