@@ -166,49 +166,50 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </section>
     
-          <section id="products">   
-            <div class="row mt-5">         
-            <?php
-      include 'db_connection.php'; // make sure this defines $con (or change to $conn everywhere)
+    <section id="products">   
+        <div class="row mt-5">         
+          <?php
+          include 'db_connection.php'; 
 
-      $result = mysqli_query($con, "
-        SELECT p.product_ID, p.product_title, p.product_price, pi.image_path
-        FROM products p
-        LEFT JOIN product_images pi ON p.product_ID = pi.product_ID
-        GROUP BY p.product_ID
-      ") or die(mysqli_error($con));
+          $result = mysqli_query($con, "
+            SELECT p.product_ID, p.product_title, p.product_price, pi.image_path
+            FROM products p
+            LEFT JOIN product_images pi ON p.product_ID = pi.product_ID
+            WHERE p.product_status = 'active'
+            GROUP BY p.product_ID
+          ") or die(mysqli_error($con));
 
-      if ($result && mysqli_num_rows($result) > 0):
-      ?>
-        <div class="row mt-5">
-          <?php while ($row = mysqli_fetch_assoc($result)): 
-            $productID = $row['product_ID'];
-            $title     = htmlspecialchars($row['product_title']);
-            $price     = number_format($row['product_price'], 2);
-            $image     = $row['image_path'];
+          if ($result && mysqli_num_rows($result) > 0):
           ?>
-            <div 
-              class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2"
-              onclick="goToProductPage(event, <?= $productID ?>)"
-            >
-              <div class="card product-card">
-                <img src="<?= $image ?>" 
-                    class="card-img-top img-thumbnail" 
-                    alt="<?= $title ?>">
-                <div class="card-body">
-                  <h5 class="card-title"><?= $title ?></h5>
-                  <p class="card-text">₱<?= $price ?></p>
+            <div class="row mt-5">
+              <?php while ($row = mysqli_fetch_assoc($result)): 
+                $productID = $row['product_ID'];
+                $title     = htmlspecialchars($row['product_title']);
+                $price     = number_format($row['product_price'], 2);
+                $image     = $row['image_path'];
+              ?>
+                <div 
+                  class="productspacing col-12 col-md-6 col-xl-3 d-flex justify-content-center mb-2"
+                  onclick="goToProductPage(event, <?= $productID ?>)"
+                >
+                  <div class="card product-card">
+                    <img src="<?= $image ?>" 
+                        class="card-img-top img-thumbnail" 
+                        alt="<?= $title ?>">
+                    <div class="card-body">
+                      <h5 class="card-title"><?= $title ?></h5>
+                      <p class="card-text">₱<?= $price ?></p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              <?php endwhile; ?>
             </div>
-          <?php endwhile; ?>
+          <?php else: ?>
+            <p class="text-center">No products available.</p>
+          <?php endif; ?>
         </div>
-      <?php else: ?>
-        <p class="text-center">No products available.</p>
-      <?php endif; ?>
+      </section>
 
-      </div>
-    </section>
 
     <div class="footer">
       &copy; 2025 Your Website | All Rights Reserved

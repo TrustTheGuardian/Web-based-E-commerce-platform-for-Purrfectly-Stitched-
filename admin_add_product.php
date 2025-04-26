@@ -33,18 +33,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $maxFileSize = 5 * 1024 * 1024; // 5MB
 
-            foreach ($_FILES['product_images']['tmp_name'] as $key => $tmp_name) {
-                $fileName = basename($_FILES['product_images']['name'][$key]);
-                $fileType = $_FILES['product_images']['type'][$key];
-                $fileSize = $_FILES['product_images']['size'][$key];
-                $error = $_FILES['product_images']['error'][$key];
+            // Loop through all uploaded files
+            for ($i = 0; $i < count($_FILES['product_images']['name']); $i++) {
+                $fileName = basename($_FILES['product_images']['name'][$i]);
+                $fileType = $_FILES['product_images']['type'][$i];
+                $fileSize = $_FILES['product_images']['size'][$i];
+                $error = $_FILES['product_images']['error'][$i];
+                $tmp_name = $_FILES['product_images']['tmp_name'][$i];
 
+                // Validate the file
                 if ($error === UPLOAD_ERR_OK && in_array($fileType, $allowedTypes) && $fileSize <= $maxFileSize) {
                     $uniqueName = uniqid() . "_" . $fileName;
                     $targetFilePath = $targetDir . $uniqueName;
 
+                    // Move the file to the upload directory
                     if (move_uploaded_file($tmp_name, $targetFilePath)) {
-                        // Insert image path
+                        // Insert image path into the database
                         $img_stmt = $con->prepare("INSERT INTO product_images (product_ID, image_path) VALUES (?, ?)");
                         $img_stmt->bind_param("is", $product_ID, $targetFilePath);
                         $img_stmt->execute();
@@ -89,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="sidebar">
-            <a href="admin_dashboard.html" class="">
+            <a href="admin_dashboard.php" class="">
                 <i class="bi bi-grid-fill"></i>
                 <h3>Dashboard</h3>
             </a>
@@ -320,11 +324,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         const addImagesBtn = document.getElementById('addImagesBtn');
         const prevBtn = document.querySelector('.carousel-btn.prev');
         const nextBtn = document.querySelector('.carousel-btn.next');
-    
+
+        // Open file input when "Add Images" button is clicked
         addImagesBtn.addEventListener('click', () => {
             imageInput.click(); // Trigger hidden input
         });
-    
+
+        // Handle image selection and preview
         imageInput.addEventListener('change', function () {
             const files = Array.from(this.files);
             files.forEach(file => {
@@ -333,25 +339,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     reader.onload = function (e) {
                         const wrapper = document.createElement('div');
                         wrapper.classList.add('image-wrapper');
-    
+            
                         const img = document.createElement('img');
                         img.src = e.target.result;
-    
+            
                         const removeBtn = document.createElement('span');
                         removeBtn.classList.add('remove-btn');
                         removeBtn.innerHTML = '&times;';
                         removeBtn.onclick = () => {
                             wrapper.remove();
-                            if (currentIndex >= carouselImages.children.length) {
-                                currentIndex = carouselImages.children.length - 1;
-                            }
+                            updateIndexOnRemove();
                             updateCarousel();
                         };
-    
+            
                         wrapper.appendChild(img);
                         wrapper.appendChild(removeBtn);
                         carouselImages.appendChild(wrapper);
-    
+            
                         currentIndex = carouselImages.children.length - 1;
                         updateCarousel();
                     };
@@ -359,7 +363,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             });
         });
-    
+
         // IMAGE CAROUSEL PREV & NEXT
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
@@ -367,18 +371,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 updateCarousel();
             }
         });
-    
+
         nextBtn.addEventListener('click', () => {
             if (currentIndex < carouselImages.children.length - 1) {
                 currentIndex++;
                 updateCarousel();
             }
         });
-    
+
+        // Update carousel position based on current index
         function updateCarousel() {
-        const offset = currentIndex * 350; // Adjust width per image including margin
-        carouselImages.style.transform = `translateX(-${offset}px)`;
+            const offset = currentIndex * 350; // Adjust width per image including margin
+            carouselImages.style.transform = `translateX(-${offset}px)`;
+        }
+
+        // Update the index when images are removed
+        function updateIndexOnRemove() {
+            if (currentIndex >= carouselImages.children.length) {
+                currentIndex = carouselImages.children.length - 1;
             }
+        }
 
             // Show/Hide Modals
         const addCategoryBtn = document.querySelector('.add-category');

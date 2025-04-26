@@ -317,22 +317,27 @@ $product = mysqli_fetch_assoc($result);
     }
 }
 
-    function addToCart(product_ID) {
-        const qty = document.getElementById('quantity').value;
-        const formData = new FormData();
-        formData.append('product_ID', product_ID);
-        formData.append('quantity', qty);
+function addToCart(product_ID, stock) {
+    const qty = 1; // Or use the quantity from an input field if needed
+    const formData = new FormData();
+    formData.append('action', 'add');
+    formData.append('product_ID', product_ID);
+    formData.append('quantity', qty);
 
-        fetch('user_add_to_cart.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.text())
-        .then(count => {
-            console.log("Cart count:", count); // <- this helps
-            updateCartIcon(count);
+    fetch('user_add_to_cart.php', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.text())
+    .then(response => {
+        if (response === 'out_of_stock') {
+            alert("Sorry, this product is out of stock.");
+        } else {
+            console.log("Cart count:", response);
+            updateCartIcon(response);
             alert("Product added to cart!");
-        });
-    }
+        }
+    });
+}
 
     function updateCartIcon(count) {
         const iconContainer = document.querySelector('.bi-cart').parentElement;

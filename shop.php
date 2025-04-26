@@ -45,7 +45,10 @@ if ($search !== '') {
 
 $whereSQL = $where ? "WHERE " . implode(" AND ", $where) : "";
 
+
 // 5) Final product query
+$whereSQL = $where ? "WHERE " . implode(" AND ", $where) : "";
+
 $sql = "
   SELECT 
     p.product_ID, 
@@ -56,10 +59,12 @@ $sql = "
   LEFT JOIN product_images pi 
     ON p.product_ID = pi.product_ID
   $whereSQL
-  GROUP BY p.product_ID
+  " . ($whereSQL ? "AND " : "WHERE ") . " p.product_status = 'active' 
   ORDER BY p.product_title
 ";
 $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
+
+
 ?>
 
 <!DOCTYPE html>

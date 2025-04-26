@@ -31,7 +31,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="admin_dashboard.html" class="">
+                <a href="admin_dashboard.php" class="">
                     <i class="bi bi-grid-fill"></i>
                     <h3>Dashboard</h3>
                 </a>
@@ -43,11 +43,11 @@
                     <i class="bi bi-box2-heart-fill"></i>
                     <h3>Products</h3>
                 </a>
-                <a href="admin_orders.html" class="">
+                <a href="admin_orders.php" class="">
                     <i class="bi bi-bag-check-fill"></i>
                     <h3>Orders</h3>
                 </a>
-                <a href="admin_reports.html" class=""> 
+                <a href="admin_reports.php" class=""> 
                     <i class="bi bi-file-earmark-text-fill"></i>
                     <h3>Reports</h3>
                 </a>
@@ -101,7 +101,7 @@
                                     <td>$created</td>
                                     <td class='actions'>
                                         <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a> |
-                                        <a href='admindelete_user.php?user_ID=$id' class='action-link delete'>Delete</a> |";
+                                         <a href='#' onclick='openDeleteModal($id)' class='action-link delete'>Delete</a> |";
 
                                         if ($isBanned == 0) {
                                             // Not banned — show Ban
@@ -121,6 +121,7 @@
                     
                 </table>
             </div>
+
 
         </main>
         <!-- END OF MAIN  -->
@@ -156,97 +157,148 @@
         </div>
     </div>
 
+                <div id="deleteModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
+                            <div style="background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center;">
+                                <p>Are you sure you want to delete this user?</p>
+                                <button id="confirmDeleteButton">Yes</button>
+                                <button onclick="closeDeleteModal()">Cancel</button>
+                            </div>
+                        </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
+    // Get current page URL (excluding query strings and hashes)
+    const currentPage = window.location.pathname.split('/').pop();
 
-        // Get current page URL (excluding query strings and hashes)
-        const currentPage = window.location.pathname.split('/').pop();
+    // Get all sidebar links
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
 
-        // Get all sidebar links
-        const sidebarLinks = document.querySelectorAll('.sidebar a');
+    sidebarLinks.forEach(link => {
+        // Extract the filename from the href attribute
+        const linkPage = link.getAttribute('href').split('/').pop();
 
-        sidebarLinks.forEach(link => {
-            // Extract the filename from the href attribute
-            const linkPage = link.getAttribute('href').split('/').pop();
+        // If it matches the current page, add 'active' class
+        if (linkPage === currentPage) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
 
-            // If it matches the current page, add 'active' class
-            if (linkPage === currentPage) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
+    const sideMenu = document.querySelector("aside");
+    const menuBtn = document.querySelector("#menu-btn");
+    const closeBtn = document.querySelector("#close-btn");
+    const themeToggler = document.querySelector(".theme-toggler");
 
-        const sideMenu = document.querySelector("aside");
-        const menuBtn = document.querySelector("#menu-btn");
-        const closeBtn = document.querySelector("#close-btn")
-        const themeToggler = document.querySelector(".theme-toggler")
-    
-        //show sidebar
-        menuBtn.addEventListener('click', () => {
-            sideMenu.style.display = 'block';
-        })
-    
-        //close sidebar
-        closeBtn.addEventListener('click', () => {
-            sideMenu.style.display = 'none';
-        })
-    
-        //change theme
-        themeToggler.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme-variables')
-    
-            themeToggler.querySelector('i:nth-child(1)').classList.toggle('active');
-            themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
-        })
-    
-        // Toggle Ban and Unban
-        document.addEventListener('DOMContentLoaded', function () {
-            const table = document.querySelector('.users-table');
-    
+    // Show sidebar
+    menuBtn.addEventListener('click', () => {
+        sideMenu.style.display = 'block';
+    });
+
+    // Close sidebar
+    closeBtn.addEventListener('click', () => {
+        sideMenu.style.display = 'none';
+    });
+
+    // Change theme
+    themeToggler.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme-variables');
+
+        themeToggler.querySelector('i:nth-child(1)').classList.toggle('active');
+        themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
+    });
+
+    // Toggle Ban and Unban
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('.users-table');
+
+        if (table) {
             table.addEventListener('click', function (e) {
                 if (e.target.classList.contains('ban')) {
                     const ban = e.target;
                     const unban = ban.parentElement.querySelector('.unban');
                     ban.style.display = 'none';
-                    unban.style.display = 'inline';
+                    if (unban) unban.style.display = 'inline';
                 }
-    
+
                 if (e.target.classList.contains('unban')) {
                     const unban = e.target;
                     const ban = unban.parentElement.querySelector('.ban');
                     unban.style.display = 'none';
-                    ban.style.display = 'inline';
+                    if (ban) ban.style.display = 'inline';
                 }
             });
-        });
+        }
+    });
 
-        // Logout modal logic
-        const logoutBtn = document.querySelector('.log-out');
-        const logoutModal = document.getElementById('logoutModal');
-        const confirmLogout = document.getElementById('confirmLogout');
-        const cancelLogout = document.getElementById('cancelLogout');
+    // Logout modal logic
+    const logoutBtn = document.querySelector('.log-out');
+    const logoutModal = document.getElementById('logoutModal');
+    const confirmLogout = document.getElementById('confirmLogout');
+    const cancelLogout = document.getElementById('cancelLogout');
 
+    if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            logoutModal.style.display = 'block';
+            logoutModal.style.display = 'flex'; // use 'flex' instead of 'block' to center it
         });
+    }
 
+    if (cancelLogout) {
         cancelLogout.addEventListener('click', () => {
             logoutModal.style.display = 'none';
         });
+    }
 
+    if (confirmLogout) {
         confirmLogout.addEventListener('click', () => {
             window.location.href = "logout.php"; // Update as needed
         });
+    }
 
-        window.addEventListener('click', (event) => {
-            if (event.target === logoutModal) {
-                logoutModal.style.display = 'none';
-            }
-        });
-                
-    </script>
+    window.addEventListener('click', (event) => {
+        if (event.target === logoutModal) {
+            logoutModal.style.display = 'none';
+        }
+    });
+
+    // Delete user modal logic
+    let deleteUserId = null;
+
+    // Open modal and save the user ID
+    function openDeleteModal(userId) {
+        deleteUserId = userId;
+        const deleteModal = document.getElementById('deleteModal');
+        if (deleteModal) {
+            deleteModal.style.display = 'flex'; // use 'flex' to center modal
+        }
+    }
+
+    // Close the modal
+    function closeDeleteModal() {
+        const deleteModal = document.getElementById('deleteModal');
+        if (deleteModal) {
+            deleteModal.style.display = 'none';
+        }
+        deleteUserId = null;
+    }
+
+    // Confirm delete
+    function confirmDelete() {
+        if (deleteUserId !== null) {
+            window.location.href = `admindelete_user.php?user_ID=${deleteUserId}`;
+        }
+    }
+
+    // Attach confirm button click after DOM is ready
+    document.addEventListener('DOMContentLoaded', function () {
+        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+        if (confirmDeleteButton) {
+            confirmDeleteButton.addEventListener('click', confirmDelete);
+        }
+    });
+</script>
     
 
 </body>

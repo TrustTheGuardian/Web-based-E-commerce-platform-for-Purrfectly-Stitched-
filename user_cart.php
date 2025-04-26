@@ -1,6 +1,11 @@
 <?php
 session_start();
-include 'db_connection.php'; 
+if (!isset($_SESSION['user_id'])) {
+    // Guests get sent back to index.php
+    header('Location: index.php');
+    exit;
+}
+include 'db_connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,7 +135,7 @@ include 'db_connection.php';
                     <button class='btn-custom' data-bs-toggle='modal' data-bs-target='#checkout-modal' id='checkout-button'>Proceed to Checkout</button>
                     </div>";
           } else {
-              echo "<p>Your cart is empty.</p>";
+              echo "<p></p>";
           }
       ?>
     </div>
@@ -144,44 +149,79 @@ include 'db_connection.php';
   </div>
 
 
-      <div class="modal fade" id="checkout-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title" id="staticBackdropLabel">Checkout Confirmation</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            
-            <!-- Order Summary Section -->
-            <div class="summary-container">
-              <h2 style="text-align: center; margin-bottom: 20px; font-weight: bold;">Order Summary</h2>
-              
-              <!-- Dynamic Cart Items will be listed here -->
-              <!-- <div id="order-items"></div> -->
+  <?php
+    $cart_items = [];
+    $cart_total = 0;
 
-              <!-- Total Price -->
-              <!-- <div id="order-total" style="font-weight: bold; text-align: right; margin-top: 20px;"></div> -->
-            </div>
+      if (!empty($_SESSION['cart'])) {
+        $cart_ids = implode(",", array_keys($_SESSION['cart']));
+        $sql = "SELECT * FROM products WHERE product_ID IN ($cart_ids)";
+        $result = mysqli_query($con, $sql);
+    
+        while ($row = mysqli_fetch_assoc($result)) {
+            $product_id = $row['product_ID'];
+            $quantity = $_SESSION['cart'][$product_id];
+            $product_total = $row['product_price'] * $quantity;
+    
+            $cart_items[] = [
+                'product_title' => $row['product_title'],
+                'product_price' => $row['product_price'],
+                'quantity' => $quantity,
+                'subtotal' => $product_total
+            ];
+    
+            $cart_total += $product_total;
+        }
+    } 
+    ?>
 
-            <!-- Payment Method Section -->
-            <div class="formcontainer">
-              <form id="delivery-form">
-                <h5>Select Payment Method:</h5>
-                <select name="payment_method" required>
-                  <option value="" disabled selected>Select an option</option>
-                  <option value="online">Online Payment</option>
-                  <option value="cash">Cash on meet-up</option>
-                </select>
-              </form>
-            </div>
+<div class="modal fade" id="checkout-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Checkout Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="summary-container">
+          <h2>Order Summary</h2>
+          <div id="order-items">
+            <?php foreach ($cart_items as $item): ?>
+              <p>
+                <strong><?= htmlspecialchars($item['product_title']) ?></strong>
+                x <?= $item['quantity'] ?>
+                — ₱<?= number_format($item['subtotal'],2) ?>
+              </p>
+            <?php endforeach; ?>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn confirm-btn" data-bs-dismiss="modal" onclick="confirmCheckout()">Confirm</button>
+          <div id="order-total">
+            <strong>Total: ₱<?= number_format($cart_total,2) ?></strong>
           </div>
         </div>
+
+        <!-- start the form here -->
+        <form id="delivery-form" action="process_order.php" method="POST">
+          <h5>Select Payment Method:</h5>
+          <select name="payment_method" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="Online Payment">Online Payment</option>
+              <option value="Cash on meet-up">Cash on meet-up</option>
+          </select>
+
+          <!-- pass the cart total -->
+          <input type="hidden" name="cart_total" value="<?= $cart_total ?>">
+
+          <!-- the footer and submit button must be inside the form -->
+          <div class="modal-footer">
+            <!-- this will post straight to process_order.php -->
+            <button type="submit" class="btn confirm-btn">Confirm</button>
+          </div>
+        </form>
+        <!-- end form -->
       </div>
     </div>
+  </div>
+</div>
 
   <!-- FOOTER -->
   <div class="footer">

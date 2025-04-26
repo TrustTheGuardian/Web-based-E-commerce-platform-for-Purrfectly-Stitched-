@@ -77,35 +77,54 @@ $user = mysqli_fetch_assoc($result);
         </div>
 
         <div class="purchase-history">
-            <h2>Transaction History</h2>
-            <table class="purchase-history-table">
-                <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Total Amount</th>
-                    <th>Shipping Address</th>
-                    <th>Date of Order</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- <?php
-                $orders = mysqli_query($con, "SELECT * FROM orders WHERE user_id = '$id'");
-                while ($order = mysqli_fetch_assoc($orders)) {
-                    echo "<tr>
-                            <td>{$order['order_ID']}</td>
-                            <td>{$order['product_title']}</td>
-                            <td>{$order['order_quantity']}</td>
-                            <td>₱{$order['product_total_amount']}</td>
-                            <td>{$order['shipping_address']}</td>
-                            <td>{$order['order_date']}</td>
-                          </tr>";
-                }
-                ?> -->
-                </tbody>
-            </table>
-        </div>
+    <h2>Transaction History</h2>
+    <table class="purchase-history-table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Shipping Address</th>
+                <th>Date of Order</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <?php
+            // Assuming $id is the logged-in user ID
+            $orders = mysqli_query($con, "
+                SELECT 
+                    o.order_ID, 
+                    oi.product_ID, 
+                    oi.quantity, 
+                    oi.price,
+                    o.total_price,
+                    o.ordered_at,
+                    u.Address,
+                    p.product_title
+                FROM orders o
+                JOIN order_items oi ON o.order_ID = oi.order_ID
+                JOIN products p ON oi.product_ID = p.product_ID
+                JOIN users u ON o.user_ID = u.user_ID
+                WHERE o.user_ID = '$id'
+                ORDER BY o.ordered_at DESC
+            ");
+
+            while ($order = mysqli_fetch_assoc($orders)) {
+                echo "<tr>
+                        <td>{$order['order_ID']}</td>
+                        <td>{$order['product_title']}</td>
+                        <td>{$order['quantity']}</td>
+                        <td>₱" . number_format($order['quantity'] * $order['price'], 2) . "</td>
+                        <td>{$order['Address']}</td>
+                        <td>" . date('F d, Y', strtotime($order['ordered_at'])) . "</td>
+                    </tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
 
         <div class="actions">
             <span class="action-link delete">Delete</span>
@@ -114,19 +133,19 @@ $user = mysqli_fetch_assoc($result);
         </div>
     </main>
 
-    <div class="right">
-        <div class="top">
-            <button id="menu-btn"><i class="bi bi-list"></i></button>
-            <div class="theme-toggler">
-                <i class="bi bi-brightness-high-fill active"></i>
-                <i class="bi bi-moon-fill"></i>
-            </div>
-            <div class="log-out">
-                <i class="bi bi-box-arrow-in-right"></i><h3>Log Out</h3>
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn"><i class="bi bi-list"></i></button>
+                <div class="theme-toggler">
+                    <i class="bi bi-brightness-high-fill active"></i>
+                    <i class="bi bi-moon-fill"></i>
+                </div>
+                <div class="log-out">
+                    <i class="bi bi-box-arrow-in-right"></i><h3>Log Out</h3>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Logout Confirmation Modal -->
     <div id="logoutModal" class="custom-modal">
@@ -209,5 +228,6 @@ $user = mysqli_fetch_assoc($result);
         })
         
     </script>
+
 </body>
 </html>

@@ -30,7 +30,7 @@ include 'db_connection.php';
             <a href="admin_dashboard.html"><i class="bi bi-grid-fill"></i><h3>Dashboard</h3></a>
             <a href="admin_users.php"><i class="bi bi-people-fill"></i><h3>Users</h3></a>
             <a href="admin_inventory_v2.php"><i class="bi bi-box2-heart-fill"></i><h3>Products</h3></a>
-            <a href="admin_orders.html"><i class="bi bi-bag-check-fill"></i><h3>Orders</h3></a>
+            <a href="admin_orders.php"><i class="bi bi-bag-check-fill"></i><h3>Orders</h3></a>
             <a href="admin_reports.html"><i class="bi bi-file-earmark-text-fill"></i><h3>Reports</h3></a>
         </div>
     </aside>
@@ -112,9 +112,9 @@ include 'db_connection.php';
                                 </div>
 
                                 <?php if ($row['product_status'] == 'active'): ?>
-                                    <a href="admin_deactivate_product.php?id=<?= $row['product_ID']; ?>" class="action-link deactivate">Deactivate</a>
+                                    <a href="admin_toggle_product.php?id=<?= $row['product_ID']; ?>&action=deactivate" class="action-link deactivate">Deactivate</a>
                                 <?php else: ?>
-                                    <a href="admin_activate_product.php?id=<?= $row['product_ID']; ?>" class="action-link activate">Activate</a>
+                                    <a href="admin_toggle_product.php?id=<?= $row['product_ID']; ?>&action=activate" class="action-link activate">Activate</a>
                                 <?php endif; ?>
                             </td>
                         </tr>

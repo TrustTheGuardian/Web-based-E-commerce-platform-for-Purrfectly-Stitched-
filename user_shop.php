@@ -44,6 +44,7 @@ if ($search !== '') {
     $where[]    = "p.product_title LIKE '%{$safeSearch}%'";
 }
 
+// 5) Final product query
 $whereSQL = $where ? "WHERE " . implode(" AND ", $where) : "";
 
 $sql = "
@@ -56,7 +57,7 @@ $sql = "
   LEFT JOIN product_images pi 
     ON p.product_ID = pi.product_ID
   $whereSQL
-  GROUP BY p.product_ID
+  " . ($whereSQL ? "AND " : "WHERE ") . " p.product_status = 'active' 
   ORDER BY p.product_title
 ";
 $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
@@ -200,23 +201,27 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-      function addToCart(product_ID) {
-        const qty = 1; // Or use the quantity from an input field if needed
-        const formData = new FormData();
-        formData.append('action', 'add');
-        formData.append('product_ID', product_ID);
-        formData.append('quantity', qty);
+      function addToCart(product_ID, stock) {
+    const qty = 1; // Or use the quantity from an input field if needed
+    const formData = new FormData();
+    formData.append('action', 'add');
+    formData.append('product_ID', product_ID);
+    formData.append('quantity', qty);
 
-        fetch('user_add_to_cart.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.text())
-        .then(count => {
-            console.log("Cart count:", count);
-            updateCartIcon(count);
+    fetch('user_add_to_cart.php', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.text())
+    .then(response => {
+        if (response === 'out_of_stock') {
+            alert("Sorry, this product is out of stock.");
+        } else {
+            console.log("Cart count:", response);
+            updateCartIcon(response);
             alert("Product added to cart!");
-        });
-    }
+        }
+    });
+}
     function updateCartIcon(count) {
     const iconContainer = document.querySelector('.bi-cart').parentElement;
     let badge = iconContainer.querySelector('.badge');
