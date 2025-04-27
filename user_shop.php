@@ -136,8 +136,7 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
                   <li><a class="dropdown-item" href="#">Shop</a></li>
                   <li><a class="dropdown-item" href="#">Profile</a></li>
               </ul>
-            </div>
-            <a href="logout.php" class="btn btn-outline-secondary ms-3">Log Out</a>
+            </div>           
         </div>
     </header>
 
