@@ -225,10 +225,11 @@ main {
 }
 
 .carousel-container {
-    max-width: 500px;
+    max-width: 800px;
     width: 100%;
     aspect-ratio: 5 / 5; /* fixed height relative to width */
     margin: auto;
+    margin-bottom: 2rem;
     text-align: center;
     background: var(--color-white);
     border-radius: var(--card-border-radius);
@@ -241,9 +242,14 @@ main {
     overflow: hidden;
 }
 
+.carousel-container h2{
+    margin-bottom: 1rem;
+    color: var(--color-dark-variant);
+}
+
 .main-image {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
     overflow: hidden;
     border-radius: var(--border-radius-2);
 }
@@ -319,6 +325,7 @@ main {
     filter: brightness(0.9); /* Makes the button appear slightly darker when hovered */
     transform: scale(1.03);  
 }
+/* confirmation modal */
 
 /* ======================= RIGHT =================== */
 .right {
@@ -373,7 +380,7 @@ main {
     align-items: center;
 }
 
-/* Logout Modal Styles */
+/* Custom Modal Styles */
 .custom-modal {
     display: none;
     position: fixed;
@@ -384,39 +391,47 @@ main {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
 }
 
 .custom-modal-content {
-    background-color: #fff;
+    background-color: var(--color-white);
     margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    padding: 2rem;
+    border-radius: var(--border-radius-2);
+    width: 90%;
+    max-width: 400px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: var(--box-shadow);
+}
+
+.custom-modal-content p {
+    margin-bottom: 1.5rem;
+    color: var(--color-dark);
+    font-size: 1.2rem;
 }
 
 .custom-modal-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .custom-modal-buttons button {
     padding: 8px 16px;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--border-radius-1);
     cursor: pointer;
     font-weight: bold;
 }
 
-#confirmLogout {
+#confirmremove, #confirmLogout {
     background-color: #e74c3c;
     color: white;
 }
 
-#cancelLogout {
+#cancelremove, #cancelLogout {
     background-color: #bdc3c7;
     color: black;
 }
@@ -496,6 +511,7 @@ main {
         padding: 0 1rem;
     }
 
+    /* Right side changes */
     .right {
         width: 94%;
         margin: 0 auto 4rem;

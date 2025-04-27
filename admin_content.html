@@ -60,6 +60,7 @@
         
             <!-- Carousel for adding banners -->
             <div class="carousel-container">
+                <h2>Banner-Content</h2>
                 <div class="main-image">
                     <img id="currentImage" src="pictures/Purrfectly Stitch.png" alt="Main Image">
                 </div>
@@ -72,9 +73,28 @@
                 <!--  Add Button for banners -->
                 <div class="action-banner-container">
                     <button class="add-banner">Add Images</button>
-                    <button class="remove-banner">Remove Images</button>
+                    <button class="remove-banner">Remove Image</button>
                 </div>
-                        </div>
+            </div>
+
+            <!-- Carousel for adding announcements -->
+            <div class="carousel-container">
+                <h2>Announcement-Content</h2>
+                <div class="main-image">
+                    <img id="currentImage" src="pictures/Purrfectly Stitch.png" alt="Main Image">
+                </div>
+                <div class="thumbnails">
+                    <img src="pictures/Purrfectly Stitch.png" alt="Thumbnail 1" onclick="changeImage(this)">
+                    <img src="pictures/man-user-circle-icon.png" alt="Thumbnail 2" onclick="changeImage(this)">
+                    <img src="pictures/joshuam.png" alt="Thumbnail 3" onclick="changeImage(this)">
+                </div>
+
+                <!--  Add Button for banners -->
+                <div class="action-banner-container">
+                    <button class="add-banner">Add Images</button>
+                    <button class="remove-banner">Remove Image</button>
+                </div>
+            </div>
         </main>
         
         <!-- END OF MAIN  -->
@@ -102,6 +122,17 @@
             <div class="custom-modal-buttons">
                 <button id="confirmLogout">Yes</button>
                 <button id="cancelLogout">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove image Confirmation Modal -->
+    <div id="removeModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p>Are you sure you want to remove this image?</p>
+            <div class="custom-modal-buttons">
+                <button id="confirmremove">Yes</button>
+                <button id="cancelremove">No</button>
             </div>
         </div>
     </div>
@@ -181,6 +212,38 @@
         const mainImage = document.getElementById('currentImage');
         mainImage.src = thumbnail.src;
         }
+
+        // Remove image modal logic
+        const removeButtons = document.querySelectorAll('.remove-banner');
+        const removeModal = document.getElementById('removeModal');
+        const confirmRemove = document.getElementById('confirmremove');
+        const cancelRemove = document.getElementById('cancelremove');
+        let selectedImage = null; // Variable to track which image to remove
+
+        removeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                removeModal.style.display = 'block';
+            });
+        });
+
+        cancelRemove.addEventListener('click', () => {
+            removeModal.style.display = 'none';
+        });
+
+        confirmRemove.addEventListener('click', () => {
+            const mainImage = document.querySelector('.carousel-container .main-image img');
+            if (mainImage) {
+                mainImage.src = ''; // this hide the image
+            }
+            removeModal.style.display = 'none';
+        });
+
+        // Close the remove modal if clicked outside
+        window.addEventListener('click', (event) => {
+            if (event.target === removeModal) {
+                removeModal.style.display = 'none';
+            }
+        });
 
     </script>
 
