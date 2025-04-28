@@ -288,14 +288,14 @@ main {
 
 /* Add button for banner */
 
-.action-banner-container {
+.action-image-container {
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
 
-.add-banner {
+.add-banner, .add-announcement  {
     background-color: var(--color-primary);
     color: white;
     padding: 0.8rem 2rem;
@@ -306,11 +306,11 @@ main {
     transition: background-color 0.3s;
 }
 
-.add-banner:hover {
+.add-image:hover, .add-announcement:hover {
     background-color: var(--color-primary-variant);
 }
 
-.remove-banner {
+.remove-banner, .remove-announcement  {
     background-color: var(--color-danger);
     color: white;
     padding: 0.8rem 2rem;
@@ -321,7 +321,7 @@ main {
     transition: background-color 0.3s;
 }
 
-.remove-banner:hover {
+.remove-image:hover, .remove-announcement:hover  {
     filter: brightness(0.9); /* Makes the button appear slightly darker when hovered */
     transform: scale(1.03);  
 }

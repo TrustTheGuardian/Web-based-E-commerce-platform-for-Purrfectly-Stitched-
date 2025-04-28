@@ -421,7 +421,7 @@ main table tbody tr:last-child td{
     align-items: center;
 }
 
-/* Logout Modal Styles */
+/* Custom Modal Styles */
 .custom-modal {
     display: none;
     position: fixed;
@@ -432,39 +432,47 @@ main table tbody tr:last-child td{
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
 }
 
 .custom-modal-content {
-    background-color: #fff;
+    background-color: var(--color-white);
     margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    padding: 2rem;
+    border-radius: var(--border-radius-2);
+    width: 90%;
+    max-width: 400px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: var(--box-shadow);
+}
+
+.custom-modal-content p {
+    margin-bottom: 1.5rem;
+    color: var(--color-dark);
+    font-size: 1.2rem;
 }
 
 .custom-modal-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .custom-modal-buttons button {
     padding: 8px 16px;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--border-radius-1);
     cursor: pointer;
     font-weight: bold;
 }
 
-#confirmLogout {
+#confirmDelete, #confirmLogout {
     background-color: #e74c3c;
     color: white;
 }
 
-#cancelLogout {
+#cancelDelete, #cancelLogout {
     background-color: #bdc3c7;
     color: black;
 }

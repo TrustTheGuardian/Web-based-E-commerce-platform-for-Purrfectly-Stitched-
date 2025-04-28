@@ -101,15 +101,6 @@ include 'db_connection.php';
                                 <a href="admin_edit_product.php?id=<?= $row['product_ID']; ?>" class="action-link edit">Manage</a>
                                 <a href="#" class="action-link delete" data-id="<?= $row['product_ID']; ?>" onclick="openDeleteModal(<?= $row['product_ID']; ?>)">Delete</a>
 
-                                <!-- Delete Confirmation Modal -->
-                                <div id="deleteModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-                                    background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
-                                    <div style="background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center;">
-                                        <p>Are you sure you want to delete this product?</p>
-                                        <button onclick="confirmDelete()">Yes</button>
-                                        <button onclick="closeDeleteModal()">Cancel</button>
-                                    </div>
-                                </div>
 
                                 <?php if ($row['product_status'] == 'active'): ?>
                                     <a href="admin_toggle_product.php?id=<?= $row['product_ID']; ?>&action=deactivate" class="action-link deactivate">Deactivate</a>
@@ -138,6 +129,17 @@ include 'db_connection.php';
         </div>
     </div>
 </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p>Are you sure you want to delete this product?</p>
+            <div class="custom-modal-buttons">
+                <button id="confirmDelete">Yes</button>
+                <button id="cancelDelete">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Logout Confirmation Modal -->
     <div id="logoutModal" class="custom-modal">
@@ -177,23 +179,39 @@ include 'db_connection.php';
             toggler.querySelector('i:nth-child(2)').classList.toggle('active');
         });
 
-        let productIdToDelete = null;
+
+        // delete modal logic
+        let selectedProductId = null; // to hold the product ID
 
         function openDeleteModal(productId) {
-            productIdToDelete = productId;
-            document.getElementById("deleteModal").style.display = "flex";
+            selectedProductId = productId;
+            document.getElementById('deleteModal').style.display = 'block';
         }
 
-        function closeDeleteModal() {
-            document.getElementById("deleteModal").style.display = "none";
-            productIdToDelete = null;
-        }
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            document.getElementById('deleteModal').style.display = 'none';
+            selectedProductId = null;
+        });
 
-        function confirmDelete() {
-            if (productIdToDelete) {
-                window.location.href = `admin_delete_product.php?id=${productIdToDelete}`;
+        document.getElementById('confirmDelete').addEventListener('click', () => {
+            if (selectedProductId !== null) {
+                window.location.href = `admin_delete_product.php?id=${selectedProductId}`;
             }
-        }
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === document.getElementById('deleteModal')) {
+                document.getElementById('deleteModal').style.display = 'none';
+                selectedProductId = null;
+            }
+        });
+
+        // Close the remove modal if clicked outside
+        window.addEventListener('click', (event) => {
+            if (event.target === removeModal) {
+                removeModal.style.display = 'none';
+            }
+        });
     
         // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');

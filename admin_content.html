@@ -50,6 +50,10 @@
                     <i class="bi bi-file-earmark-text-fill"></i>
                     <h3>Reports</h3>
                 </a>
+                <a href="admin_content.html" class=""> 
+                    <i class="bi bi-hdd-stack-fill"></i>
+                    <h3>Banner & Cards</h3>
+                </a>
             </div>
         </aside>
         <!-- end of aside / side bar -->
@@ -71,7 +75,7 @@
                 </div>
 
                 <!--  Add Button for banners -->
-                <div class="action-banner-container">
+                <div class="action-image-container">
                     <button class="add-banner">Add Images</button>
                     <button class="remove-banner">Remove Image</button>
                 </div>
@@ -89,10 +93,10 @@
                     <img src="pictures/joshuam.png" alt="Thumbnail 3" onclick="changeImage(this)">
                 </div>
 
-                <!--  Add Button for banners -->
-                <div class="action-banner-container">
-                    <button class="add-banner">Add Images</button>
-                    <button class="remove-banner">Remove Image</button>
+                <!--  Add Button for  announcement -->
+                <div class="action-image-container">
+                    <button class="add-announcement">Add Images</button>
+                    <button class="remove-announcement">Remove Image</button>
                 </div>
             </div>
         </main>
@@ -127,9 +131,9 @@
     </div>
 
     <!-- Remove image Confirmation Modal -->
-    <div id="removeModal" class="custom-modal">
+    <div id="removeBanner" class="custom-modal">
         <div class="custom-modal-content">
-            <p>Are you sure you want to remove this image?</p>
+            <p>Are you sure you want to remove this Banner?</p>
             <div class="custom-modal-buttons">
                 <button id="confirmremove">Yes</button>
                 <button id="cancelremove">No</button>
@@ -137,6 +141,16 @@
         </div>
     </div>
 
+    <!-- Remove image Confirmation Modal -->
+    <div id="removeAnnouncement" class="custom-modal">
+        <div class="custom-modal-content">
+            <p>Are you sure you want to remove this Announcement?</p>
+            <div class="custom-modal-buttons">
+                <button id="confirmremove">Yes</button>
+                <button id="cancelremove">No</button>
+            </div>
+        </div>
+    </div>    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
@@ -213,35 +227,57 @@
         mainImage.src = thumbnail.src;
         }
 
-        // Remove image modal logic
-        const removeButtons = document.querySelectorAll('.remove-banner');
-        const removeModal = document.getElementById('removeModal');
-        const confirmRemove = document.getElementById('confirmremove');
-        const cancelRemove = document.getElementById('cancelremove');
-        let selectedImage = null; // Variable to track which image to remove
+        // --- REMOVE BANNER MODAL LOGIC ---
+        const removeBannerBtn = document.querySelector('.remove-banner');
+        const removeBannerModal = document.getElementById('removeBanner');
+        const confirmRemoveBanner = document.querySelector('#removeBanner #confirmremove');
+        const cancelRemoveBanner = document.querySelector('#removeBanner #cancelremove');
 
-        removeButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                removeModal.style.display = 'block';
-            });
+        removeBannerBtn.addEventListener('click', () => {
+            removeBannerModal.style.display = 'block';
         });
 
-        cancelRemove.addEventListener('click', () => {
-            removeModal.style.display = 'none';
+        cancelRemoveBanner.addEventListener('click', () => {
+            removeBannerModal.style.display = 'none';
         });
 
-        confirmRemove.addEventListener('click', () => {
+        confirmRemoveBanner.addEventListener('click', () => {
             const mainImage = document.querySelector('.carousel-container .main-image img');
             if (mainImage) {
-                mainImage.src = ''; // this hide the image
+                mainImage.src = '';
             }
-            removeModal.style.display = 'none';
+            removeBannerModal.style.display = 'none';
         });
 
-        // Close the remove modal if clicked outside
+        // --- REMOVE ANNOUNCEMENT MODAL LOGIC ---
+        const removeAnnouncementBtn = document.querySelector('.remove-announcement');
+        const removeAnnouncementModal = document.getElementById('removeAnnouncement');
+        const confirmRemoveAnnouncement = document.querySelector('#removeAnnouncement #confirmremove');
+        const cancelRemoveAnnouncement = document.querySelector('#removeAnnouncement #cancelremove');
+
+        removeAnnouncementBtn.addEventListener('click', () => {
+            removeAnnouncementModal.style.display = 'block';
+        });
+
+        cancelRemoveAnnouncement.addEventListener('click', () => {
+            removeAnnouncementModal.style.display = 'none';
+        });
+
+        confirmRemoveAnnouncement.addEventListener('click', () => {
+            const mainImage = document.querySelectorAll('.carousel-container')[1].querySelector('.main-image img');
+            if (mainImage) {
+                mainImage.src = '';
+            }
+            removeAnnouncementModal.style.display = 'none';
+        });
+
+        // Close modals if clicking outside
         window.addEventListener('click', (event) => {
-            if (event.target === removeModal) {
-                removeModal.style.display = 'none';
+            if (event.target === removeBannerModal) {
+                removeBannerModal.style.display = 'none';
+            }
+            if (event.target === removeAnnouncementModal) {
+                removeAnnouncementModal.style.display = 'none';
             }
         });
 
