@@ -122,11 +122,30 @@ $months = [
             </div>
 
             <div class="sidebar">
-                <a href="admin_dashboard.php"><i class="bi bi-grid-fill"></i><h3>Dashboard</h3></a>
-                <a href="admin_users.php"><i class="bi bi-people-fill"></i><h3>Users</h3></a>
-                <a href="admin_inventory_v2.php"><i class="bi bi-box2-heart-fill"></i><h3>Products</h3></a>
-                <a href="admin_orders.php"><i class="bi bi-bag-check-fill"></i><h3>Orders</h3></a>
-                <a href="admin_reports.php"><i class="bi bi-file-earmark-text-fill"></i><h3>Reports</h3></a>
+                <a href="admin_dashboard.php" class="">
+                    <i class="bi bi-grid-fill"></i>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="admin_users.php" class="">
+                    <i class="bi bi-people-fill"></i>
+                    <h3>Users</h3>
+                </a>
+                <a href="admin_inventory_v2.php" class="">
+                    <i class="bi bi-box2-heart-fill"></i>
+                    <h3>Products</h3>
+                </a>
+                <a href="admin_orders.php" class="">
+                    <i class="bi bi-bag-check-fill"></i>
+                    <h3>Orders</h3>
+                </a>
+                <a href="admin_reports.php" class=""> 
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <h3>Reports</h3>
+                </a>
+                <a href="admin_content.html" class=""> 
+                    <i class="bi bi-hdd-stack-fill"></i>
+                    <h3>Banner & Cards</h3>
+                </a>
             </div>
         </aside>
         <!-- end of aside -->

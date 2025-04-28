@@ -122,6 +122,10 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                     <i class="bi bi-file-earmark-text-fill"></i>
                     <h3>Reports</h3>
                 </a>
+                <a href="admin_content.html" class=""> 
+                    <i class="bi bi-hdd-stack-fill"></i>
+                    <h3>Banner & Cards</h3>
+                </a>
             </div>
         </aside>
         <!-- end of aside / side bar -->

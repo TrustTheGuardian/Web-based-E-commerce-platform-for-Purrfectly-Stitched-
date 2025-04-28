@@ -426,10 +426,6 @@ main .product-details {
 /* ===================== MAIN - ACTION ===================== */
 
 /* Style the container for proper alignment */
-main .actions {
-    margin-top: 2rem;
-    text-align: right;
-}
 
 .action-link {
     display: inline-block;

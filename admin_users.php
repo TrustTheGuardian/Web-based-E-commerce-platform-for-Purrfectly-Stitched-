@@ -51,6 +51,10 @@
                     <i class="bi bi-file-earmark-text-fill"></i>
                     <h3>Reports</h3>
                 </a>
+                <a href="admin_content.html" class=""> 
+                    <i class="bi bi-hdd-stack-fill"></i>
+                    <h3>Banner & Cards</h3>
+                </a>
             </div>
         </aside>
         <!-- end of aside / side bar -->
@@ -157,14 +161,17 @@
         </div>
     </div>
 
-                <div id="deleteModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-                background: rgba(0, 0, 0, 0.5); z-index: 9999; justify-content: center; align-items: center;">
-                            <div style="background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center;">
-                                <p>Are you sure you want to delete this user?</p>
-                                <button id="confirmDeleteButton">Yes</button>
-                                <button onclick="closeDeleteModal()">Cancel</button>
-                            </div>
-                        </div>
+    <!-- Delete User Confirmation Modal -->
+    <div id="deleteModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <p>Are you sure you want to delete this user?</p>
+            <div class="custom-modal-buttons">
+                <button id="confirmDelete">Yes</button>
+                <button id="cancelDelete">No</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
@@ -271,11 +278,11 @@
         deleteUserId = userId;
         const deleteModal = document.getElementById('deleteModal');
         if (deleteModal) {
-            deleteModal.style.display = 'flex'; // use 'flex' to center modal
+            deleteModal.style.display = 'flex'; // use flex to center
         }
     }
 
-    // Close the modal
+    // Close the delete modal
     function closeDeleteModal() {
         const deleteModal = document.getElementById('deleteModal');
         if (deleteModal) {
@@ -284,20 +291,35 @@
         deleteUserId = null;
     }
 
-    // Confirm delete
+    // Confirm delete function
     function confirmDelete() {
         if (deleteUserId !== null) {
             window.location.href = `admindelete_user.php?user_ID=${deleteUserId}`;
         }
     }
 
-    // Attach confirm button click after DOM is ready
+    // Attach event listeners when DOM is ready
     document.addEventListener('DOMContentLoaded', function () {
-        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
-        if (confirmDeleteButton) {
-            confirmDeleteButton.addEventListener('click', confirmDelete);
+        const confirmDeleteBtn = document.getElementById('confirmDelete');
+        const cancelDeleteBtn = document.getElementById('cancelDelete');
+
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', confirmDelete);
         }
+
+        if (cancelDeleteBtn) {
+            cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+        }
+
+        // Optional: close modal when clicking outside the content
+        window.addEventListener('click', (event) => {
+            const deleteModal = document.getElementById('deleteModal');
+            if (event.target === deleteModal) {
+                closeDeleteModal();
+            }
+        });
     });
+
 </script>
     
 
