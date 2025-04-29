@@ -51,7 +51,7 @@
                     <i class="bi bi-file-earmark-text-fill"></i>
                     <h3>Reports</h3>
                 </a>
-                <a href="admin_content.html" class=""> 
+                <a href="admin_content.php" class=""> 
                     <i class="bi bi-hdd-stack-fill"></i>
                     <h3>Banner & Cards</h3>
                 </a>
@@ -60,74 +60,89 @@
         <!-- end of aside / side bar -->
 
         <main>
-            <h1>Manage Users</h1>
-            <div class="search">
-                <i class="bi bi-search"></i>
-                <input type="text">
-                <button class="btn-search">Search</button>
-            </div>
+    <h1>Manage Users</h1>
+    
+    <!-- Search Section (Wrapped in Form but Layout Unchanged) -->
+    <form method="GET">
+        <div class="search">
+            <i class="bi bi-search"></i>
+            <input type="text" name="search" placeholder="Search users..." 
+                value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <button type="submit" class="btn-search">Search</button>
+        </div>
+    </form>
 
-            <!-- Users Table -->
-            <div class="users-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>User ID</th>
-                            <th>Full name</th>
-                            <th>Mobile Number</th>
-                            <th>Address</th>
-                            <th>Account Created</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            include 'db_connection.php';
+    <!-- Users Table -->
+    <div class="users-table">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>User ID</th>
+                    <th>Full name</th>
+                    <th>Mobile Number</th>
+                    <th>Address</th>
+                    <th>Account Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    include 'db_connection.php';
 
-                            $query = "SELECT * FROM users";
-                            $result = mysqli_query($con, $query);
-
-                            while($row = mysqli_fetch_assoc($result)) {
-                                $id = $row['user_ID'];
-                                $name = $row['FirstName'] . ' ' . $row['LastName'];
-                                $mobile = $row['Mobile'];
-                                $address = $row['Address'];
-                                $created = date("m/d/Y", strtotime($row['CreatedAt']));
-                                $isBanned = $row['is_banned'];
-
-                                echo "<tr>
-                                    <td><i class='bi bi-person-fill user-icon'></i></td>
-                                    <td>$id</td>
-                                    <td>$name</td>
-                                    <td>$mobile</td>
-                                    <td>$address</td>
-                                    <td>$created</td>
-                                    <td class='actions'>
-                                        <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a> |
-                                         <a href='#' onclick='openDeleteModal($id)' class='action-link delete'>Delete</a> |";
-
-                                        if ($isBanned == 0) {
-                                            // Not banned — show Ban
-                                            echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
-                                                  <span class='action-link unban' style='display:none;'>Unban</span>";
-                                        } else {
-                                            // Banned — show Unban
-                                            echo "<a href='adminban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
-                                                  <span class='action-link ban' style='display:none;'>Ban</span>";
-                                        }
-
-                                echo "</td></tr>";
-                            }
-                        ?>
-                    </tbody>
-
+                    $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
                     
-                </table>
-            </div>
+                    if (!empty($search)) {
+                        $query = "SELECT * FROM users WHERE 
+                            user_ID LIKE '%$search%' OR 
+                            FirstName LIKE '%$search%' OR 
+                            LastName LIKE '%$search%' OR 
+                            Mobile LIKE '%$search%' OR 
+                            Address LIKE '%$search%'";
+                    } else {
+                        $query = "SELECT * FROM users";
+                    }
 
+                    $result = mysqli_query($con, $query);
 
-        </main>
+                    if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            $id = $row['user_ID'];
+                            $name = $row['FirstName'] . ' ' . $row['LastName'];
+                            $mobile = $row['Mobile'];
+                            $address = $row['Address'];
+                            $created = date("m/d/Y", strtotime($row['CreatedAt']));
+                            $isBanned = $row['is_banned'];
+
+                            echo "<tr>
+                                <td><i class='bi bi-person-fill user-icon'></i></td>
+                                <td>$id</td>
+                                <td>$name</td>
+                                <td>$mobile</td>
+                                <td>$address</td>
+                                <td>$created</td>
+                                <td class='actions'>
+                                    <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a> |
+                                    <a href='#' onclick='openDeleteModal($id)' class='action-link delete'>Delete</a> |";
+
+                                    if ($isBanned == 0) {
+                                        echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
+                                              <span class='action-link unban' style='display:none;'>Unban</span>";
+                                    } else {
+                                        echo "<a href='adminban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
+                                              <span class='action-link ban' style='display:none;'>Ban</span>";
+                                    }
+
+                            echo "</td></tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='7' style='text-align:center;'>No users found.</td></tr>";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</main>
         <!-- END OF MAIN  -->
 
          <div class="right">

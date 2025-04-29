@@ -61,45 +61,62 @@
         <main>
             <h1>Content Management</h1>
             <p>Edit Banners and Announcement</p><br>
-        
-            <!-- Carousel for adding banners -->
+
+            <!-- Banner Management Section -->
             <div class="carousel-container">
                 <h2>Banner-Content</h2>
                 <div class="main-image">
-                    <img id="currentImage" src="pictures/Purrfectly Stitch.png" alt="Main Image">
+                <img id="currentImage" src="pictures/Purrfectly Stitch.png" alt="Main Image">
                 </div>
                 <div class="thumbnails">
-                    <img src="pictures/Purrfectly Stitch.png" alt="Thumbnail 1" onclick="changeImage(this)">
-                    <img src="pictures/man-user-circle-icon.png" alt="Thumbnail 2" onclick="changeImage(this)">
-                    <img src="pictures/joshuam.png" alt="Thumbnail 3" onclick="changeImage(this)">
+                <img src="pictures/Purrfectly Stitch.png" alt="Thumbnail 1" onclick="changeImage(this)">
+                <img src="pictures/man-user-circle-icon.png" alt="Thumbnail 2" onclick="changeImage(this)">
+                <img src="pictures/joshuam.png" alt="Thumbnail 3" onclick="changeImage(this)">
                 </div>
 
-                <!--  Add Button for banners -->
+                <!-- Add Banner Form -->
                 <div class="action-image-container">
-                    <button class="add-banner">Add Images</button>
-                    <button class="remove-banner">Remove Image</button>
+                <form action="upload_banner.php" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="banner_image" accept="image/*" required>
+                    <button type="submit" class="add-banner">Add Image</button>
+                </form>
+
+                <!-- Example: Remove Banner Button (implement deletion logic if needed) -->
+                <form action="delete_banner.php" method="POST">
+                    <input type="hidden" name="banner_id" value="/* dynamically loaded banner ID */">
+                    <button type="submit" class="remove-banner">Remove Image</button>
+                </form>
                 </div>
             </div>
 
-            <!-- Carousel for adding announcements -->
+            <!-- Announcement Management Section -->
             <div class="carousel-container">
                 <h2>Announcement-Content</h2>
-                <div class="main-image">
-                    <img id="currentImage" src="pictures/Purrfectly Stitch.png" alt="Main Image">
-                </div>
-                <div class="thumbnails">
-                    <img src="pictures/Purrfectly Stitch.png" alt="Thumbnail 1" onclick="changeImage(this)">
-                    <img src="pictures/man-user-circle-icon.png" alt="Thumbnail 2" onclick="changeImage(this)">
-                    <img src="pictures/joshuam.png" alt="Thumbnail 3" onclick="changeImage(this)">
-                </div>
 
-                <!--  Add Button for  announcement -->
-                <div class="action-image-container">
-                    <button class="add-announcement">Add Images</button>
-                    <button class="remove-announcement">Remove Image</button>
+                <!-- Announcement Form -->
+                <form action="post_announcement.php" method="POST" style="padding: 1rem;">
+                <input type="text" name="title" placeholder="Announcement Title" required><br><br>
+                <input type="date" name="announcement_date" required><br><br>
+                <textarea name="content" placeholder="Write your announcement..." rows="5" style="width: 100%;" required></textarea><br><br>
+                <button type="submit" class="add-announcement">Post Announcement</button>
+                </form>
+
+                <!-- List of Posted Announcements -->
+                <div class="announcement-list" style="padding: 1rem;">
+                <?php
+                    include 'db_connection.php';
+                    $res = mysqli_query($con, "SELECT * FROM announcements ORDER BY announcement_date DESC");
+                    while ($row = mysqli_fetch_assoc($res)) {
+                    echo "<div class='announcement-card'>";
+                    echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+                    echo "<p class='announcement-date'>" . date("F j, Y", strtotime($row['announcement_date'])) . "</p>";
+                    echo "<p>" . nl2br(htmlspecialchars($row['content'])) . "</p>";
+                    echo "</div><hr>";
+                    }
+                ?>
                 </div>
             </div>
-        </main>
+            </main>
         
         <!-- END OF MAIN  -->
 

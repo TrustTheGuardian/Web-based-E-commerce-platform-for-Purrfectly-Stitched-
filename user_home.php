@@ -67,59 +67,60 @@ include 'db_connection.php';
     </header>
     
     <section id="slider" class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
-        <div class="welcometextdesign col-12 col-md-6 mb-4">
-            <h1><br>Your Crochet Products</h1>
-            <p>Shop now and customize your own Crochet Products</p>
-            <a href="shop.html" class="btn btn-custom">Shop Now &#10140;</a>
-        </div>
-        <div class="carouselcontainer col-12 col-md-6">
-          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="welcometextdesign col-12 col-md-6 mb-4">
+        <h1><br>Your Crochet Products</h1>
+        <p>Shop now and customize your own Crochet Products</p>
+        <a href="shop.php" class="btn btn-custom">Shop Now &#10140;</a>
+    </div>
+    <div class="carouselcontainer col-12 col-md-6">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://img.freepik.com/free-photo/wool-elements-space-right_23-2147691749.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                  <h5>First slide label</h5>
-                  <p>Some representative placeholder content for the first slide.</p>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/023/801/960/small/crochet-and-knitting-hobby-colorful-balls-of-yarn-knitting-needles-on-table-with-copy-space-flat-lay-and-wood-background-photo.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                  <h5>Second slide label</h5>
-                  <p>Some representative placeholder content for the second slide.</p>
-                </div>
-              </div>
-
+                <?php
+                include 'db_connection.php';
+                // Fetch all banners from the database
+                $result = mysqli_query($con, "SELECT * FROM banners ORDER BY banner_id DESC");
+                $first = true; // Flag to mark the first item as active
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $activeClass = $first ? 'active' : ''; // Add "active" class to the first item
+                    echo '<div class="carousel-item ' . $activeClass . '">';
+                    echo '<img src="' . $row['image_path'] . '" class="d-block w-100" alt="...">';
+                    echo '<div class="carousel-caption">';
+                    echo '<h5>' . htmlspecialchars($row['image_title']) . '</h5>';
+                    echo '<p>' . htmlspecialchars($row['image_description']) . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                    $first = false; // Set flag to false after the first item
+                }
+                ?>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
             </button>
-          </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="announcement-section">
-      <h2>Announcements!</h2>
-      <div class="announcement-scroll-container">
-        <div class="announcement-card">
-            <h3>Fresh Start!</h3>
-            <p class="announcement-date">August 22, 2024</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, dolore.</p>
-        </div>
-
-        <div class="announcement-card">
-            <h3>Ber-Months Sale</h3>
-            <p class="announcement-date">September 1, 2024</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, sit.</p>
-        </div>
-
-      </div>
-    </section>
+<section id="announcement-section">
+    <h2>Announcements!</h2>
+    <div class="announcement-scroll-container">
+        <?php
+        // Fetch all announcements from the database
+        $res = mysqli_query($con, "SELECT * FROM announcements ORDER BY announcement_date DESC");
+        while ($row = mysqli_fetch_assoc($res)) {
+            echo "<div class='announcement-card'>";
+            echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+            echo "<p class='announcement-date'>" . date("F j, Y", strtotime($row['announcement_date'])) . "</p>";
+            echo "<p>" . nl2br(htmlspecialchars($row['content'])) . "</p>";
+            echo "</div><hr>";
+        }
+        ?>
+    </div>
+</section>
     
           <section id="products">   
         <div class="row mt-5">         

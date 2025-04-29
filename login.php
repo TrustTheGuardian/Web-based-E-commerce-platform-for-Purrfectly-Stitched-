@@ -40,8 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $cart = $cart_result->fetch_assoc();
                 $cart_ID = $cart['cart_ID'];
 
-                // 5) Retrieve items from the 'user_cart' table using the cart_ID
-                $stmt_items = $con->prepare("SELECT product_ID, quantity FROM user_cart WHERE cart_ID = ?");
+                $stmt_items = $con->prepare("SELECT product_ID, quantity FROM cart_items WHERE cart_ID = ?");
                 $stmt_items->bind_param("i", $cart_ID);
                 $stmt_items->execute();
                 $items_result = $stmt_items->get_result();
