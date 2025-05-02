@@ -117,7 +117,7 @@
                                             <label for="mobile" class="form-label">Mobile Number</label>
                                             <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Enter your mobile number" 
                                                 pattern="0[0-9]{10}" required oninput="formatMobile()">
-                                            <small class="form-text text-muted">Please enter an 11-digit mobile number</small>
+                                            <small class="form-text text-muted">Please enter an 11-digit mobile number starting with 0</small>
                                         </div>
 
                                         <!-- House No./Street -->
@@ -238,22 +238,26 @@
         
         <script>
     function formatMobile() {
-    const mobileInput = document.getElementById("mobile");
-    let mobileValue = mobileInput.value;
+        const mobileInput = document.getElementById("mobile");
+        let mobileValue = mobileInput.value;
 
-    // Remove all non-numeric characters
-    mobileValue = mobileValue.replace(/\D/g, '');
+        // Remove all non-numeric characters
+        mobileValue = mobileValue.replace(/\D/g, '');
 
-    // Limit to 11 digits
-    if (mobileValue.length > 11) {
-        mobileValue = mobileValue.slice(0, 11);
+        // Ensure the number starts with 0
+        if (mobileValue.charAt(0) !== '0') {
+            mobileValue = '0' + mobileValue;
+        }
+
+        // Limit to 11 digits
+        if (mobileValue.length > 11) {
+            mobileValue = mobileValue.slice(0, 11);
+        }
+
+        // Set the cleaned value back
+        mobileInput.value = mobileValue;
     }
-
-    // Set the cleaned value back (without formatting)
-    mobileInput.value = mobileValue;
-}
 </script>
-
     <?php } ?>
 </body>
 </html>

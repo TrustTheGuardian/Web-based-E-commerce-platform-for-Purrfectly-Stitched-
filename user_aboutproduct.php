@@ -31,6 +31,19 @@ if (mysqli_num_rows($result) === 0) {
 }
 
 $product = mysqli_fetch_assoc($result);
+$userID = $_SESSION['user_id'];
+$query = "SELECT ProfileImage FROM users WHERE user_ID = ?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result && $result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    $profileImage = !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/default-profile.png';
+} else {
+    $profileImage = 'pictures/default-profile.png';
+}
 ?>
 
 <!DOCTYPE html>
@@ -54,44 +67,29 @@ $product = mysqli_fetch_assoc($result);
         </div>
     
         <div class="menu">
-            <a href="user_shop.php" class="d-none d-sm-block">Shop</a>
-            <div class="btn-group custom-dropdown">
-              <button type="button" class="dropdown-toggle d-sm-block d-none" data-bs-toggle="dropdown">
-                  Profile
-              </button>
-              <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#loginModal" data-bs-toggle="modal">Account</a></li>
-                  <li><a class="dropdown-item" href="registration.php">To Pay</a></li>
-                  <li><a class="dropdown-item" href="registration.php">To Receive</a></li>
-              </ul>
-              
-            </div>
-            <?php
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
-                $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-                ?>
-                <a href="user_cart.php" class="position-relative">
-                    <i class="bi bi-cart"></i>
-                    <?php if ($cart_count > 0): ?>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            <?= $cart_count ?>
-                        </span>
-                    <?php endif; ?>
-                </a>
-            <div class="btn-group custom-dropdown d-sm-none">
-              <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown">
-                  Menu
-              </button>
-              <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Home</a></li>
-                  <li><a class="dropdown-item" href="#">Shop</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-              </ul>
-            </div>
-            <a href="logout.php" class="btn btn-outline-secondary ms-3">Log Out</a>
-        </div>
+        <a href="user_shop.php" class="d-none d-sm-block">Shop</a>
+        
+        <!-- Make profile image clickable to go to user_profile.php -->
+        <a href="user_profile.php">
+            <img src="<?php echo !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/man-user-circle-icon.png'; ?>" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+        </a>
+        
+        <?php
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+        ?>
+        
+        <a href="user_cart.php" class="position-relative">
+            <i class="bi bi-cart"></i>
+            <?php if ($cart_count > 0): ?>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <?= $cart_count ?>
+                </span>
+            <?php endif; ?>
+        </a>
+    </div>
     </header>
     <section>
     <div class="d-flex flex-column flex-md-row">
