@@ -62,8 +62,9 @@ include 'db_connection.php';
                   <li><a class="dropdown-item" href="#">Profile</a></li>
               </ul>
             </div>
-            <a href="logout.php" class="btn btn-outline-secondary ms-3">Log Out</a>
+            
         </div>
+
     </header>
     
     <section id="slider" class="d-flex flex-column flex-md-row align-items-center justify-content-center mt-5">
@@ -170,6 +171,7 @@ include 'db_connection.php';
     <div class="footer">
       &copy; 2025 Your Website | All Rights Reserved
     </div>
+
 
     <script>
       function addToCart(product_ID) {

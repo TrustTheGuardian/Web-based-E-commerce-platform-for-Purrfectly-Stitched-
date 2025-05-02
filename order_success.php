@@ -40,53 +40,45 @@ $items_result = $item_stmt->get_result();
 <html>
 <head>
     <title>Order Success</title>
-    <style>
-        .order-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .order-table th, .order-table td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        .order-table th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="css_files/ordersuccess.css">
 </head>
+
 <body>
-    <h1>Thank you, <?= htmlspecialchars($order['FirstName']) ?>!</h1>
-    <p>Your order has been placed successfully.</p>
+    <div class="ordersuccessdiv">
+        <h1>Thank you, <?= htmlspecialchars($order['FirstName']) ?>!</h1>
+        <p>Your order has been placed successfully.</p>
 
-    <h2>Order Summary</h2>
-    <table class="order-table">
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Subtotal</th>
-        </tr>
-        <?php while ($row = $items_result->fetch_assoc()):
-            $subtotal = $row['product_price'] * $row['quantity'];
-        ?>
-        <tr>
-            <td><?= htmlspecialchars($row['product_title']) ?></td>
-            <td>₱<?= number_format($row['product_price'], 2) ?></td>
-            <td><?= $row['quantity'] ?></td>
-            <td>₱<?= number_format($subtotal, 2) ?></td>
-        </tr>
-        <?php endwhile; ?>
-        <tr>
-            <td colspan="3" style="text-align:right;"><strong>Total:</strong></td>
-            <td><strong>₱<?= number_format($order['total_price'], 2) ?></strong></td>
-        </tr>
-    </table>
+        <h2>Order Summary</h2>
+        <table class="order-table">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+            </tr>
+            <?php while ($row = $items_result->fetch_assoc()):
+                $subtotal = $row['product_price'] * $row['quantity'];
+            ?>
+            <tr>
+                <td><?= htmlspecialchars($row['product_title']) ?></td>
+                <td>₱<?= number_format($row['product_price'], 2) ?></td>
+                <td><?= $row['quantity'] ?></td>
+                <td>₱<?= number_format($subtotal, 2) ?></td>
+            </tr>
+            <?php endwhile; ?>
+            <tr>
+                <td colspan="3" style="text-align:right;"><strong>Total:</strong></td>
+                <td><strong>₱<?= number_format($order['total_price'], 2) ?></strong></td>
+            </tr>
+        </table>
 
-    <p><strong>Payment Method:</strong> <?= ucfirst(htmlspecialchars($order['payment_method'])) ?></p>
-    <p><strong>Status:</strong> <?= htmlspecialchars($order['order_status']) ?></p>
-    <p><strong>Order Date:</strong> <?= htmlspecialchars($order['ordered_at']) ?></p>
+        <p><strong>Payment Method:</strong> <?= ucfirst(htmlspecialchars($order['payment_method'])) ?></p>
+        <p><strong>Status:</strong> <?= htmlspecialchars($order['order_status']) ?></p>
+        <p><strong>Order Date:</strong> <?= htmlspecialchars($order['ordered_at']) ?></p>
+        
+        
+        <button class = "custom-btn" onclick="window.location.href='user_home.php'">Continue Shopping</button>
 
-    <a href="user_home.php">Continue Shopping</a>
+    </div>
 </body>
 </html>

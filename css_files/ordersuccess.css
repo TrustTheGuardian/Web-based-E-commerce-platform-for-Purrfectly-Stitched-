@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    padding-top: 70px;
+    background-color: #f9f9f9;
+}
+
+.contain {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.summary-box {
+    width: 90%;
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    color: #723a77;
+    margin: 20px 0 10px 0;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.order-table th, .order-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+}
+
+
+
+.order-table td {
+    background-color: #fff;
+}
+
+.order-table tfoot td {
+    font-weight: bold;
+}
+
+.info {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #444;
+}
+
+.order-table th {
+    background-color: #723a77;  /* Your preferred header background color */
+    color: white;  /* Ensure text is readable */
+}
+
+.custom-btn {
+    background: #AA60C8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0 auto;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content;
+}
+
+.custom-btn:hover {
+    background-color: #8e4cb2;
+}
+
+.ordersuccessdiv{
+    padding: 20px;
+    margin: 20px;
+}
+
+@media (max-width: 600px) {
+    .summary-box {
+        padding: 15px;
+    }
+
+    h1, h2 {
+        font-size: 18px;
+    }
+
+    .order-table th, .order-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .custom-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

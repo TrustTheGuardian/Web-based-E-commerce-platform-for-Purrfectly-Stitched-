@@ -63,7 +63,7 @@ include 'db_connection.php';
                   <li><a class="dropdown-item" href="#">Profile</a></li>
               </ul>
             </div>
-            <a href="logout.php" class="btn btn-outline-secondary ms-3">Log Out</a>
+            
         </div>
     </header>
 

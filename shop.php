@@ -90,7 +90,7 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
           ? trim($_GET['search']) 
           : '';
       ?>
-      <form class="search-bar-container mb-4" method="GET" action="">
+      <form class="search-bar-container" method="GET" action="">
         <input 
           type="text" 
           name="search" 
@@ -98,7 +98,7 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
           placeholder="Search products…" 
           value="<?= htmlspecialchars($search) ?>"
         >
-        <button type="submit" class="btn btn-outline-secondary">
+        <button type="submit" class="btn">
           <i class="bi bi-search"></i>
         </button>
       </form>
@@ -206,7 +206,7 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
                onclick="window.location.href='aboutproduct.php?productId=<?= $id ?>'">
             <div class="card product-card">
               <img src="<?= htmlspecialchars($img) ?>"
-                   class="card-img-top img-thumbnail"
+                   class="card-img-top img-thumbnail "
                    alt="<?= $title ?>">
               <div class="card-body text-center">
                 <h5 class="card-title"><?= $title ?></h5>

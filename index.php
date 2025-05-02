@@ -166,7 +166,7 @@ if (isset($_SESSION['user_id'])) {
         ?>
     </div>
 </section>
-    
+
     <section id="products">   
         <div class="row mt-5">         
           <?php
@@ -233,7 +233,7 @@ if (isset($_SESSION['user_id'])) {
         }
       });
     </script> -->
-
+   
     <script>
       function togglePassword(inputId, btn) {
         const input = document.getElementById(inputId);
