@@ -15,6 +15,9 @@ if ($product_id > 0) {
         echo "Product not found.";
         exit;
     }
+} else {
+    echo "Invalid product ID.";
+    exit;
 }
 
 // Handle update
@@ -39,6 +42,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_product'])) {
         echo "Error updating product: " . mysqli_error($con);
     }
 }
+
+// ✅ Fetch Reviews
+$reviewQuery = "
+    SELECT r.*, u.FirstName, u.LastName 
+    FROM reviews r
+    JOIN users u ON r.user_ID = u.user_ID
+    WHERE r.product_ID = ?
+    ORDER BY r.created_at DESC
+";
+
+$stmt = $con->prepare($reviewQuery);
+$stmt->bind_param("i", $product_id);
+$stmt->execute();
+$reviews = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -178,123 +195,75 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_product'])) {
             </div>
 
             <div class="customer-reviews">
-                <h2>
-                    Customer Reviews and Comments
-                </h2>
-                <div class="star">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <i class="bi bi-star"></i>
-                    <small class="text-muted">(12 reviews)</small>
-                </div>
+                    <h2>Customer Reviews and Comments</h2>
+                    
+                    <?php
+                    $totalReviews = $reviews->num_rows;
+                    $averageRating = 0;
 
-                <div class="comments">
-                    <div id="reviewsContainer">
-                        <!-- Example review -->
-                        <div class="comment">
-                            <div class="name-and-date">
-                                <strong>Jane Doe</strong>
-                                <small class="text-muted">12/23/25</small>
-                            </div>
-                                <div class="star text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <p>Love the texture and quality!</p>
-                                <div class="comment-action">
-                                    <span class="action-link reply">reply</span> | 
-                                    <span class="action-link remove">remove</span>
-                                </div>
-                                <div class="reply-box" style="display: none; margin-top: 0.5rem;">
-                                    <input type="text" class="reply-input" placeholder="Type your reply..." />
-                                    <button class="submit-reply">Post</button>
-                                </div>
-                                <div class="admin-reply" style="margin-top: 0.5rem;"></div>
-                        </div>
+                    if ($totalReviews > 0) {
+                        $sumQuery = "SELECT AVG(rating) as avg_rating FROM reviews WHERE product_ID = $product_id";
+                        $sumResult = mysqli_query($con, $sumQuery);
+                        $avgRow = mysqli_fetch_assoc($sumResult);
+                        $averageRating = round($avgRow['avg_rating'], 1);
+                    }
 
-                        <div class="comment">
-                            <div class="name-and-date">
-                                <strong>Chris P. Bacon</strong>
-                                <small class="text-muted">12/23/25</small>
-                            </div>
-                                <div class="star text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <p>Love the texture and quality!</p>
-                                <div class="comment-action">
-                                    <span class="action-link reply">reply</span> | 
-                                    <span class="action-link remove">remove</span>
-                                </div>
-                        </div>
+                    $filledStars = str_repeat('<i class="bi bi-star-fill"></i>', floor($averageRating));
+                    $halfStar = ($averageRating - floor($averageRating)) >= 0.5 ? '<i class="bi bi-star-half"></i>' : '';
+                    $emptyStars = str_repeat('<i class="bi bi-star"></i>', 5 - ceil($averageRating));
+                    ?>
 
-                        <div class="comment">
-                            <div class="name-and-date">
-                                <strong>Deez nuts</strong>
-                                <small class="text-muted">09/05/25</small>
-                            </div>
-                                <div class="star text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <p>Love the texture and quality!</p>
-                                <div class="comment-action">
-                                    <span class="action-link reply">reply</span> | 
-                                    <span class="action-link remove">remove</span>
-                                </div>
-                        </div>
+                    <div class="star text-warning">
+                        <?= $filledStars . $halfStar . $emptyStars ?>
+                        <small class="text-muted">(<?= $totalReviews ?> reviews)</small>
+                    </div>
 
-                        <div class="comment">
-                            <div class="name-and-date">
-                                <strong>Hephep Hooray</strong>
-                                <small class="text-muted">01/31/25</small>
-                            </div>
-                                <div class="star text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <p>Love the texture and quality!</p>
-                                <div class="comment-action">
-                                    <span class="action-link reply">reply</span> | 
-                                    <span class="action-link remove">remove</span>
-                                </div>
-                        </div>
-
-                        <div class="comment">
-                            <div class="name-and-date">
-                                <strong>Ina D. Pota</strong>
-                                <small class="text-muted">11/23/24</small>
-                            </div>
-                                <div class="star text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <p>Love the texture and quality!</p>
-                                <div class="comment-action">
-                                    <span class="action-link reply">reply</span> | 
-                                    <span class="action-link remove">remove</span>
-                                </div>
+                    <div class="comment" data-review-id="<?= $review['review_ID'] ?>">
+                        <div id="reviewsContainer">
+                            <?php if ($totalReviews > 0): ?>
+                                <?php while ($review = $reviews->fetch_assoc()): 
+                                    $name = htmlspecialchars($review['FirstName'] . ' ' . $review['LastName']);
+                                    $date = date('m/d/y', strtotime($review['created_at']));
+                                    $rating = intval($review['rating']);
+                                    $text = htmlspecialchars($review['review_text']);
+                                    ?>
+                                    <div class="comment">
+                                        <div class="name-and-date">
+                                            <strong><?= $name ?></strong>
+                                            <small class="text-muted"><?= $date ?></small>
+                                        </div>
+                                        <div class="star text-warning">
+                                            <?= str_repeat('<i class="bi bi-star-fill"></i>', $rating) ?>
+                                            <?= str_repeat('<i class="bi bi-star"></i>', 5 - $rating) ?>
+                                        </div>
+                                        <p><?= $text ?></p>
+                                        <div class="comment-action">
+                                            <span class="action-link reply">reply</span> | 
+                                            <span class="action-link remove" data-review-id="<?= $review['review_ID'] ?>">remove</span>
+                                        </div>
+                                        <div class="reply-box" style="display: none; margin-top: 0.5rem;">
+                                            <input type="text" class="reply-input" placeholder="Type your reply..." />
+                                            <button class="submit-reply">Post</button>
+                                        </div>
+                                        <?php if (!empty($review['admin_reply'])): ?>
+                                            <div class="admin-reply" style="margin-top: 0.5rem;">
+                                                <strong class="text-primary">Admin Reply:</strong> 
+                                                <span class="admin-reply-text"><?= htmlspecialchars($review['admin_reply']) ?></span>
+                                                <button class="edit-reply btn btn-sm btn-outline-primary">Edit</button>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="admin-reply" style="margin-top: 0.5rem;">
+                                                <span class="admin-reply-text"></span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p>No reviews yet for this product.</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
-            </div>
         </main>
         <!-- END OF MAIN  -->
 
@@ -593,32 +562,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_product'])) {
         });
         
         
-document.querySelectorAll('.reply').forEach(button => {
-    button.addEventListener('click', () => {
-        const commentBox = button.closest('.comment');
-        const replyBox = commentBox.querySelector('.reply-box');
-        replyBox.style.display = replyBox.style.display === 'none' ? 'block' : 'none';
-    });
-});
-
-document.querySelectorAll('.submit-reply').forEach(button => {
-    button.addEventListener('click', () => {
-        const commentBox = button.closest('.comment');
-        const input = commentBox.querySelector('.reply-input');
-        const reply = input.value.trim();
-
-        if (reply !== '') {
-            const replyContainer = commentBox.querySelector('.admin-reply');
-            const replyElement = document.createElement('p');
-            replyElement.innerHTML = `<strong>Purrfectly Stitched:</strong> ${reply}`;
-            replyContainer.appendChild(replyElement);
-
-            // Reset input
-            input.value = '';
-            commentBox.querySelector('.reply-box').style.display = 'none';
-        }
-    });
-});
 
         // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');
@@ -644,8 +587,87 @@ document.querySelectorAll('.submit-reply').forEach(button => {
             }
         });
 
-    </script>    
-    
+    </script>  
+
+    <script>
+document.addEventListener('click', function (e) {
+    // Toggle reply box visibility for replying
+    if (e.target.classList.contains('reply')) {
+        const replyBox = e.target.closest('.comment').querySelector('.reply-box');
+        replyBox.style.display = replyBox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Submit or Edit reply
+    if (e.target.classList.contains('submit-reply')) {
+        const commentDiv = e.target.closest('.comment');
+        const reviewId = commentDiv.querySelector('.remove').getAttribute('data-review-id');
+        const replyInput = commentDiv.querySelector('.reply-input');
+        const replyText = replyInput.value.trim();
+
+        if (replyText === "") {
+            alert("Reply cannot be empty.");
+            return;
+        }
+
+        // Update reply via AJAX
+        fetch('admin_reply.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `review_id=${reviewId}&reply=${encodeURIComponent(replyText)}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data.trim() === "success") {
+                const replyContainer = commentDiv.querySelector('.admin-reply');
+                replyContainer.innerHTML = `<strong class="text-primary">Admin Reply:</strong> ${replyText}`;
+                replyInput.value = ""; // Clear the input box
+                commentDiv.querySelector('.reply-box').style.display = "none"; // Hide reply box
+                commentDiv.querySelector('.edit-reply').style.display = "inline"; // Show Edit button
+            } else {
+                alert("Failed to save reply.");
+            }
+        });
+    }
+
+    // Edit existing reply
+    if (e.target.classList.contains('edit-reply')) {
+        const commentDiv = e.target.closest('.comment');
+        const currentReply = commentDiv.querySelector('.admin-reply-text').textContent.trim();
+        const replyInput = commentDiv.querySelector('.reply-input');
+        const replyBox = commentDiv.querySelector('.reply-box');
+        
+        replyInput.value = currentReply; // Populate the input with the existing reply
+        replyBox.style.display = 'block'; // Show the reply input box
+        e.target.style.display = 'none'; // Hide the "Edit" button
+    }
+
+    // Remove review
+    if (e.target.classList.contains('remove')) {
+        const reviewDiv = e.target.closest('.comment');
+        const reviewId = e.target.getAttribute('data-review-id');
+
+        if (confirm("Are you sure you want to delete this review?")) {
+            fetch('delete_review.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `review_id=${reviewId}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === 'success') {
+                    reviewDiv.remove(); // Remove the review from the DOM
+                } else {
+                    alert("Failed to delete review.");
+                }
+            });
+        }
+    }
+});
+</script>
 
 </body>
 </html>

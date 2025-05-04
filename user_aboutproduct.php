@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 include 'db_connection.php';
 ?>
+
 <?php
 include 'db_connection.php'; 
 
@@ -32,6 +33,7 @@ if (mysqli_num_rows($result) === 0) {
 
 $product = mysqli_fetch_assoc($result);
 $userID = $_SESSION['user_id'];
+
 $query = "SELECT ProfileImage FROM users WHERE user_ID = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $userID);
@@ -43,6 +45,31 @@ if ($result && $result->num_rows > 0) {
     $profileImage = !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/default-profile.png';
 } else {
     $profileImage = 'pictures/default-profile.png';
+}
+
+// Load all reviews for the product
+$review_query = $con->prepare("SELECT r.rating, r.review_text, r.created_at, u.FirstName, u.LastName, r.admin_reply 
+                               FROM reviews r 
+                               JOIN users u ON r.user_ID = u.user_ID 
+                               WHERE r.product_ID = ? 
+                               ORDER BY r.created_at DESC");
+$review_query->bind_param("i", $product_id);
+$review_query->execute();
+$review_result = $review_query->get_result();
+
+// Get average rating and total reviews
+$avg_rating = 0;
+$total_reviews = 0;
+
+$rating_query = $con->prepare("SELECT AVG(rating) as avg_rating, COUNT(*) as total_reviews FROM reviews WHERE product_ID = ?");
+$rating_query->bind_param("i", $product_id);
+$rating_query->execute();
+$rating_result = $rating_query->get_result();
+
+if ($rating_result && $rating_result->num_rows > 0) {
+    $rating_data = $rating_result->fetch_assoc();
+    $avg_rating = round($rating_data['avg_rating'], 1);
+    $total_reviews = $rating_data['total_reviews'];
 }
 ?>
 
@@ -158,13 +185,25 @@ if ($result && $result->num_rows > 0) {
                     <br>
                     <div class="pricerating">
                     <h3>₱<?= number_format($product['product_price'], 2) ?></h3>
-                        <div class="star">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                            <small class="text-muted">(12 reviews)</small>
+                    <div class="star">
+                            <?php
+                            $fullStars = floor($avg_rating);
+                            $halfStar = ($avg_rating - $fullStars >= 0.5) ? 1 : 0;
+                            $emptyStars = 5 - $fullStars - $halfStar;
+
+                            for ($i = 0; $i < $fullStars; $i++) {
+                                echo '<i class="bi bi-star-fill text-warning"></i>';
+                            }
+
+                            if ($halfStar) {
+                                echo '<i class="bi bi-star-half text-warning"></i>';
+                            }
+
+                            for ($i = 0; $i < $emptyStars; $i++) {
+                                echo '<i class="bi bi-star text-warning"></i>';
+                            }
+                            ?>
+                            <small class="text-muted">(<?= $total_reviews ?> reviews)</small>
                         </div>
                     </div>
                     <hr>
@@ -200,24 +239,35 @@ if ($result && $result->num_rows > 0) {
                     </div>
 
                     <div class="reviewsection">
-                        <div class="review-list mt-5">
-                            <h4>Customer Reviews</h4>
-                            <div id="reviewsContainer">
-                                <!-- Example review -->
+                    <div class="review-list mt-5">
+                    <h4>Customer Reviews</h4>
+                    <div id="reviewsContainer">
+                        <?php if ($review_result->num_rows > 0): ?>
+                            <?php while ($row = $review_result->fetch_assoc()): ?>
                                 <div class="mb-3 border-bottom pb-2">
-                                    <strong>Jane Doe</strong>
+                                    <strong><?php echo htmlspecialchars($row['FirstName'] . ' ' . $row['LastName']); ?></strong>
                                     <div class="star text-warning">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
+                                        <?php
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            echo $i <= $row['rating'] ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
+                                        }
+                                        ?>
                                     </div>
-                                    <p>Love the texture and quality!</p>
+                                    <p><?php echo htmlspecialchars($row['review_text']); ?></p>
+
+                                    <?php if (!empty($row['admin_reply'])): ?>
+                                        <div class="admin-reply text-primary">
+                                            <strong>Admin Reply:</strong> <?= htmlspecialchars($row['admin_reply']) ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
-                            </div>
-                        </div>
-                        
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <p>No reviews yet. Be the first to review!</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                                        
                         <!-- Review Form -->
                         <div class="mt-4">
                             <h5>Leave a Review</h5>
@@ -250,7 +300,7 @@ if ($result && $result->num_rows > 0) {
 
     <script>
         let selectedRating = 0;
-    
+
         // Handle star rating selection
         const stars = document.querySelectorAll('#starRating i');
         stars.forEach(star => {
@@ -266,40 +316,70 @@ if ($result && $result->num_rows > 0) {
                 }
             });
         });
-    
+
         // Handle review form submission
         const reviewForm = document.getElementById('reviewForm');
         reviewForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            const text = document.getElementById('reviewText').value;
-    
+
+            const text = document.getElementById('reviewText').value.trim();
+            const productId = <?php echo $product_id; ?>; // Inject PHP variable into JS
+
             if (selectedRating === 0) {
                 alert("Please select a rating.");
                 return;
             }
-    
-            const container = document.getElementById('reviewsContainer');
-            const reviewHTML = `
-                <div class="mb-3 border-bottom pb-2">
-                    <strong>${name}</strong>
-                    <div class="star text-warning">
-                        ${'<i class="bi bi-star-fill"></i>'.repeat(selectedRating)}
-                        ${'<i class="bi bi-star"></i>'.repeat(5 - selectedRating)}
-                    </div>
-                    <p>${text}</p>
-                </div>
-            `;
-            container.innerHTML += reviewHTML;
-    
-            // Clear form
-            reviewForm.reset();
-            selectedRating = 0;
-            stars.forEach(s => {
-                s.classList.remove('bi-star-fill');
-                s.classList.add('bi-star');
+
+            if (text === "") {
+                alert("Please enter your review.");
+                return;
+            }
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('rating', selectedRating);
+            formData.append('review', text);
+            formData.append('product_id', productId);
+
+            // Submit via AJAX
+            fetch('submit_review.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(response => {
+                if (response.trim() === "Review submitted!") {
+                    // Optionally add the new review to the list
+                    const container = document.getElementById('reviewsContainer');
+                    const reviewHTML = `
+                        <div class="mb-3 border-bottom pb-2">
+                            <strong>You</strong>
+                            <div class="star text-warning">
+                                ${'<i class="bi bi-star-fill"></i>'.repeat(selectedRating)}
+                                ${'<i class="bi bi-star"></i>'.repeat(5 - selectedRating)}
+                            </div>
+                            <p>${text}</p>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('afterbegin', reviewHTML);
+
+                    // Clear form
+                    reviewForm.reset();
+                    selectedRating = 0;
+                    stars.forEach(s => {
+                        s.classList.remove('bi-star-fill');
+                        s.classList.add('bi-star');
+                    });
+                } else {
+                    alert(response);
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('An error occurred while submitting your review.');
             });
         });
-    </script>
+</script>
 
 <script>
     function changeQuantity(delta) {

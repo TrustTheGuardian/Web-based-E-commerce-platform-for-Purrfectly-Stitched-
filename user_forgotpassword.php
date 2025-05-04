@@ -54,36 +54,27 @@
                     <div class="editprofile">
                         <h3>Forgot Password</h3>
 
-                        <div class="formstyle">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" value="johndoe@example.com">
-                        </div>
+                        <form action="forgot_password.php" method="POST" id="editProfileForm">
+                          <div class="formstyle">
+                              <label for="email" class="form-label">Email address</label>
+                              <input type="email" class="form-control" id="email" name="email" required>
+                          </div>
 
-                        <div class="formstyle position-relative">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" value="30-8 A Paris shit">
-                            <i class="bi bi-eye-slash toggle-password" data-target="password" style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"
-                            ></i>
-                        </div>
+                          <div class="formstyle position-relative">
+                              <label for="password" class="form-label">New Password</label>
+                              <input type="password" class="form-control" id="password" name="password" required>
+                          </div>
 
-                        <div class="formstyle position-relative">
-                            <label for="repassword" class="form-label">Re-type Password</label>
-                            <input type="password" class="form-control" id="repassword" value="30-8 A Paris shit">
-                            <i class="bi bi-eye-slash toggle-password" data-target="repassword" style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"
-                            ></i>
-                        </div>
-
-                        <div class="text-center d-flex justify-content-center gap-3">
-                            <button type="button" class="btn btn-secondary" style="font-size: 18px;" data-bs-toggle="modal" data-bs-target="#cancelModal">
-                                Cancel
-                            </button>
-                            
-                            <div class="submitbutton">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#saveModal">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
+                          <div class="formstyle position-relative">
+                              <label for="repassword" class="form-label">Re-type Password</label>
+                              <input type="password" class="form-control" id="repassword" name="repassword" required>
+                          </div>
+                          
+                          <!-- Save Button -->
+                          <div class="submitbutton text-center mt-3">
+                              <button type="submit" class="btn btn-primary1">Save Changes</button>
+                          </div>
+                      </form>
                     </div>
                 </div>
                 <div class="space col-1 d-none d-sm-block d-md-block"></div>

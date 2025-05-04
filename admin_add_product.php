@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
 
         // Upload path
-        $targetDir = "uploads/";
+        $targetDir = "products/";
         if (!file_exists($targetDir)) {
             mkdir($targetDir, 0755, true);
         }
