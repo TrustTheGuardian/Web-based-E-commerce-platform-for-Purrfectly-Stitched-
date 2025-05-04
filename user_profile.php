@@ -34,7 +34,6 @@ $stmt_orders->execute();
 $order_result = $stmt_orders->get_result();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +85,6 @@ $order_result = $stmt_orders->get_result();
 
 <!-- Profile Section -->
 
-
 <section class="mt-5">
     <div class="container-fluid">
         <div class="row containerprofile">
@@ -118,6 +116,7 @@ $order_result = $stmt_orders->get_result();
                     <span style="font-weight: bold;">Address:</span> <?php echo htmlspecialchars($user['Address']); ?>
                 </p>
                 <button onclick="window.location.href='user_editprofile.php'" class="btn btn1 ">⚙️Edit Profile</button>
+                <button onclick="window.location.href='user_changepassword.php'" class="btn btn1 ">⚙️Change Password</button>
                 <button class="btn btn1" data-bs-toggle="modal" data-bs-target="#checkout-modal">🚪Log out</button>
             </div>
 

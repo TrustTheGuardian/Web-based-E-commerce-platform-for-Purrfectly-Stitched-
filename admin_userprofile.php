@@ -20,6 +20,9 @@ if (!$result || mysqli_num_rows($result) == 0) {
 }
 
 $user = mysqli_fetch_assoc($result);
+$profileImage = !empty($user['ProfileImage']) && file_exists($user['ProfileImage']) 
+    ? $user['ProfileImage'] 
+    : 'pictures/default-avatar.png';
 ?>
 
 <!DOCTYPE html>
@@ -77,7 +80,7 @@ $user = mysqli_fetch_assoc($result);
         <div class="profile">
             <div class="dp">
                 <div class="user-profile">
-                    <img src="pictures/default-avatar.png" alt="profile-photo">
+                <img src="<?= $profileImage ?>" alt="profile-photo" style="width: 200px; height: 200px; object-fit: cover;">
                 </div>
             </div>
             <div class="details">

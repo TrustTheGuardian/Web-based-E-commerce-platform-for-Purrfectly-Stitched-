@@ -17,7 +17,7 @@ $firstName = $nameParts[0];
 $lastName = isset($nameParts[1]) ? $nameParts[1] : '';
 
 $gender = $_POST['gender'];
-$phone = $_POST['phone'];
+$mobile = $_POST['mobile'];
 $address = $_POST['address'];
 
 // Handle profile image upload
@@ -56,9 +56,9 @@ $stmt = $con->prepare($query);
 
 // Bind parameters and execute the query
 if ($imagePath) {
-    $stmt->bind_param("ssssssi", $firstName, $lastName, $gender, $phone, $address, $imagePath, $userID);
+    $stmt->bind_param("ssssssi", $firstName, $lastName, $gender, $mobile, $address, $imagePath, $userID);
 } else {
-    $stmt->bind_param("sssssi", $firstName, $lastName, $gender, $phone, $address, $userID);
+    $stmt->bind_param("sssssi", $firstName, $lastName, $gender, $mobile, $address, $userID);
 }
 
 if ($stmt->execute()) {

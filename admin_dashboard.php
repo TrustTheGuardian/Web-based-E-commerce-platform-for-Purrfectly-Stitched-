@@ -289,12 +289,13 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
         <?php
         // Query: Get recent orders with user name and product names
         $notificationsQuery = "
-            SELECT o.order_ID, o.ordered_at, u.FirstName, u.LastName
+            SELECT o.order_ID, o.ordered_at, u.FirstName, u.LastName, u.ProfileImage
             FROM orders o
             JOIN users u ON o.user_ID = u.user_ID
             ORDER BY o.ordered_at DESC
             LIMIT 5
         ";
+        
         $notificationsResult = mysqli_query($con, $notificationsQuery);
 
         // Helper function to calculate "time ago"
@@ -316,8 +317,11 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
             $firstName = $notification['FirstName'];
             $lastName = $notification['LastName'];
             $orderedAt = $notification['ordered_at'];
-
-            // Fetch the products ordered in this order
+            $profileImagePath = (!empty($notification['ProfileImage']) && file_exists($notification['ProfileImage']))
+                ? $notification['ProfileImage']
+                : 'pictures/default-avatar.png';
+        
+            // Get products
             $productsQuery = "
                 SELECT p.product_title, oi.quantity
                 FROM order_items oi
@@ -325,27 +329,25 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                 WHERE oi.order_ID = '$orderID'
             ";
             $productsResult = mysqli_query($con, $productsQuery);
-
             $productsList = [];
             while ($product = mysqli_fetch_assoc($productsResult)) {
                 $productsList[] = $product['product_title'] . " (x" . $product['quantity'] . ")";
             }
             $productsString = implode(", ", $productsList);
-
+        
             // Time difference
             $timeAgo = getTimeAgo(strtotime($orderedAt));
-
+        
             echo '
             <div class="notification">
                 <div class="profile-photo">
-                    <img src="/pictures/man-user-circle-icon.png" alt="profile-photo">
+                    <img src="' . htmlspecialchars($profileImagePath) . '" alt="profile-photo" style="width: 40px; height: 40px; object-fit: cover;">
                 </div>
                 <div class="message">
                     <p><b>' . htmlspecialchars($firstName . ' ' . $lastName) . '</b> placed an order for: ' . htmlspecialchars($productsString) . '</p>
                     <small class="text-muted">' . $timeAgo . '</small>
                 </div>
-            </div>
-            ';
+            </div>';
         }
         ?>
     </div>
