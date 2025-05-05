@@ -141,20 +141,20 @@ $total_pages = ceil($total_orders / $limit);
             </div>
         
             <b>Filter Orders by Date: </b>
-            <div class="search">
+            <div class="date">
                 <form method="GET" action="">
                     <label for="order_date">Select Date:</label>
                     <input type="date" name="order_date" value="<?= htmlspecialchars($order_date) ?>" />
 
                     <label for="order_status">Select Status:</label>
-                    <select name="order_status">
+                    <select name="order_status" style="padding:6px 12px; border:1px solid #ccc; border-radius:5px; background-color:#f9f9f9; font-size:14px;">
                         <option value="">-- All Statuses --</option>
                         <option value="Pending" <?= $order_status == 'Pending' ? 'selected' : '' ?>>Pending</option>
                         <option value="Completed" <?= $order_status == 'Completed' ? 'selected' : '' ?>>Completed</option>
                         <option value="Cancelled" <?= $order_status == 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
                     </select>
 
-                    <button type="submit">Filter</button>
+                    <button type="submit" style="padding:5px 10px; background-color:var(--color-primary); border:1px solid var(--color-light-gray); color:white;border-radius:var(--border-radius-1)">Apply</button>
                 </form>
             </div>
         

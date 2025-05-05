@@ -135,22 +135,32 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
     <p>Welcome, Admin</p><br>
 
     <div class="date">
-        <form method="GET" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            <div style="display:flex; gap:5px;">
-                <button type="submit" name="filter" value="today" <?php echo $filter == 'today' ? 'style="background-color:#3c91e6;color:white;"' : ''; ?>>Today</button>
-                <button type="submit" name="filter" value="this_week" <?php echo $filter == 'this_week' ? 'style="background-color:#3c91e6;color:white;"' : ''; ?>>This Week</button>
-                <button type="submit" name="filter" value="this_month" <?php echo $filter == 'this_month' ? 'style="background-color:#3c91e6;color:white;"' : ''; ?>>This Month</button>
-            </div>
+    <form method="GET" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+        <div style="display:flex; gap:5px;">
+            <!-- Default Button Style with Active Button Style -->
+            <button type="submit" name="filter" value="today" style="padding:0.5rem; border-radius:var(--border-radius-1); background-color:var(--color-light-gray); color:var(--color-dark); border:1px solid var(--color-light-gray); <?php echo $filter == 'today' ? 'background-color:var(--color-primary); color:white;' : ''; ?>">
+                Today
+            </button>
 
-            <div style="display:flex; gap:5px; align-items:center;">
-                <label>From:</label>
-                <input type="date" name="from_date" value="<?php echo $fromDate ?? ''; ?>" style="padding:5px;">
-                <label>To:</label>
-                <input type="date" name="to_date" value="<?php echo $toDate ?? ''; ?>" style="padding:5px;">
-                <button type="submit" style="padding:5px 10px;">Apply</button>
-            </div>
-        </form>
-    </div><br>
+            <button type="submit" name="filter" value="this_week" style="padding:0.5rem; border-radius:var(--border-radius-1); background-color:var(--color-light-gray); color:var(--color-dark); border:1px solid var(--color-light-gray); <?php echo $filter == 'this_week' ? 'background-color:var(--color-primary); color:white;' : ''; ?>">
+                This Week
+            </button>
+
+            <button type="submit" name="filter" value="this_month" style="padding:0.5rem; border-radius:var(--border-radius-1); background-color:var(--color-light-gray); color:var(--color-dark); border:1px solid var(--color-light-gray); <?php echo $filter == 'this_month' ? 'background-color:var(--color-primary); color:white;' : ''; ?>">
+                This Month
+            </button>
+        </div>
+
+        <div style="display:flex; gap:5px; align-items:center;">
+            <label>From:</label>
+            <input type="date" name="from_date" value="<?php echo $fromDate ?? ''; ?>" style="padding:5px;">
+            <label>To:</label>
+            <input type="date" name="to_date" value="<?php echo $toDate ?? ''; ?>" style="padding:5px;">
+            <button type="submit" style="padding:5px 10px; background-color:var(--color-primary); border:1px solid var(--color-light-gray); color:white;border-radius:var(--border-radius-1)">Apply</button>
+        </div>
+    </form>
+</div>
+<br>
 
     <div class="insights">
         <div class="sales">
@@ -434,6 +444,20 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
             }
         });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            // Target the three filter buttons by their `name="filter"` attribute
+            const filterButtons = document.querySelectorAll('button[name="filter"]');
+            const fromDate = document.querySelector('input[name="from_date"]');
+            const toDate = document.querySelector('input[name="to_date"]');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Clear date inputs before form submission
+                    if (fromDate) fromDate.value = '';
+                    if (toDate) toDate.value = '';
+                });
+            });
+        });
     </script>
 
 </body>
