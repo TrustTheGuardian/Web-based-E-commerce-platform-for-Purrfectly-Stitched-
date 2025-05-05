@@ -50,7 +50,7 @@
                     <i class="bi bi-file-earmark-text-fill"></i>
                     <h3>Reports</h3>
                 </a>
-                <a href="admin_content.html" class=""> 
+                <a href="admin_content.php" class=""> 
                     <i class="bi bi-hdd-stack-fill"></i>
                     <h3>Banner & Cards</h3>
                 </a>
