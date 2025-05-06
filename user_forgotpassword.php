@@ -45,45 +45,30 @@
     </header>
 
     <section class="mt-3 mb-5">
-        <div class="container-fluid">
-            <div class="row containereditprofile">
-                <div class="editprofilecontainer"></div>
-                <div class="space col-1 d-none d-sm-block d-md-block"></div>
-                <div class="editprofilecontainer col-12 col-sm-10">
-                    
-                    <div class="editprofile">
-                        <h3>Forgot Password</h3>
+    <div class="container-fluid">
+        <div class="row containereditprofile">
+            <div class="editprofilecontainer"></div>
+            <div class="space col-1 d-none d-sm-block d-md-block"></div>
+            <div class="editprofilecontainer col-12 col-sm-10">
 
-                        <form action="forgot_password.php" method="POST" id="editProfileForm">
-                          <div class="formstyle">
-                              <label for="email" class="form-label">Email address</label>
-                              <input type="email" class="form-control" id="email" name="email" required>
-                          </div>
+                <div class="editprofile">
+                    <h3>Forgot Password</h3>
 
-                          <div class="formstyle position-relative">
-                              <label for="password" class="form-label">New Password</label>
-                              <input type="password" class="form-control" id="password" name="password" required>
-                          </div>
+                    <form action="send_reset_link.php" method="POST">
+                        <label>Email address</label>
+                        <input type="email" name="email" required>
+                        <button type="submit">Send Reset Link</button>
+                    </form>
 
-                          <div class="formstyle position-relative">
-                              <label for="repassword" class="form-label">Re-type Password</label>
-                              <input type="password" class="form-control" id="repassword" name="repassword" required>
-                          </div>
-                          
-                          <!-- Save Button -->
-                          <div class="submitbutton text-center mt-3">
-                              <button type="submit" class="btn btn-primary1">Save Changes</button>
-                          </div>
-                      </form>
-                    </div>
                 </div>
-                <div class="space col-1 d-none d-sm-block d-md-block"></div>
             </div>
+            <div class="space col-1 d-none d-sm-block d-md-block"></div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Cancel Modal -->
-    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -99,10 +84,10 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> -->
     
     <!-- Save Modal -->
-    <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -118,7 +103,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Scripts -->
     <script src=".vscode/jsforhome.js"></script>    

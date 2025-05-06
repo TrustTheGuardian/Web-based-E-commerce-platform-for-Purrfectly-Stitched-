@@ -23,6 +23,45 @@ if (mysqli_num_rows($result) === 0) {
 }
 
 $product = mysqli_fetch_assoc($result);
+$userID = $_SESSION['user_id'];
+
+$query = "SELECT ProfileImage FROM users WHERE user_ID = ?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result && $result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    $profileImage = !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/default-profile.png';
+} else {
+    $profileImage = 'pictures/default-profile.png';
+}
+
+// Load all reviews for the product
+$review_query = $con->prepare("SELECT r.rating, r.review_text, r.created_at, u.FirstName, u.LastName, r.admin_reply 
+                               FROM reviews r 
+                               JOIN users u ON r.user_ID = u.user_ID 
+                               WHERE r.product_ID = ? 
+                               ORDER BY r.created_at DESC");
+$review_query->bind_param("i", $product_id);
+$review_query->execute();
+$review_result = $review_query->get_result();
+
+// Get average rating and total reviews
+$avg_rating = 0;
+$total_reviews = 0;
+
+$rating_query = $con->prepare("SELECT AVG(rating) as avg_rating, COUNT(*) as total_reviews FROM reviews WHERE product_ID = ?");
+$rating_query->bind_param("i", $product_id);
+$rating_query->execute();
+$rating_result = $rating_query->get_result();
+
+if ($rating_result && $rating_result->num_rows > 0) {
+    $rating_data = $rating_result->fetch_assoc();
+    $avg_rating = round($rating_data['avg_rating'], 1);
+    $total_reviews = $rating_data['total_reviews'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -192,7 +231,9 @@ $product = mysqli_fetch_assoc($result);
                             </div>
                         </div>
                         <div class="d-flex gap-2 mt-3">
-                            <button class="btn btn-outline-secondary">Add to Cart</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Add to Cart
+                            </button>
                         </div>
                     </div>
                     <div class="productinfo">
@@ -213,24 +254,35 @@ $product = mysqli_fetch_assoc($result);
                     </div>
 
                     <div class="reviewsection">
-                        <div class="review-list mt-5">
-                            <h4>Customer Reviews</h4>
-                            <div id="reviewsContainer">
-                                <!-- Example review -->
+                    <div class="review-list mt-5">
+                    <h4>Customer Reviews</h4>
+                    <div id="reviewsContainer">
+                        <?php if ($review_result->num_rows > 0): ?>
+                            <?php while ($row = $review_result->fetch_assoc()): ?>
                                 <div class="mb-3 border-bottom pb-2">
-                                    <strong>Jane Doe</strong>
+                                    <strong><?php echo htmlspecialchars($row['FirstName'] . ' ' . $row['LastName']); ?></strong>
                                     <div class="star text-warning">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star"></i>
+                                        <?php
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            echo $i <= $row['rating'] ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
+                                        }
+                                        ?>
                                     </div>
-                                    <p>Love the texture and quality!</p>
+                                    <p><?php echo htmlspecialchars($row['review_text']); ?></p>
+
+                                    <?php if (!empty($row['admin_reply'])): ?>
+                                        <div class="admin-reply text-primary">
+                                            <strong>Admin Reply:</strong> <?= htmlspecialchars($row['admin_reply']) ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
-                            </div>
-                        </div>
-                        
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <p>No reviews yet. Be the first to review!</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                                        
                         <!-- Review Form -->
                         <div class="mt-4">
                             <h5>Leave a Review</h5>
@@ -251,10 +303,12 @@ $product = mysqli_fetch_assoc($result);
                                     <label for="reviewText" class="form-label">Your Review</label>
                                     <textarea class="form-control" id="reviewText" rows="3" required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-outline-secondary buttoncolor">Submit Review</button>
+                                <button type="button" class="btn btn-outline-secondary buttoncolor" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Submit Review
+                                    </button>
                             </form>
                         </div>
-                    </div>  
+                    </div>
                                      
                 </div>
             </div>
