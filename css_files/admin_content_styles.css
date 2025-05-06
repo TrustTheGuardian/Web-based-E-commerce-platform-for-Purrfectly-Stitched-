@@ -220,6 +220,7 @@ aside .sidebar a:hover i{
 
 /* ============= MAIN CONTENT ================= */
 
+/* ================== Banner Content ========== */
 main {
     margin-top: 2rem;
 }
@@ -232,7 +233,7 @@ main {
     margin-bottom: 2rem;
     text-align: center;
     background: var(--color-white);
-    border-radius: var(--card-border-radius);
+    border-radius: var(--border-radius-1);
     box-shadow: var(--box-shadow);
     padding: var(--card-padding);
     display: flex;
@@ -244,7 +245,6 @@ main {
 
 .carousel-container h2{
     margin-bottom: 1rem;
-    color: var(--color-dark-variant);
 }
 
 .main-image {
@@ -322,10 +322,119 @@ main {
 }
 
 .remove-image:hover, .remove-announcement:hover  {
-    filter: brightness(0.9); /* Makes the button appear slightly darker when hovered */
+    filter: brightness(0.9); 
     transform: scale(1.03);  
 }
-/* confirmation modal */
+
+
+/* ================== announcement content ================== */
+
+.announcement-container {
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 2rem;
+    text-align: center;
+    background: var(--color-light);
+    border-radius: var(--border-radius-2);
+    padding: var(--card-padding);
+    display: block;
+    align-items: center;
+    overflow: hidden;
+}
+
+.announcement-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem;
+    background: transparent;
+    width: 100%;
+    align-items: flex-start; /* Prevent stretching */
+}
+
+.postAnnouncement {
+    flex: 0 0 48%; 
+    max-height: 600px; 
+    overflow: hidden;
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+}
+
+.listAnnouncement {
+    flex: 1;
+    max-height: 600px; 
+    overflow-y: auto; /* Enables scrolling */
+    padding-right: 0.5rem; 
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+}
+
+.postAnnouncement h2, .listAnnouncement h2{
+    margin-bottom: 1.5rem;
+    color: var(--color-dark-variant);
+}
+
+.postAnnouncement textarea,
+.postAnnouncement input {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-background);
+    color: var(--color-info-dark);
+}
+
+.announcement_card {
+    position: relative;
+    background-color: var(--color-background);
+    padding: 1rem;
+    border-radius: var(--border-radius-1);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1rem;
+    text-align: left;
+    overflow: visible;
+}
+
+.announcement_card strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    color: var(--color-dark);
+}
+
+.announcement_card small {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--color-info-dark);
+}
+
+.announcement_card p {
+    margin: 0;
+    color: var(--color-dark-variant);
+    white-space: normal;  /* ensures full content wraps */
+    overflow: visible;
+}
+
+/* Delete button styling */
+.delete-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.7rem;
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--color-danger);
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+
 
 /* ======================= RIGHT =================== */
 .right {
@@ -452,6 +561,9 @@ main {
 
     }
 
+    .announcement-wrapper {
+        flex-direction: column;
+    }
 }
 
 /* ============== RESPONSIVE PHONE ================= */
