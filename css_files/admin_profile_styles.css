@@ -401,6 +401,7 @@ main .actions {
 
 .right .top .log-out:hover{
     filter: brightness(0.9);
+    cursor: pointer;
 }
 
 /* Logout Modal Styles */

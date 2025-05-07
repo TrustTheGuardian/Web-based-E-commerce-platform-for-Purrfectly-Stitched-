@@ -386,6 +386,7 @@ main table tbody tr:last-child td{
 
 .right .top .log-out:hover{
     filter: brightness(0.9);
+    cursor: pointer;
 }
 
 .custom-modal-content {

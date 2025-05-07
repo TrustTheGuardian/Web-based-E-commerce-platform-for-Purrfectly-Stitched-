@@ -494,6 +494,7 @@ main {
 
 .right .top .log-out:hover{
     filter: brightness(0.9);
+    cursor: pointer;
 }
 
 /* ==== log out Custom Modal Styles =========== */
