@@ -442,10 +442,14 @@ main .total-sales h1, main .total-sales h2{
     gap: 0.5rem;
     background: var(--color-danger);
     padding: 0.8rem;
-    border-radius: 20px;
+    border-radius: var(--border-radius-2);
     color: var(--color-white);
     font-size: 1.2rem;
     align-items: center;
+}
+
+.right .top .log-out:hover{
+    filter: brightness(0.9);
 }
 
 /* Logout Modal Styles */
