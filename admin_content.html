@@ -63,36 +63,50 @@
             <p>Edit Banners and Announcement</p><br>
 
             <!-- Banner Management Section -->
-            <div class="carousel-container">
-                <h2>Banner-Content</h2>
-                <div class="main-image">
-                <img id="currentImage" src="pictures/Purrfectly Stitch.png" alt="Main Image">
-                </div>
-                <div class="thumbnails">
-                <img src="pictures/Purrfectly Stitch.png" alt="Thumbnail 1" onclick="changeImage(this)">
-                <img src="pictures/man-user-circle-icon.png" alt="Thumbnail 2" onclick="changeImage(this)">
-                <img src="pictures/joshuam.png" alt="Thumbnail 3" onclick="changeImage(this)">
-                </div>
-
-                <!-- Add Banner Form -->
-                <div class="action-image-container">
-                <form action="upload_banner.php" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="banner_image" accept="image/*" required>
-                    <button type="submit" class="add-banner">Add Image</button>
-                </form>
-
-                <!-- Example: Remove Banner Button (implement deletion logic if needed) -->
-                <form action="delete_banner.php" method="POST">
-                    <input type="hidden" name="banner_id" value="/* dynamically loaded banner ID */">
-                    <button type="submit" class="remove-banner">Remove Image</button>
-                </form>
-                </div>
-            </div>
+                <div class="banner-wrapper">
+                    <!-- Left: Add Banner -->
+                    <div class="postBanner">
+                        <h2>Upload Banner</h2>
+                        <form action="upload_banner.php" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="banner_image" accept="image/*" required>
+                            <button type="submit" class="add-banner"><i class="bi bi-upload"></i> Add Image</button>
+                        </form>
+                    </div>
+                  
+                    <!-- Right: Posted Banners -->
+                    <div class="listBanner">
+                        <h2>Posted Banners</h2>
+                        <div class="banner-scroll">
+                            <!-- Each Image Card -->
+                            <div class="banner-card">
+                            <img src="pictures/Purrfectly Stitch.png" alt="Banner">
+                            <form action="delete_banner.php" method="POST">
+                                <input type="hidden" name="banner_id" value="1">
+                                <button type="submit" class="delete-banner"><i class="bi bi-trash-fill"></i></button>
+                            </form>
+                        </div>
+                  
+                        <div class="banner-card">
+                            <img src="pictures/joshuam.png" alt="Banner">
+                            <form action="delete_banner.php" method="POST">
+                                <input type="hidden" name="banner_id" value="2">
+                                <button type="submit" class="delete-banner"><i class="bi bi-trash-fill"></i></button>
+                            </form>
+                        </div>
+                        
+                        <div class="banner-card">
+                            <img src="pictures/man-user-circle-icon.png" alt="Banner">
+                            <form action="delete_banner.php" method="POST">
+                                <input type="hidden" name="banner_id" value="2">
+                                <button type="submit" class="delete-banner"><i class="bi bi-trash-fill"></i></button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
 
             <!-- Announcement Management Section -->
             <div class="announcement-container">
-                <h2>Announcement-Content</h2>
-
                 <div class="announcement-wrapper">
                     <div class="postAnnouncement">
                         <h2>Post Announcement</h2>
@@ -104,7 +118,7 @@
                     <div class="listAnnouncement">
                         <h2>Posted Announcements</h2>
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -114,7 +128,7 @@
                         </div>
                         
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -124,7 +138,7 @@
                         </div>
 
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -134,7 +148,7 @@
                         </div>
 
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -144,7 +158,7 @@
                         </div>
 
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -154,7 +168,7 @@
                         </div>
 
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -164,7 +178,7 @@
                         </div>
 
                         <div class="announcement_card">
-                            <button class="delete-btn"><i class="bi bi-trash-fill"></i></button>
+                            <button class="delete-announcement"><i class="bi bi-trash-fill"></i></button>
                             <strong>Title of Announcement</strong>
                             <small>05/06/2025</small>
                             <p>
@@ -232,27 +246,33 @@
         </div>
     </div>
 
-    <!-- Remove image Confirmation Modal -->
-    <div id="removeBanner" class="custom-modal">
-        <div class="custom-modal-content">
-            <p>Are you sure you want to remove this Banner?</p>
-            <div class="custom-modal-buttons">
-                <button id="confirmremove">Yes</button>
-                <button id="cancelremove">No</button>
+    <!-- Delete Banner Modal -->
+    <div id="bannerModal" class="modal-overlay">
+        <div class="modal-box">
+        <h2>Delete Banner</h2>
+        <p>Are you sure you want to delete this banner?</p>
+        <form id="bannerDeleteForm" method="POST" action="delete_banner.php">
+            <input type="hidden" name="banner_id" id="modalBannerId">
+            <div class="modal-buttons">
+            <button type="button" class="cancel-btn" onclick="closeBannerModal()">Cancel</button>
+            <button type="submit" class="confirm-btn">Delete</button>
             </div>
+        </form>
         </div>
     </div>
-
-    <!-- Remove image Confirmation Modal -->
-    <div id="removeAnnouncement" class="custom-modal">
-        <div class="custom-modal-content">
-            <p>Are you sure you want to remove this Announcement?</p>
-            <div class="custom-modal-buttons">
-                <button id="confirmremove">Yes</button>
-                <button id="cancelremove">No</button>
-            </div>
+    
+    <!-- Delete Announcement Modal -->
+    <div id="announcementModal" class="modal-overlay">
+        <div class="modal-box">
+        <h2>Delete Announcement</h2>
+        <p>Are you sure you want to delete this announcement?</p>
+        <div class="modal-buttons">
+            <button type="button" class="cancel-btn" onclick="closeAnnouncementModal()">Cancel</button>
+            <button type="button" class="confirm-btn" id="confirmDeleteAnnouncement">Delete</button>
         </div>
-    </div>    
+        </div>
+    </div>
+      
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
@@ -323,65 +343,46 @@
             }
         });
 
-        // carousel function
-        function changeImage(thumbnail) {
-        const mainImage = document.getElementById('currentImage');
-        mainImage.src = thumbnail.src;
+        // Banner Modal Logic
+        const bannerModal = document.getElementById("bannerModal");
+        const modalBannerId = document.getElementById("modalBannerId");
+        const bannerDeleteForm = document.getElementById("bannerDeleteForm");
+
+        document.querySelectorAll(".delete-banner").forEach(button => {
+            button.addEventListener("click", function(e) {
+            e.preventDefault();
+            const form = this.closest("form");
+            const bannerId = form.querySelector('input[name="banner_id"]').value;
+            modalBannerId.value = bannerId;
+            bannerModal.style.display = "flex";
+            });
+        });
+
+        function closeBannerModal() {
+            bannerModal.style.display = "none";
         }
 
-        // --- REMOVE BANNER MODAL LOGIC ---
-        const removeBannerBtn = document.querySelector('.remove-banner');
-        const removeBannerModal = document.getElementById('removeBanner');
-        const confirmRemoveBanner = document.querySelector('#removeBanner #confirmremove');
-        const cancelRemoveBanner = document.querySelector('#removeBanner #cancelremove');
+        // Announcement Modal Logic
+        const announcementModal = document.getElementById("announcementModal");
+        let currentAnnouncement = null;
 
-        removeBannerBtn.addEventListener('click', () => {
-            removeBannerModal.style.display = 'block';
+        document.querySelectorAll(".delete-announcement").forEach(button => {
+            button.addEventListener("click", function() {
+            currentAnnouncement = this.closest(".announcement_card");
+            announcementModal.style.display = "flex";
+            });
         });
 
-        cancelRemoveBanner.addEventListener('click', () => {
-            removeBannerModal.style.display = 'none';
-        });
-
-        confirmRemoveBanner.addEventListener('click', () => {
-            const mainImage = document.querySelector('.carousel-container .main-image img');
-            if (mainImage) {
-                mainImage.src = '';
+        document.getElementById("confirmDeleteAnnouncement").addEventListener("click", function() {
+            if (currentAnnouncement) {
+            currentAnnouncement.remove(); // or send AJAX/delete logic
             }
-            removeBannerModal.style.display = 'none';
+            closeAnnouncementModal();
         });
 
-        // --- REMOVE ANNOUNCEMENT MODAL LOGIC ---
-        const removeAnnouncementBtn = document.querySelector('.remove-announcement');
-        const removeAnnouncementModal = document.getElementById('removeAnnouncement');
-        const confirmRemoveAnnouncement = document.querySelector('#removeAnnouncement #confirmremove');
-        const cancelRemoveAnnouncement = document.querySelector('#removeAnnouncement #cancelremove');
-
-        removeAnnouncementBtn.addEventListener('click', () => {
-            removeAnnouncementModal.style.display = 'block';
-        });
-
-        cancelRemoveAnnouncement.addEventListener('click', () => {
-            removeAnnouncementModal.style.display = 'none';
-        });
-
-        confirmRemoveAnnouncement.addEventListener('click', () => {
-            const mainImage = document.querySelectorAll('.carousel-container')[1].querySelector('.main-image img');
-            if (mainImage) {
-                mainImage.src = '';
-            }
-            removeAnnouncementModal.style.display = 'none';
-        });
-
-        // Close modals if clicking outside
-        window.addEventListener('click', (event) => {
-            if (event.target === removeBannerModal) {
-                removeBannerModal.style.display = 'none';
-            }
-            if (event.target === removeAnnouncementModal) {
-                removeAnnouncementModal.style.display = 'none';
-            }
-        });
+        function closeAnnouncementModal() {
+            announcementModal.style.display = "none";
+        }
 
     </script>
 
