@@ -1,15 +1,14 @@
 <?php
 session_start();
-include 'db_connection.php'; // Ensure this includes $con (your DB connection)
+include 'db_connection.php'; // Make sure this sets up $con (the MySQLi connection)
 
-// Only handle POST from the modal:
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1) Grab & sanitize
+    // 1. Sanitize inputs
     $email    = mysqli_real_escape_string($con, $_POST['Email']);
     $password = $_POST['Password'];
 
-    // 2) Lookup user
-    $stmt = $con->prepare("SELECT user_ID, Email, Password, is_banned FROM users WHERE Email = ?");
+    // 2. Prepare and execute user query (includes user_role)
+    $stmt = $con->prepare("SELECT user_ID, Email, Password, is_banned, user_role FROM users WHERE Email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -17,20 +16,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($res && $res->num_rows === 1) {
         $user = $res->fetch_assoc();
 
-        // 🛑 Check if banned
+        // 🛑 Check if user is banned
         if ($user['is_banned'] == 1) {
             header("Location: index.php?banned=1");
             exit;
         }
 
-        // 3) Verify
+        // 3. Verify password
         if (password_verify($password, $user['Password'])) {
+            // ✅ Store session data
             $_SESSION['user_id']    = $user['user_ID'];
             $_SESSION['user_email'] = $user['Email'];
+            $_SESSION['user_role']  = $user['user_role'];
 
-            // 4) Retrieve cart_ID for the logged-in user from the 'cart' table
+            // 4. Load existing cart (if any)
             $user_ID = $_SESSION['user_id'];
-
             $stmt_cart = $con->prepare("SELECT cart_ID FROM cart WHERE user_ID = ?");
             $stmt_cart->bind_param("i", $user_ID);
             $stmt_cart->execute();
@@ -51,8 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // Redirect to the user home page after login
-            header('Location: user_home.php');
+            // 5. Redirect based on user role
+            if ($user['user_role'] === 'admin') {
+                header('Location: admin_dashboard.php');
+            } else {
+                header('Location: user_home.php');
+            }
             exit;
         } else {
             echo "<script>alert('Incorrect password.'); window.history.back();</script>";
@@ -64,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// If someone GETs this file, just bounce them back:
+// If accessed via GET, redirect to homepage
 header('Location: index.php');
 exit;
 ?>

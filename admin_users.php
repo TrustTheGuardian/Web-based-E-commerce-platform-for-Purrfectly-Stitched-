@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Redirect if not logged in or not an admin
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: index.php?unauthorized=1");
+    exit;
+}
+include 'db_connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,59 +97,63 @@
                 </tr>
             </thead>
             <tbody>
-                    <?php
-                        include 'db_connection.php';
+            <?php
+                    include 'db_connection.php';
 
-                        $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
-                        
-                        if (!empty($search)) {
-                            $query = "SELECT * FROM users WHERE 
-                                user_ID LIKE '%$search%' OR 
-                                FirstName LIKE '%$search%' OR 
-                                LastName LIKE '%$search%' OR  
-                                Address LIKE '%$search%'";
-                        } else {
-                            $query = "SELECT * FROM users";
+                    $search = isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '';
+
+                    // Modified query to exclude users with the 'admin' role
+                    if (!empty($search)) {
+                        // Exclude the admin role from search results
+                        $query = "SELECT * FROM users WHERE 
+                                    user_role != 'admin' AND
+                                    (user_ID LIKE '%$search%' OR 
+                                    FirstName LIKE '%$search%' OR 
+                                    LastName LIKE '%$search%' OR  
+                                    Address LIKE '%$search%')";
+                    } else {
+                        // Exclude admin from all users when no search term is provided
+                        $query = "SELECT * FROM users WHERE user_role != 'admin'";
+                    }
+
+                    $result = mysqli_query($con, $query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            $id = $row['user_ID'];
+                            $name = $row['FirstName'] . ' ' . $row['LastName'];
+                            $mobile = $row['Mobile'];
+                            $address = $row['Address'];
+                            $created = date("m/d/Y", strtotime($row['CreatedAt']));
+                            $isBanned = $row['is_banned'];
+                            $image = $row['ProfileImage'];
+                            $profileImage = (!empty($image) && file_exists($image)) ? $image : 'default_profile.png';
+
+                            echo "<tr>
+                                <td><img src='$profileImage' alt='Profile' style='width:40px; height:40px; object-fit:cover; border-radius:50%;'></td>
+                                <td>$id</td>
+                                <td>$name</td>
+                                <td>$mobile</td>
+                                <td>$address</td>
+                                <td>$created</td>
+                                <td class='actions'>
+                                    <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a> |
+                                    <a href='#' onclick='openDeleteModal($id)' class='action-link delete'>Delete</a> |";
+
+                                    if ($isBanned == 0) {
+                                        echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
+                                            <span class='action-link unban' style='display:none;'>Unban</span>";
+                                    } else {
+                                        echo "<a href='adminban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
+                                            <span class='action-link ban' style='display:none;'>Ban</span>";
+                                    }
+
+                            echo "</td></tr>";
                         }
-
-                        $result = mysqli_query($con, $query);
-
-                        if (mysqli_num_rows($result) > 0) {
-                            while($row = mysqli_fetch_assoc($result)) {
-                                $id = $row['user_ID'];
-                                $name = $row['FirstName'] . ' ' . $row['LastName'];
-                                $mobile = $row['Mobile'];
-                                $address = $row['Address'];
-                                $created = date("m/d/Y", strtotime($row['CreatedAt']));
-                                $isBanned = $row['is_banned'];
-                                $image = $row['ProfileImage'];
-                                $profileImage = (!empty($image) && file_exists($image)) ? $image : 'default_profile.png';
-
-                                echo "<tr>
-                                    <td><img src='$profileImage' alt='Profile' style='width:40px; height:40px; object-fit:cover; border-radius:50%;'></td>
-                                    <td>$id</td>
-                                    <td>$name</td>
-                                    <td>$mobile</td>
-                                    <td>$address</td>
-                                    <td>$created</td>
-                                    <td class='actions'>
-                                        <a href='admin_userprofile.php?user_ID=$id' class='action-link view'>View</a> |
-                                        <a href='#' onclick='openDeleteModal($id)' class='action-link delete'>Delete</a> |";
-
-                                        if ($isBanned == 0) {
-                                            echo "<a href='adminban_user.php?user_ID=$id' class='action-link ban'>Ban</a>
-                                                <span class='action-link unban' style='display:none;'>Unban</span>";
-                                        } else {
-                                            echo "<a href='adminban_user.php?user_ID=$id' class='action-link unban'>Unban</a>
-                                                <span class='action-link ban' style='display:none;'>Ban</span>";
-                                        }
-
-                                echo "</td></tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='7' style='text-align:center;'>No users found.</td></tr>";
-                        }
-                    ?>
+                    } else {
+                        echo "<tr><td colspan='7' style='text-align:center;'>No users found.</td></tr>";
+                    }
+                ?>
                     </tbody>
         </table>
     </div>

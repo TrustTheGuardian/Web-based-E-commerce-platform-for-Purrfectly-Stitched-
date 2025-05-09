@@ -23,7 +23,6 @@ if (mysqli_num_rows($result) === 0) {
 }
 
 $product = mysqli_fetch_assoc($result);
-$userID = $_SESSION['user_id'];
 
 $query = "SELECT ProfileImage FROM users WHERE user_ID = ?";
 $stmt = $con->prepare($query);

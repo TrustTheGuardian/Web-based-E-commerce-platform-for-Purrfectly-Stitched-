@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Redirect if not logged in or not an admin
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: index.php?unauthorized=1");
+    exit;
+}
 include 'db_connection.php';
 
 // Handle selected filter or custom range
@@ -51,13 +58,19 @@ $ordersQuery = "
 $ordersResult = mysqli_query($con, $ordersQuery);
 $totalOrders = mysqli_fetch_assoc($ordersResult)['total_orders'] ?? 0;
 
-$usersQuery = "
-    SELECT COUNT(*) AS total_users 
+// Filtered users count (excluding admins)
+$filteredUsersQuery = "
+    SELECT COUNT(*) AS filtered_users 
     FROM users 
-    WHERE $whereConditionUsers
+    WHERE $whereConditionUsers AND user_role != 'admin'
 ";
-$usersResult = mysqli_query($con, $usersQuery);
-$totalUsers = mysqli_fetch_assoc($usersResult)['total_users'] ?? 0;
+$filteredUsersResult = mysqli_query($con, $filteredUsersQuery);
+$filteredUsers = mysqli_fetch_assoc($filteredUsersResult)['filtered_users'] ?? 0;
+
+// Total users (unfiltered but still excluding admins)
+$totalUsersQuery = "SELECT COUNT(*) AS total_users FROM users WHERE user_role != 'admin'";
+$totalUsersResult = mysqli_query($con, $totalUsersQuery);
+$totalUsers = mysqli_fetch_assoc($totalUsersResult)['total_users'] ?? 0;
 
 // Recent Orders (always latest, no filter)
 $recentOrdersQuery = "
@@ -217,11 +230,7 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                     <h1><?php echo $totalUsers; ?></h1>
                 </div>
             </div>
-            <small class="text-muted">
-            <?php
-                echo $filter == 'custom_range' ? "$fromDate to $toDate" : ucfirst(str_replace('_', ' ', $filter));
-                ?>
-            </small>
+            <small class="text-muted"></small>
         </div>
     </div>
     <!-- END OF INSIGHTS -->

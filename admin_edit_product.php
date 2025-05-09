@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Redirect if not logged in or not an admin
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: index.php?unauthorized=1");
+    exit;
+}
 include 'db_connection.php';
 
 // Get the product ID from query string

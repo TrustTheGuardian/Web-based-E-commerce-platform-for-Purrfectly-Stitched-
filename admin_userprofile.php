@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Redirect if not logged in or not an admin
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: index.php?unauthorized=1");
+    exit;
+}
 include 'db_connection.php';
 
 if (!isset($_GET['user_ID'])) {
@@ -148,11 +155,11 @@ $profileImage = !empty($user['ProfileImage']) && file_exists($user['ProfileImage
     </table>
 </div>
 
-        <div class="actions">
+        <!-- <div class="actions" data-user-id="<?php echo $user['user_ID']; ?>">
             <span class="action-link delete">Delete</span>
-            <span class="action-link ban">Ban</span>
-            <span class="action-link unban" style="display: none;">Unban</span>
-        </div>
+            <span class="action-link ban" <?php echo $user['is_banned'] ? 'style="display:none;"' : ''; ?>>Ban</span>
+            <span class="action-link unban" <?php echo $user['is_banned'] ? '' : 'style="display:none;"'; ?>>Unban</span>
+        </div> -->
     </main>
 
         <div class="right">
@@ -248,6 +255,69 @@ $profileImage = !empty($user['ProfileImage']) && file_exists($user['ProfileImage
             themeToggler.querySelector('i:nth-child(1)').classList.toggle('active');
             themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
         })
+
+//     document.querySelectorAll('.actions').forEach(actionBox => {
+//     const userId = actionBox.dataset.userId;
+//     const deleteBtn = actionBox.querySelector('.delete');
+//     const banBtn = actionBox.querySelector('.ban');
+//     const unbanBtn = actionBox.querySelector('.unban');
+
+//     deleteBtn.addEventListener('click', () => {
+//         if (confirm("Are you sure you want to delete this user?")) {
+//             fetch(`admindelete_user.php`, {
+//                 method: 'POST',
+//                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//                 body: `user_ID=${userId}`
+//             })
+//             .then(response => response.text())
+//             .then(data => {
+//                 if (data.trim() === 'success') {
+//                     actionBox.closest('.user-row').remove(); // assumes parent class is .user-row
+//                 } else {
+//                     alert("Failed to delete user.");
+//                 }
+//             });
+//         }
+//     });
+
+//     banBtn.addEventListener('click', () => {
+//         if (confirm("Ban this user?")) {
+//             fetch(`adminban_user.php`, {
+//                 method: 'POST',
+//                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//                 body: `user_ID=${userId}`
+//             })
+//             .then(response => response.text())
+//             .then(data => {
+//                 if (data.trim() === 'banned') {
+//                     banBtn.style.display = 'none';
+//                     unbanBtn.style.display = 'inline';
+//                 } else {
+//                     alert("Failed to ban user.");
+//                 }
+//             });
+//         }
+//     });
+
+//     unbanBtn.addEventListener('click', () => {
+//         if (confirm("Unban this user?")) {
+//             fetch(`adminban_user.php`, {
+//                 method: 'POST',
+//                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//                 body: `user_ID=${userId}`
+//             })
+//             .then(response => response.text())
+//             .then(data => {
+//                 if (data.trim() === 'unbanned') {
+//                     unbanBtn.style.display = 'none';
+//                     banBtn.style.display = 'inline';
+//                 } else {
+//                     alert("Failed to unban user.");
+//                 }
+//             });
+//         }
+//     });
+// });
         
     </script>
 
