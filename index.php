@@ -1,8 +1,11 @@
 <?php
 session_start();
-if (isset($_SESSION['user_id'])) {
-    // Already logged in? Send them to the members’ area.
-    header('Location: user_home.php');
+if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
+    if ($_SESSION['user_role'] === 'admin') {
+        header('Location: admin_dashboard.php');
+    } else {
+        header('Location: user_home.php');
+    }
     exit;
 }
 ?>
