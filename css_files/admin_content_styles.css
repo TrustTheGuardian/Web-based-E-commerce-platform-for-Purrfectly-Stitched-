@@ -384,13 +384,32 @@ main {
 .postAnnouncement input {
     width: 100%;
     padding: 0.8rem;
-    background-color: var(--color-background);
+    background: var(--color-background);
     color: var(--color-info-dark);
+}
+
+.add-announcement {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+    background: var(--color-primary);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-announcement:hover {
+    background: var(--color-primary-variant);
 }
 
 .announcement_card {
     position: relative;
-    background-color: var(--color-background);
+    background: var(--color-background);
     padding: 1rem;
     border-radius: var(--border-radius-1);
     box-shadow: var(--box-shadow);
@@ -626,7 +645,7 @@ main {
 @media screen and (max-width: 1200px) {
     .container {
         width: 94%;
-        grid-template-columns: 7rem auto 23rem;
+        grid-template-columns: 7rem auto 15rem;
     }
 
     aside .sidebar h3 {
@@ -634,12 +653,18 @@ main {
     }
 
     aside .sidebar a {
-        width: 5.6rem;
-
+        width: 100%; 
+        padding-left: 1rem;
     }
 
     .announcement-wrapper {
         flex-direction: column;
+        align-items: center;
+    }
+
+    .banner-wrapper {
+        flex-direction: column;
+        padding: 1rem; 
     }
 }
 
