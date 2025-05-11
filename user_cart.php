@@ -103,7 +103,7 @@ if ($result && $result->num_rows > 0) {
                 echo "
                 <div class='product-card2' style='display: flex; align-items: center; border-bottom: 1px solid #ccc; padding: 20px 20px;'>
                     <img class='imgproduct' src='$img' alt='Product' style='border-radius: 10px; margin-right: 20px;'>
-                    <div style='flex: 1;'>
+                    <div style='flex: 2;'>
                         <h3 class='card-title'>$title</h3>
                         <p class='price'>₱$price</p>
                     </div>

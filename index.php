@@ -51,9 +51,10 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['user_role'])) {
               Menu
           </button>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Home</a></li>
-              <li><a class="dropdown-item" href="#">Shop</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="index.php">Home</a></li>
+              <li><a class="dropdown-item" href="shop.php">Shop</a></li>
+              <li><a class="dropdown-item" href="#loginModal"  data-bs-toggle="modal">Login</a></li>
+              <li><a class="dropdown-item" href="registration.php">Create Account</a></li>
           </ul>
         </div>
       

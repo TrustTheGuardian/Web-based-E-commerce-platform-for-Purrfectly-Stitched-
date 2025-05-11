@@ -34,3 +34,6 @@
     justify-content: center;
 }
 
+.card-body{
+    margin-bottom: 100px;
+}

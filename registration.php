@@ -198,10 +198,7 @@
         
     
     
-    <div class="footer">
-        &copy; 2025 Your Website | All Rights Reserved
-    </div>
-
+  
 
     <!-- Bootstrap JS -->
 

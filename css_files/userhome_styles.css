@@ -151,8 +151,8 @@ body {
 }
 
 .product-card2 img {
-    width: 200px;
-    height: 200px; /* Set a fixed height for all product images */
+    width: 70px;
+    height: 70px; /* Set a fixed height for all product images */
    
 }
 
@@ -299,7 +299,6 @@ body {
     text-align: center;
     padding: 15px;
     bottom: 0;
-
     width: 100%;
 }
 
@@ -552,4 +551,8 @@ body {
     }
   }
   
-  
+
+  /* Smaller screen adjustments */
+
+  /* Styles for screens smaller than 768px (Tablets and smaller devices) */
+

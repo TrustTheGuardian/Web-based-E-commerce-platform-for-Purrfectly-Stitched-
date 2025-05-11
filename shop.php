@@ -90,18 +90,7 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
           ? trim($_GET['search']) 
           : '';
       ?>
-      <form class="search-bar-container" method="GET" action="">
-        <input 
-          type="text" 
-          name="search" 
-          class="search-input" 
-          placeholder="Search products…" 
-          value="<?= htmlspecialchars($search) ?>"
-        >
-        <button type="submit" class="btn">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
+      
           
     
     <div class="menu">
@@ -113,7 +102,7 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
           <!-- Dropdown Menu -->
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a>
+                <a class="dropdown-item" href="#loginModal" data-bs-toggle="modal" data-bs-target="#loginModal">Log in</a>
               </li>
               <li>
                 <a class="dropdown-item" href="registration.php">Create account</a>
@@ -130,9 +119,8 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
               Menu
           </button>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Home</a></li>
-              <li><a class="dropdown-item" href="#">Shop</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="index.php">Home</a></li>
+              <li><a class="dropdown-item" href="shop.php">Shop</a></li>
           </ul>
         </div>
       
@@ -170,8 +158,22 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
 
 
   <div class="shopcategorybar mb-4">
+    
     <nav class="category-bar">
-      <a
+      <form class="search-bar-container" method="GET" action="">
+        <input 
+          type="text" 
+          name="search" 
+          class="search-input" 
+          placeholder="Search products…" 
+          value="<?= htmlspecialchars($search) ?>"
+        >
+        <button type="submit" class="btn">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+      <div>
+        <a
         href="shop.php"
         class="btn <?= $selectedCat === null ? 'btn-custom' : '' ?>"
       >All</a>
@@ -183,6 +185,8 @@ $prodRes = mysqli_query($con, $sql) or die(mysqli_error($con));
           <?= htmlspecialchars($cat['category_name']) ?>
         </a>
       <?php endwhile; ?>
+      </div>
+      
     </nav>
   </div>
 

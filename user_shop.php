@@ -100,18 +100,7 @@ if ($result && $result->num_rows > 0) {
           ? trim($_GET['search']) 
           : '';
       ?>
-      <form class="search-bar-container" method="GET" action="">
-        <input 
-          type="text" 
-          name="search" 
-          class="search-input" 
-          placeholder="Search products…" 
-          value="<?= htmlspecialchars($search) ?>"
-        >
-        <button type="submit" class="btn">
-          <i class="bi bi-search"></i>
-        </button>
-      </form>
+  
           
     
       <div class="menu">
@@ -143,8 +132,22 @@ if ($result && $result->num_rows > 0) {
 
 
   <div class="shopcategorybar mb-4">
+  
     <nav class="category-bar">
-      <a
+      <form class="search-bar-container" method="GET" action="">
+        <input 
+          type="text" 
+          name="search" 
+          class="search-input" 
+          placeholder="Search products…" 
+          value="<?= htmlspecialchars($search) ?>"
+        >
+        <button type="submit" class="btn">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+      <DIV>
+        <a
         href="user_shop.php"
         class="btn <?= $selectedCat === null ? 'btn-custom' : '' ?>"
       >All</a>
@@ -156,6 +159,8 @@ if ($result && $result->num_rows > 0) {
           <?= htmlspecialchars($cat['category_name']) ?>
         </a>
       <?php endwhile; ?>
+      </DIV>
+      
     </nav>
   </div>
 
