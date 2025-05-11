@@ -552,7 +552,40 @@ body {
   }
   
 
+
+
   /* Smaller screen adjustments */
 
-  /* Styles for screens smaller than 768px (Tablets and smaller devices) */
+  @media (max-width: 800px) {
+  .product-card2 {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
 
+  .product-card2 img.imgproduct {
+    margin: 0 0 15px 0 !important;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .product-card2 > div:nth-child(2) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Quantity section stays in a row */
+  .product-card2 > div:nth-child(3) {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .product-card2 .custom-btn {
+    margin-left: 0 !important;
+    align-self: center;
+  }
+}
