@@ -129,7 +129,7 @@ if ($result && $result->num_rows > 0) {
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <a href="user_profile.php" class="btn btn-danger">Yes, Cancel</a>
+                            <a href="user_profile.php" class="btn button">Yes, Cancel</a>
                           </div>
                         </div>
                       </div>
