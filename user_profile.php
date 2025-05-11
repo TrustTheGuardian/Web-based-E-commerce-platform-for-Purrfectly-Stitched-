@@ -88,13 +88,14 @@ $order_result = $stmt_orders->get_result();
     <div class="container-fluid">
         <div class="row containerprofile">
             <div class="space col-1 d-none d-sm-block d-md-block"></div>
-            <div class="profile col-12 col-lg-3">
+            <div class="profileview col-12 col-lg-3">
                 <!-- Display profile image dynamically -->
-                <img src="<?php echo !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/default-profile.png'; ?>" alt="" class="rounded-circle">
-                
-                <!-- Display user's full name -->
-                <h4><?php echo htmlspecialchars($user['FirstName'] . ' ' . $user['LastName']); ?></h4>
-                
+    
+                    <img src="<?php echo !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/default-profile.png'; ?>" alt="" class="rounded-circle">
+                    <h4><?php echo htmlspecialchars($user['FirstName'] . ' ' . $user['LastName']); ?></h4>
+
+
+                <div class="profile">
                 <!-- Display gender dynamically -->
                 <p class="text-muted mb-1" style="font-size: 14px;">
                     <span style="font-weight: bold;">Gender:</span> <?php echo htmlspecialchars($user['Gender']); ?>
@@ -114,6 +115,7 @@ $order_result = $stmt_orders->get_result();
                 <p class="text-muted mb-1" style="font-size: 14px;">
                     <span style="font-weight: bold;">Address:</span> <?php echo htmlspecialchars($user['Address']); ?>
                 </p>
+                </div>
                 <button onclick="window.location.href='user_editprofile.php'" class="btn btn1 ">⚙️Edit Profile</button>
                 <button onclick="window.location.href='user_changepassword.php'" class="btn btn1 ">⚙️Change Password</button>
                 <button class="btn btn1" data-bs-toggle="modal" data-bs-target="#checkout-modal">🚪Log out</button>
@@ -176,7 +178,7 @@ $order_result = $stmt_orders->get_result();
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
         <!-- Add a form that submits to logout.php -->
         <form action="logout.php" method="POST" id="logout-form">
-          <button type="submit" class="btn btn-primary">Log out</button>
+          <button type="submit" class="btn confirm-btn">Log out</button>
         </form>
       </div>
     </div>

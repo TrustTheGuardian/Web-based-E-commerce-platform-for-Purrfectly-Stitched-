@@ -1,4 +1,4 @@
-<?php
+    <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'user') {
     header('Location: index.php');
@@ -93,7 +93,7 @@ if ($result && $result->num_rows > 0) {
 
                         <div class="text-center d-flex justify-content-center gap-3">
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveModal">Save Changes</button>
+                            <button type="button" class="btn button" data-bs-toggle="modal" data-bs-target="#saveModal">Save Changes</button>
                         </div>
                     </form>
 
@@ -110,7 +110,7 @@ if ($result && $result->num_rows > 0) {
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary" id="confirmSave">Yes, Save</button>
+                            <button type="button" class="btn btn-primary1" id="confirmSave">Yes, Save</button>
                           </div>
                         </div>
                       </div>

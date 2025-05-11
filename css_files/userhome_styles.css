@@ -134,6 +134,24 @@ body {
 
 .product-card img {
     width: 100%;
+    height: 400px; /* Set a fixed height for all product images */
+   
+}
+
+.product-card2 {
+    margin: 0px 20px 0px 20px;
+    width: 100%;
+    border: none;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-card2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-card2 img {
+    width: 200px;
     height: 200px; /* Set a fixed height for all product images */
    
 }
@@ -281,6 +299,7 @@ body {
     text-align: center;
     padding: 15px;
     bottom: 0;
+
     width: 100%;
 }
 
@@ -359,10 +378,13 @@ body {
     box-shadow: 0 0 5px rgba(170, 96, 200, 0.3);
   }
 
-  .imgproduct{
-    width: 70px;
-    height: 70px;
+.imgproduct {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
 }
+
   
   
   

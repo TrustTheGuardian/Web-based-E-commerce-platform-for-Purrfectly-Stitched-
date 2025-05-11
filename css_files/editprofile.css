@@ -93,6 +93,20 @@
   color: white;
 }
 
+.button {
+  background: #AA60C8 !important;
+  color: white !important;
+  font-size: 18px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: background 0.3s  !important;
+}
+
+.button:hover {
+  background: #e63946 !important;
+  color: white !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .editprofile {
