@@ -69,7 +69,7 @@ if ($result && $result->num_rows > 0) {
     <div class="welcometextdesign col-12 col-md-6 mb-4">
         <h1><br>Your Crochet Products</h1>
         <p>Shop now and customize your own Crochet Products</p>
-        <a href="shop.php" class="btn btn-custom">Shop Now &#10140;</a>
+        <a href="user_shop.php" class="btn btn-custom">Shop Now &#10140;</a>
     </div>
     <div class="carouselcontainer col-12 col-md-6">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
