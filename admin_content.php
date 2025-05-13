@@ -253,7 +253,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
             themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
         })
 
-        // Logout modal logic
+                // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');
         const logoutModal = document.getElementById('logoutModal');
         const confirmLogout = document.getElementById('confirmLogout');

@@ -570,7 +570,7 @@ $reviews = $stmt->get_result();
         
         
 
-        // Logout modal logic
+                // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');
         const logoutModal = document.getElementById('logoutModal');
         const confirmLogout = document.getElementById('confirmLogout');

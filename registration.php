@@ -109,15 +109,17 @@
                                         <!-- Email -->
                                         <div class="col-md-4">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required onkeyup="checkEmail()">
+                                            <div id="emailFeedback" class="form-text text-danger"></div>
                                         </div>
 
                                         <!-- Mobile Number -->
                                         <div class="col-md-4">
                                             <label for="mobile" class="form-label">Mobile Number</label>
                                             <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Enter your mobile number" 
-                                                pattern="0[0-9]{10}" required oninput="formatMobile()">
+                                                pattern="0[0-9]{10}" required oninput="formatMobile()" onkeyup="checkMobile()">
                                             <small class="form-text text-muted">Please enter an 11-digit mobile number starting with 0</small>
+                                            <div id="mobileFeedback" class="form-text text-danger"></div>
                                         </div>
 
                                         <!-- House No./Street -->
@@ -154,11 +156,13 @@
                                         <div class="col-md-6">
                                             <label for="password" class="form-label">Password</label>
                                             <div class="input-group">
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" minlength="8" required>
+                                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password"
+                                                    minlength="8" required oninput="validatePassword()">
                                                 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password', this)">
                                                     <i class="bi bi-eye-slash"></i>
                                                 </button>
                                             </div>
+                                            <div id="passwordFeedback" class="form-text text-danger"></div>
                                         </div>
 
                                         <!-- Confirm Password -->
@@ -186,7 +190,6 @@
                                     </div>
                                 </form>
                             </div>
-            
                             <!-- Sign In Link -->
                             <div class="card-footer text-center">
                                 Already have an account? <a href="index.php" class="text-primary">Sign In</a>
@@ -195,7 +198,22 @@
                     </div>
                 </div>
             </div>
-        
+                        <!-- Registration Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Your account has been registered successfully!</p>
+                    <a href='index.php'><button class='btn btn-primary mt-2'>Login Now</button></a>
+                </div>
+                </div>
+            </div>
+            </div>
+                    
     
     
   
@@ -203,6 +221,54 @@
     <!-- Bootstrap JS -->
 
         <script>
+            function validatePassword() {
+            const password = document.getElementById("password").value;
+            const feedback = document.getElementById("passwordFeedback");
+
+            // Regular expressions
+            const lowercase = /[a-z]/;
+            const uppercase = /[A-Z]/;
+            const number = /[0-9]/;
+            const specialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+            let errors = [];
+
+            if (password.length < 8) errors.push("at least 8 characters");
+            if (!lowercase.test(password)) errors.push("a lowercase letter");
+            if (!uppercase.test(password)) errors.push("an uppercase letter");
+            if (!number.test(password)) errors.push("a number");
+            if (!specialChar.test(password)) errors.push("a special character");
+
+            if (errors.length > 0) {
+                feedback.innerHTML = "Password must contain: " + errors.join(", ");
+                document.getElementById("password").setCustomValidity("Invalid password");
+            } else {
+                feedback.innerHTML = "";
+                document.getElementById("password").setCustomValidity("");
+            }
+        }
+            function checkEmail() {
+            const email = document.getElementById('email').value;
+            if (email.length === 0) return;
+
+            fetch('check_duplicate.php?email=' + encodeURIComponent(email))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('emailFeedback').innerHTML = data;
+                });
+        }
+
+        function checkMobile() {
+            const mobile = document.getElementById('mobile').value;
+            if (mobile.length === 0) return;
+
+            fetch('check_duplicate.php?mobile=' + encodeURIComponent(mobile))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('mobileFeedback').innerHTML = data;
+                });
+        }
+
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;

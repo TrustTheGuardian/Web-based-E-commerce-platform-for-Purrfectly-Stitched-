@@ -271,34 +271,28 @@ include 'db_connection.php';
     });
 
     // Logout modal logic
-    const logoutBtn = document.querySelector('.log-out');
-    const logoutModal = document.getElementById('logoutModal');
-    const confirmLogout = document.getElementById('confirmLogout');
-    const cancelLogout = document.getElementById('cancelLogout');
+        const logoutBtn = document.querySelector('.log-out');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogout = document.getElementById('confirmLogout');
+        const cancelLogout = document.getElementById('cancelLogout');
 
-    if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            logoutModal.style.display = 'flex'; // use 'flex' instead of 'block' to center it
+            logoutModal.style.display = 'block';
         });
-    }
 
-    if (cancelLogout) {
         cancelLogout.addEventListener('click', () => {
             logoutModal.style.display = 'none';
         });
-    }
 
-    if (confirmLogout) {
         confirmLogout.addEventListener('click', () => {
             window.location.href = "logout.php"; // Update as needed
         });
-    }
 
-    window.addEventListener('click', (event) => {
-        if (event.target === logoutModal) {
-            logoutModal.style.display = 'none';
-        }
-    });
+        window.addEventListener('click', (event) => {
+            if (event.target === logoutModal) {
+                logoutModal.style.display = 'none';
+            }
+        });
 
     // Delete user modal logic
     let deleteUserId = null;

@@ -206,17 +206,28 @@ if ($rating_result && $rating_result->num_rows > 0) {
                     <!-- Title -->
                     <h1><?= htmlspecialchars($product['product_title']) ?></h1>
                     <p class="text-success mt-2"><?= $product['product_quantity'] > 0 ? 'In stock' : 'Out of stock' ?></p>
-                    <p><?= htmlspecialchars($product['product_description']) ?></p>
                     <br>
                     <div class="pricerating">
                     <h3>₱<?= number_format($product['product_price'], 2) ?></h3>
                         <div class="star">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <i class="bi bi-star"></i>
-                            <small class="text-muted">(12 reviews)</small>
+                            <?php
+                            $fullStars = floor($avg_rating);
+                            $halfStar = ($avg_rating - $fullStars >= 0.5) ? 1 : 0;
+                            $emptyStars = 5 - $fullStars - $halfStar;
+
+                            for ($i = 0; $i < $fullStars; $i++) {
+                                echo '<i class="bi bi-star-fill text-warning"></i>';
+                            }
+
+                            if ($halfStar) {
+                                echo '<i class="bi bi-star-half text-warning"></i>';
+                            }
+
+                            for ($i = 0; $i < $emptyStars; $i++) {
+                                echo '<i class="bi bi-star text-warning"></i>';
+                            }
+                            ?>
+                            <small class="text-muted">(<?= $total_reviews ?> reviews)</small>
                         </div>
                     </div>
                     <hr>

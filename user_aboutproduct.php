@@ -181,7 +181,6 @@ if ($rating_result && $rating_result->num_rows > 0) {
                     <!-- Title -->
                     <h1><?= htmlspecialchars($product['product_title']) ?></h1>
                     <p class="text-success mt-2"><?= $product['product_quantity'] > 0 ? 'In stock' : 'Out of stock' ?></p>
-                    <p><?= htmlspecialchars($product['product_description']) ?></p>
                     <br>
                     <div class="pricerating">
                     <h3>₱<?= number_format($product['product_price'], 2) ?></h3>

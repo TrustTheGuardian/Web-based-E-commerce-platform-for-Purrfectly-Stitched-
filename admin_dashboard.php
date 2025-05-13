@@ -282,7 +282,6 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                 ?>
             </tbody>
         </table>
-        <a href="">Show All...</a>
     </div>
 </main>
         <!-- END OF MAIN  -->

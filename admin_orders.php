@@ -219,7 +219,7 @@ $total_pages = ceil($total_orders / $limit);
             <?php endfor; ?>
         </div>
     </div>
-</main>
+    </main>
 
         <!-- RIGHT TOP AREA -->
         <div class="right">
@@ -315,7 +315,7 @@ $total_pages = ceil($total_orders / $limit);
             </div>
         </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         const currentPage = window.location.pathname.split('/').pop();
@@ -371,7 +371,7 @@ $total_pages = ceil($total_orders / $limit);
             }
         };
 
-        // Logout modal logic
+                // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');
         const logoutModal = document.getElementById('logoutModal');
         const confirmLogout = document.getElementById('confirmLogout');

@@ -515,7 +515,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         });
 
-        // Logout modal logic
+                // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');
         const logoutModal = document.getElementById('logoutModal');
         const confirmLogout = document.getElementById('confirmLogout');
@@ -538,7 +538,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 logoutModal.style.display = 'none';
             }
         });
-
         </script>
 
     
