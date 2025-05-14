@@ -202,7 +202,22 @@ $total_pages = ceil($total_orders / $limit);
                             ?>
                         </td>
                         <td>₱ <?= number_format($order['total_price'], 2) ?></td>
-                        <td class="warning">
+                        <?php
+                            $status_class = '';
+                            switch (strtolower($order['order_status'])) {
+                                case 'completed':
+                                    $status_class = 'success';  
+                                    break;
+                                case 'cancelled':
+                                    $status_class = 'danger';  
+                                    break;
+                                case 'pending':
+                                default:
+                                    $status_class = 'warning'; 
+                                    break;
+                            }
+                            ?>
+                        <td class="<?= $status_class ?>">
                             <span class="status-text"><?= htmlspecialchars($order['order_status']) ?></span>
                             <small class="text-muted change-link" onclick="openOrderDetails(<?= $order['order_ID'] ?>)"> (details)</small>
                         </td>
@@ -318,6 +333,7 @@ $total_pages = ceil($total_orders / $limit);
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+        // toggle page highlight
         const currentPage = window.location.pathname.split('/').pop();
         const sidebarLinks = document.querySelectorAll('.sidebar a');
         sidebarLinks.forEach(link => {
@@ -325,6 +341,7 @@ $total_pages = ceil($total_orders / $limit);
             link.classList.toggle('active', linkPage === currentPage);
         });
 
+        // dark theme toggler
         const sideMenu = document.querySelector("aside");
         const menuBtn = document.querySelector("#menu-btn");
         const closeBtn = document.querySelector("#close-btn");
@@ -339,6 +356,7 @@ $total_pages = ceil($total_orders / $limit);
             themeToggler.querySelector('i:nth-child(2)').classList.toggle('active');
         });
 
+        // order details modal
         const modal = document.getElementById("statusModal");
         const closeModal = document.querySelector(".close-btn");
         const saveBtn = document.getElementById("saveStatus");
@@ -371,7 +389,7 @@ $total_pages = ceil($total_orders / $limit);
             }
         };
 
-                // Logout modal logic
+        // Logout modal logic
         const logoutBtn = document.querySelector('.log-out');
         const logoutModal = document.getElementById('logoutModal');
         const confirmLogout = document.getElementById('confirmLogout');
