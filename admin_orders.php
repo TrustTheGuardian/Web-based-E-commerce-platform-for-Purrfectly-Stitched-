@@ -417,7 +417,6 @@ $total_pages = ceil($total_orders / $limit);
             // Open the modal
             document.getElementById('statusModal').style.display = 'block';
 
-            // Use AJAX to fetch the order details (this assumes you're using PHP to display the modal)
             fetch('admin_order_details.php?order_id=' + orderId)
                 .then(response => response.text())
                 .then(data => {
