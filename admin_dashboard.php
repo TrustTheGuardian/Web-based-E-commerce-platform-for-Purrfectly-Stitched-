@@ -183,14 +183,6 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                     <h3>Total Sales</h3>
                     <h1>₱<?php echo number_format($totalSales, 2); ?></h1>
                 </div>
-                <div class="progress">
-                    <svg>
-                        <circle cx="38" cy="38" r="36"></circle>
-                    </svg>
-                    <div class="number">
-                        <p><?php echo $totalSales > 0 ? '100%' : '0%'; ?></p>
-                    </div>
-                </div>
             </div>
             <small class="text-muted">
                 <?php
@@ -205,15 +197,7 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                 <div class="left">
                     <h3>Total Orders</h3>
                     <h1><?php echo $totalOrders; ?></h1>
-                </div>
-                <div class="progress">
-                    <svg>
-                        <circle cx="38" cy="38" r="36"></circle>
-                    </svg>
-                    <div class="number">
-                        <p><?php echo $totalOrders > 0 ? '100%' : '0%'; ?></p>
-                    </div>
-                </div>                        
+                </div>                    
             </div>
             <small class="text-muted">
                 <?php
