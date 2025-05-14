@@ -252,12 +252,28 @@ $recentOrders = mysqli_query($con, $recentOrdersQuery);
                         }
                         $productsList = implode(",<br>", $productsOrdered);
 
+                        $status = $order['order_status'];
+                        $class = '';
+
+                        switch (strtolower($status)) {
+                            case 'completed':
+                                $class = 'success';
+                                break;
+                            case 'pending':
+                                $class = 'warning';
+                                break;
+                            case 'cancelled':
+                                $class = 'danger';
+                                break;
+                            default:
+                                $class = 'gray';
+                        }                
                         echo "<tr>
                                 <td>{$order['order_ID']}</td>
                                 <td>{$order['FirstName']} {$order['LastName']}</td>
                                 <td>$productsList</td>
                                 <td>{$order['payment_method']}</td>
-                                <td class='warning'>{$order['order_status']}</td>
+                                <td class='$class'>" . htmlspecialchars($status) . "</td>
                               </tr>";
                     }
                 } else {
