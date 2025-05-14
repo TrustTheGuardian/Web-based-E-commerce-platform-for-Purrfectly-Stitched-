@@ -219,7 +219,7 @@ $total_pages = ceil($total_orders / $limit);
                             ?>
                         <td class="<?= $status_class ?>">
                             <span class="status-text"><?= htmlspecialchars($order['order_status']) ?></span>
-                            <small class="text-muted change-link" onclick="openOrderDetails(<?= $order['order_ID'] ?>)"> (details)</small>
+                            <small class="text-muted change-link" onclick="openOrderDetails(<?= $order['order_ID'] ?>)"> details <i class="bi bi-info-circle-fill"></i> </small>
                         </td>
                     </tr>
                 <?php endwhile; ?>

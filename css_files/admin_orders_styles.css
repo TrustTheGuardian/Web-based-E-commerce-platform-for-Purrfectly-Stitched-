@@ -138,31 +138,6 @@ b {
     color: var(--color-warning);
 }
 
-/* Make the "details" link look like a button */
-.details-link {
-    color: #007bff;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 0.2s ease;
-}
-
-/* Add hover effect */
-.details-link:hover {
-    color: #0056b3;
-    transform: scale(1.05);
-}
-
-/* Optional: Add a border around the link to make it stand out more */
-.details-link {
-    border: 1px solid transparent;
-    padding: 2px 5px;
-    border-radius: 5px;
-}
-
-.details-link:hover {
-    border-color: #007bff;
-}
 
 /* =============Sidebar top-part=============== */
 aside {
