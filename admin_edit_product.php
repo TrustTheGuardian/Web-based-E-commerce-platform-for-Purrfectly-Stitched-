@@ -139,8 +139,6 @@ $reviews = $stmt->get_result();
                                     <span class="remove-btn">&times;</span>
                                 </div>
                             </div>
-                            <button class="carousel-btn prev">&lt;</button>
-                            <button class="carousel-btn next">&gt;</button>
                         </div>
                     </div>
                     
@@ -396,8 +394,6 @@ $reviews = $stmt->get_result();
         const carouselImages = document.querySelector('.carousel-images');
         const imageInput = document.getElementById('imageInput');
         const addImagesBtn = document.getElementById('addImagesBtn');
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        const nextBtn = document.querySelector('.carousel-btn.next');
     
         addImagesBtn.addEventListener('click', () => {
             imageInput.click(); // Trigger hidden input
@@ -437,22 +433,7 @@ $reviews = $stmt->get_result();
                 }
             });
         });
-    
-        // IMAGE CAROUSEL PREV & NEXT
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
-    
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < carouselImages.children.length - 1) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
-    
+        
         function updateCarousel() {
             const offset = currentIndex * 350; // Adjust width per image including margin
             carouselImages.style.transform = `translateX(-${offset}px)`;

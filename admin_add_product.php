@@ -143,8 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <span class="remove-btn">&times;</span>
                                 </div>
                             </div>
-                            <button type="button" class="carousel-btn prev">&lt;</button>
-                            <button type="button" class="carousel-btn next">&gt;</button>
                         </div>
                     </div>
 
