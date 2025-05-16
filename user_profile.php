@@ -41,29 +41,30 @@ $order_result = $stmt_orders->get_result();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
-    <!-- Scrollable style for purchases -->
     <style>
-    .purchases::-webkit-scrollbar {
-        width: 8px;
-    }
-    .purchases::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    .purchases::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
-    }
-    .purchases::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+        .purchases::-webkit-scrollbar {
+            width: 8px;
+        }
+        .purchases::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .purchases::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .purchases::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 
 <body>
 <header class="header col-12">
     <div class="logo">
-        <a href="user_home.php"><img src="pictures/Purrfectly Stitch.png" alt="sample logo" width="60px" height="50px">
-        <h2>Purrfectly Stitched</h2></a>
+        <a href="user_home.php">
+            <img src="pictures/Purrfectly Stitch.png" alt="sample logo" width="60px" height="50px">
+            <h2>Purrfectly Stitched</h2>
+        </a>
     </div>
 
     <div class="menu">
@@ -72,9 +73,6 @@ $order_result = $stmt_orders->get_result();
             <img src="<?php echo !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/man-user-circle-icon.png'; ?>" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
         </a>
         <?php
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
         $cart_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         ?>
         <a href="user_cart.php" class="position-relative">
@@ -116,55 +114,62 @@ $order_result = $stmt_orders->get_result();
                 <button class="btn btn1" data-bs-toggle="modal" data-bs-target="#checkout-modal">🚪Log out</button>
             </div>
 
-            <!-- Purchases with scrolling -->
+            <!-- Purchases -->
             <div class="purchases col-12 col-lg-7" style="max-height: 700px; overflow-y: auto;">
-    <h3>Recent Purchases</h3>
-    <?php
-    if ($order_result && $order_result->num_rows > 0) {
-        while ($purchase = $order_result->fetch_assoc()) {
-            $orderID = $purchase['order_ID'];
-            $orderDate = date("F j, Y", strtotime($purchase['ordered_at']));
-            $totalPrice = number_format($purchase['total_price'], 2);
-            $orderStatus = $purchase['order_status'];
-            $productTitle = $purchase['product_title'];
-            $quantity = $purchase['quantity'];
-            $productPrice = number_format($purchase['product_price'], 2);
-            $totalItemPrice = number_format($purchase['product_price'] * $quantity, 2);
-            ?>
-            <div class="recentpurchaseproduct" style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
-                <img src="pictures/Purrfectly Stitch.png" alt="" style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px;">
-                <div class="productcontent" style="flex-grow: 1;">
-                    <div class="productinfo" style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <h5 style="font-weight: bold;"><?php echo htmlspecialchars($productTitle); ?></h5>
-                            <p>Order #: <?php echo $orderID; ?></p>
-                            <p>Status: 
-                                <span class="status <?php echo strtolower($orderStatus); ?>" style="font-weight: bold; color: <?php echo strtolower($orderStatus) === 'pending' ? 'orange' : (strtolower($orderStatus) === 'cancelled' ? 'red' : 'green'); ?>">
-                                    <?php echo htmlspecialchars($orderStatus); ?>
-                                </span>
-                            </p>
-                        </div>
-                        <div style="text-align: right;">
-                            <p><?php echo $orderDate; ?></p>
-                            <p style="font-weight: bold;">₱<?php echo $totalItemPrice; ?></p>
-                        </div>
-                    </div>
-                    
-                    <?php if (strtolower($orderStatus) === 'pending'): ?>
-                        <form method="POST" action="cancel_order.php" onsubmit="return confirm('Are you sure you want to cancel this order?');" style="margin-top: 60px;">
-                            <input type="hidden" name="order_ID" value="<?php echo $orderID; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">Cancel Order</button>
-                        </form>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php
-        }
-    } else {
-        echo "<p>No recent purchases found.</p>";
-    }
-    ?>
+                <h3>Recent Purchases</h3>
+                <?php
+                if ($order_result && $order_result->num_rows > 0) {
+                    while ($purchase = $order_result->fetch_assoc()) {
+                        $orderID = $purchase['order_ID'];
+                        $orderDate = date("F j, Y", strtotime($purchase['ordered_at']));
+                        $totalPrice = number_format($purchase['total_price'], 2);
+                        $orderStatus = $purchase['order_status'];
+                        $productTitle = $purchase['product_title'];
+                        $quantity = $purchase['quantity'];
+                        $productPrice = number_format($purchase['product_price'], 2);
+                        $totalItemPrice = number_format($purchase['product_price'] * $quantity, 2);
+                        ?>
+
+                        
+                        <div class="recentpurchaseproduct" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
+    <img src="pictures/Purrfectly Stitch.png" alt="" style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px;">
+
+    <!-- Content wrapper -->
+    <div class="productcontent" style="display: flex; justify-content: space-between; flex-grow: 1;">
+        
+        <!-- LEFT SIDE -->
+        <div style="flex-grow: 1;">
+            <h5 style="font-weight: bold;"><?php echo htmlspecialchars($productTitle); ?></h5>
+            <p>Order #: <?php echo $orderID; ?></p>
+            <p>Status: 
+                <span class="status <?php echo strtolower($orderStatus); ?>" style="font-weight: bold; color: <?php echo strtolower($orderStatus) === 'pending' ? 'orange' : (strtolower($orderStatus) === 'cancelled' ? 'red' : 'green'); ?>">
+                    <?php echo htmlspecialchars($orderStatus); ?>
+                </span>
+            </p>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div style="display: flex; flex-direction: column; align-items: flex-end; min-width: 150px; margin-left: 20px;">
+            <p><?php echo $orderDate; ?></p>
+            <p style="font-weight: bold;">₱<?php echo $totalItemPrice; ?></p>
+
+            <?php if (strtolower($orderStatus) === 'pending'): ?>
+                <form method="POST" action="cancel_order.php" onsubmit="return confirm('Are you sure you want to cancel this order?');" style="margin-top: 10px;">
+                    <input type="hidden" name="order_ID" value="<?php echo $orderID; ?>">
+                    <button type="submit" class="btn btn-danger btn-sm">Cancel Order</button>
+                </form>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
+
+                    <?php
+                    }
+                } else {
+                    echo "<p>No recent purchases found.</p>";
+                }
+                ?>
+            </div>
 
             <div class="space col-1 d-none d-sm-block d-md-block"></div>
         </div>
