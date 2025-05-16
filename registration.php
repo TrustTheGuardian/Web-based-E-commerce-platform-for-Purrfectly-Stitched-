@@ -39,9 +39,9 @@ if(isset($_POST['submit'])) {
 
     if(mysqli_num_rows($verify_query) != 0) {
         echo "<div class='message'>
-                <p>This email is already in use. Try another one.</p>
-              </div><br>";
-        echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button></a>";
+        <p style='color: red;'>This email is already taken.</p>
+            </div><br>";
+      echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button></a>";
     } else {
         if($password !== $confirm_password) {
             echo "<div class='message'>
@@ -99,7 +99,7 @@ if(!isset($_POST['submit']) || !$show_success_modal) {
               <div class="col-md-4">
                 <label for="mobile" class="form-label">Mobile Number</label>
                 <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Enter your mobile number" 
-                  pattern="0[0-9]{10}" required oninput="formatMobile()" onkeyup="checkMobile()">
+                  pattern="0[0-9]{10}" required maxlength="11" oninput="validateMobile()" >
                 <small class="form-text text-muted">Please enter an 11-digit mobile number starting with 0</small>
                 <div id="mobileFeedback" class="form-text text-danger"></div>
               </div>
@@ -189,6 +189,15 @@ if(!isset($_POST['submit']) || !$show_success_modal) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const noNumbers = (event) => {
+      const input = event.target;
+      input.value = input.value.replace(/[0-9]/g, ''); // Remove any digits
+    };
+
+    document.getElementById('Fname').addEventListener('input', noNumbers);
+    document.getElementById('Lname').addEventListener('input', noNumbers);
+  });
 function validatePassword() {
   const password = document.getElementById("password").value;
   const feedback = document.getElementById("passwordFeedback");
@@ -254,12 +263,58 @@ function checkMobile() {
   }
 }
 
+
 function formatMobile() {
-  const mobile = document.getElementById("mobile").value;
-  if (mobile.length === 4 && mobile.charAt(3) !== " ") {
-    document.getElementById("mobile").value = mobile.slice(0, 3) + " " + mobile.slice(3);
+    const mobileInput = document.getElementById("mobile");
+    let mobile = mobileInput.value;
+
+    if (mobile.length > 11) {
+      mobile = mobile.slice(0, 11);
+      mobileInput.value = mobile;
+    }
+
+
   }
-}
+
+  function checkMobile() {
+
+  }
+
+  function validateMobile() {
+    const mobileInput = document.getElementById("mobile");
+    const feedback = document.getElementById("mobileFeedback");
+    const mobile = mobileInput.value;
+
+    // Reset feedback
+    feedback.textContent = "";
+
+    // Enforce max length 11
+    if (mobile.length > 11) {
+      mobileInput.value = mobile.slice(0, 11);
+      return;
+    }
+
+    // Check if first character is 0
+    if (mobile.length > 0 && mobile.charAt(0) !== '0') {
+      feedback.textContent = "Mobile number must start with 0.";
+      mobileInput.setCustomValidity("Mobile number must start with 0.");
+    } 
+    else if (mobile.length > 0 && !/^0\d*$/.test(mobile)) {
+      // Optional: reject non-digits after first char (if needed)
+      feedback.textContent = "Mobile number can only contain digits.";
+      mobileInput.setCustomValidity("Mobile number can only contain digits.");
+    }
+    else if (mobile.length !== 11) {
+      // If you want to enforce length during typing (optional)
+      feedback.textContent = "Mobile number must be exactly 11 digits.";
+      mobileInput.setCustomValidity("Mobile number must be exactly 11 digits.");
+    }
+    else {
+      // Valid input
+      feedback.textContent = "";
+      mobileInput.setCustomValidity("");
+    }
+  }
 </script>
 </body>
 </html>
