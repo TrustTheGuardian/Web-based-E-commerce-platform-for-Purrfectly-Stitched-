@@ -197,7 +197,11 @@ if ($rating_result && $rating_result->num_rows > 0) {
                 <div class="aboutproduct">
                     <!-- Title -->
                     <h1><?= htmlspecialchars($product['product_title']) ?></h1>
-                    <p class="text-success mt-2"><?= $product['product_quantity'] > 0 ? 'In stock' : 'Out of stock' ?></p>
+                    <p class="<?= $product['product_quantity'] > 0 ? 'text-success' : 'text-danger' ?> mt-2">
+                        <?= $product['product_quantity'] > 0 
+                            ? 'In stock: ' . $product['product_quantity'] 
+                            : 'Out of stock' ?>
+                    </p>
                     <br>
                     <div class="pricerating">
                     <h3>₱<?= number_format($product['product_price'], 2) ?></h3>
