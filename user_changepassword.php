@@ -85,17 +85,17 @@ if ($result && $result->num_rows > 0) {
                         </div>
 
                         <div class="formstyle position-relative">
-                            <label for="repassword" class="form-label">New Password</label>
-                            <input type="password" class="form-control" name="new_password" id="repassword" required>
-                            <i class="bi bi-eye-slash toggle-password" data-target="repassword" 
-                                    style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"></i>
+                            <label for="new_password" class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="new_password" id="new_password" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="new_password" 
+                                style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"></i>
                         </div>
 
                         <div class="formstyle position-relative">
-                            <label for="repassword" class="form-label">Re-Type Password</label>
-                            <input type="password" class="form-control" name="new_password" id="repassword" required>
-                            <i class="bi bi-eye-slash toggle-password" data-target="repassword" 
-                                    style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"></i>
+                            <label for="retype_password" class="form-label">Re-Type Password</label>
+                            <input type="password" class="form-control" name="retype_password" id="retype_password" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="retype_password" 
+                                style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"></i>
                         </div>
 
                         <div class="text-center d-flex justify-content-center gap-3">
@@ -151,7 +151,7 @@ if ($result && $result->num_rows > 0) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     // Password toggle
     document.querySelectorAll('.toggle-password').forEach(icon => {
         icon.addEventListener('click', function () {
@@ -171,8 +171,15 @@ if ($result && $result->num_rows > 0) {
     if (confirmSave) {
         confirmSave.addEventListener('click', function () {
             const originalPassword = document.getElementById('password').value;
-            const newPassword = document.getElementById('repassword').value;
-            
+            const newPassword = document.getElementById('new_password').value;
+            const retypePassword = document.getElementById('retype_password').value;  // added for matching check
+
+            // Check if new password and re-type password match
+            if (newPassword !== retypePassword) {
+                alert("New password and Re-type password do not match.");
+                return; // stop form submission
+            }
+
             if (validatePassword(newPassword)) {
                 document.getElementById('passwordForm').submit();
             } else {
