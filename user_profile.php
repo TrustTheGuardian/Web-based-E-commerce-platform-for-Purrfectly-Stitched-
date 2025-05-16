@@ -17,10 +17,19 @@ $user_result = $stmt_user->get_result();
 $user = $user_result->fetch_assoc();
 
 $query_orders = "
-    SELECT o.order_ID, o.ordered_at, o.total_price, o.order_status, p.product_title, oi.quantity, p.product_price
+    SELECT 
+        o.order_ID, 
+        o.ordered_at, 
+        o.total_price, 
+        o.order_status, 
+        p.product_title, 
+        oi.quantity, 
+        p.product_price,
+        pi.image_path
     FROM orders o
     JOIN order_items oi ON o.order_ID = oi.order_ID
     JOIN products p ON oi.product_ID = p.product_ID
+    LEFT JOIN product_images pi ON p.product_ID = pi.product_ID
     WHERE o.user_ID = ?
     ORDER BY o.ordered_at DESC
     LIMIT 5";
@@ -28,6 +37,7 @@ $stmt_orders = $con->prepare($query_orders);
 $stmt_orders->bind_param("i", $userID);
 $stmt_orders->execute();
 $order_result = $stmt_orders->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +144,7 @@ $order_result = $stmt_orders->get_result();
 
                         
                         <div class="recentpurchaseproduct" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
-    <img src="pictures/Purrfectly Stitch.png" alt="" style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px;">
+    <img src="<?php echo !empty($purchase['image_path']) ? htmlspecialchars($purchase['image_path']) : 'pictures/default.png'; ?>" alt="Product Image" style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px;">
 
     <!-- Content wrapper -->
     <div class="productcontent" style="display: flex; justify-content: space-between; flex-grow: 1;">
