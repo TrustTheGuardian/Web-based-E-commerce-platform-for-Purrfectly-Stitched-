@@ -91,6 +91,13 @@ if ($result && $result->num_rows > 0) {
                                     style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"></i>
                         </div>
 
+                        <div class="formstyle position-relative">
+                            <label for="repassword" class="form-label">Re-Type Password</label>
+                            <input type="password" class="form-control" name="new_password" id="repassword" required>
+                            <i class="bi bi-eye-slash toggle-password" data-target="repassword" 
+                                    style="position: absolute; top: 50%; transform: translateY(20%); right: 15px; cursor: pointer;"></i>
+                        </div>
+
                         <div class="text-center d-flex justify-content-center gap-3">
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
                             <button type="button" class="btn button" data-bs-toggle="modal" data-bs-target="#saveModal">Save Changes</button>
