@@ -118,40 +118,53 @@ $order_result = $stmt_orders->get_result();
 
             <!-- Purchases with scrolling -->
             <div class="purchases col-12 col-lg-7" style="max-height: 700px; overflow-y: auto;">
-                <h3>Recent Purchases</h3>
-                <?php
-                if ($order_result && $order_result->num_rows > 0) {
-                    while ($purchase = $order_result->fetch_assoc()) {
-                        $orderID = $purchase['order_ID'];
-                        $orderDate = date("F j, Y", strtotime($purchase['ordered_at']));
-                        $totalPrice = number_format($purchase['total_price'], 2);
-                        $orderStatus = $purchase['order_status'];
-                        $productTitle = $purchase['product_title'];
-                        $quantity = $purchase['quantity'];
-                        $productPrice = number_format($purchase['product_price'], 2);
-                        $totalItemPrice = number_format($purchase['product_price'] * $quantity, 2);
-                        ?>
-                        <div class="recentpurchaseproduct">
-                            <img src="pictures/Purrfectly Stitch.png" alt="">
-                            <div class="productcontent">
-                                <div class="productinfo">
-                                    <h5 style="font-weight: bold;"><?php echo htmlspecialchars($productTitle); ?></h5>
-                                    <p>Order #: <?php echo $orderID; ?></p>
-                                    <p>Status: <span class="status <?php echo strtolower($orderStatus); ?>"><?php echo htmlspecialchars($orderStatus); ?></span></p>
-                                </div>
-                                <div class="productdateprice">
-                                    <p><?php echo $orderDate; ?></p>
-                                    <p style="font-weight: bold;">₱<?php echo $totalItemPrice; ?></p>
-                                </div>
-                            </div>
+    <h3>Recent Purchases</h3>
+    <?php
+    if ($order_result && $order_result->num_rows > 0) {
+        while ($purchase = $order_result->fetch_assoc()) {
+            $orderID = $purchase['order_ID'];
+            $orderDate = date("F j, Y", strtotime($purchase['ordered_at']));
+            $totalPrice = number_format($purchase['total_price'], 2);
+            $orderStatus = $purchase['order_status'];
+            $productTitle = $purchase['product_title'];
+            $quantity = $purchase['quantity'];
+            $productPrice = number_format($purchase['product_price'], 2);
+            $totalItemPrice = number_format($purchase['product_price'] * $quantity, 2);
+            ?>
+            <div class="recentpurchaseproduct" style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
+                <img src="pictures/Purrfectly Stitch.png" alt="" style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px;">
+                <div class="productcontent" style="flex-grow: 1;">
+                    <div class="productinfo" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h5 style="font-weight: bold;"><?php echo htmlspecialchars($productTitle); ?></h5>
+                            <p>Order #: <?php echo $orderID; ?></p>
+                            <p>Status: 
+                                <span class="status <?php echo strtolower($orderStatus); ?>" style="font-weight: bold; color: <?php echo strtolower($orderStatus) === 'pending' ? 'orange' : (strtolower($orderStatus) === 'cancelled' ? 'red' : 'green'); ?>">
+                                    <?php echo htmlspecialchars($orderStatus); ?>
+                                </span>
+                            </p>
                         </div>
-                        <?php
-                    }
-                } else {
-                    echo "<p>No recent purchases found.</p>";
-                }
-                ?>
+                        <div style="text-align: right;">
+                            <p><?php echo $orderDate; ?></p>
+                            <p style="font-weight: bold;">₱<?php echo $totalItemPrice; ?></p>
+                        </div>
+                    </div>
+                    
+                    <?php if (strtolower($orderStatus) === 'pending'): ?>
+                        <form method="POST" action="cancel_order.php" onsubmit="return confirm('Are you sure you want to cancel this order?');" style="margin-top: 60px;">
+                            <input type="hidden" name="order_ID" value="<?php echo $orderID; ?>">
+                            <button type="submit" class="btn btn-danger btn-sm">Cancel Order</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
             </div>
+        <?php
+        }
+    } else {
+        echo "<p>No recent purchases found.</p>";
+    }
+    ?>
+</div>
 
             <div class="space col-1 d-none d-sm-block d-md-block"></div>
         </div>
