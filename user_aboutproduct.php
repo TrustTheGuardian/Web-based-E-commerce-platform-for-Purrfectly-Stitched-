@@ -148,14 +148,6 @@ if ($rating_result && $rating_result->num_rows > 0) {
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
                 </div>
 
                 <!-- 3) Dynamic Thumbnail Gallery -->

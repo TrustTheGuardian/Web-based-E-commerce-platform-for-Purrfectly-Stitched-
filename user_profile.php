@@ -109,6 +109,8 @@ $order_result = $stmt_orders->get_result();
                         <span style="font-weight: bold;">Address:</span> <?php echo htmlspecialchars($user['Address']); ?>
                     </p>
                 </div>
+                <hr style="width: 80%;">
+                <h5>Account Settings</h5>
                 <button onclick="window.location.href='user_editprofile.php'" class="btn btn1">⚙️Edit Profile</button>
                 <button onclick="window.location.href='user_changepassword.php'" class="btn btn1">⚙️Change Password</button>
                 <button class="btn btn1" data-bs-toggle="modal" data-bs-target="#checkout-modal">🚪Log out</button>
