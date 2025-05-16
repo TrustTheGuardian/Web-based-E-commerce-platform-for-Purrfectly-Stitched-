@@ -144,7 +144,8 @@ $order_result = $stmt_orders->get_result();
 
                         
                         <div class="recentpurchaseproduct" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 15px;">
-    <img src="<?php echo !empty($purchase['image_path']) ? htmlspecialchars($purchase['image_path']) : 'pictures/default.png'; ?>" alt="Product Image" style="width: 80px; height: 80px; object-fit: contain; margin-right: 20px;">
+    <img src="<?php echo !empty($purchase['image_path']) ? htmlspecialchars($purchase['image_path']) : 'pictures/default.png'; ?>" alt="Product Image" class="purchase-img">
+
 
     <!-- Content wrapper -->
     <div class="productcontent" style="display: flex; justify-content: space-between; flex-grow: 1;">

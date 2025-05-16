@@ -108,6 +108,15 @@ display: flex;
   font-weight: bold;
 }
 
+.purchase-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover; /* or 'contain' if you want to avoid cropping */
+    border-radius: 10px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
 #checkout-modal .confirm-btn{
   background-color: #AA60C8;
   color: white;
@@ -117,4 +126,3 @@ display: flex;
   background-color: #e63946;
   color: white;
 }
-
