@@ -270,80 +270,51 @@ include 'db_connection.php';
         }
     });
 
-    // Logout modal logic
-        const logoutBtn = document.querySelector('.log-out');
-        const logoutModal = document.getElementById('logoutModal');
-        const confirmLogout = document.getElementById('confirmLogout');
-        const cancelLogout = document.getElementById('cancelLogout');
+    // LOGOUT MODAL FUNCTIONALITY
+    const logoutBtn = document.querySelector('.log-out');
+    const logoutModal = document.getElementById('logoutModal');
+    const confirmLogout = document.getElementById('confirmLogout');
+    const cancelLogout = document.getElementById('cancelLogout');
 
-        logoutBtn.addEventListener('click', () => {
-            logoutModal.style.display = 'block';
-        });
-
-        cancelLogout.addEventListener('click', () => {
-            logoutModal.style.display = 'none';
-        });
-
-        confirmLogout.addEventListener('click', () => {
-            window.location.href = "logout.php"; // Update as needed
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === logoutModal) {
-                logoutModal.style.display = 'none';
-            }
-        });
-
-    // Delete user modal logic
-    let deleteUserId = null;
-
-    // Open modal and save the user ID
-    function openDeleteModal(userId) {
-        deleteUserId = userId;
-        const deleteModal = document.getElementById('deleteModal');
-        if (deleteModal) {
-            deleteModal.style.display = 'flex'; // use flex to center
-        }
-    }
-
-    // Close the delete modal
-    function closeDeleteModal() {
-        const deleteModal = document.getElementById('deleteModal');
-        if (deleteModal) {
-            deleteModal.style.display = 'none';
-        }
-        deleteUserId = null;
-    }
-
-    // Confirm delete function
-    function confirmDelete() {
-        if (deleteUserId !== null) {
-            window.location.href = `admindelete_user.php?user_ID=${deleteUserId}`;
-        }
-    }
-
-    // Attach event listeners when DOM is ready
-    document.addEventListener('DOMContentLoaded', function () {
-        const confirmDeleteBtn = document.getElementById('confirmDelete');
-        const cancelDeleteBtn = document.getElementById('cancelDelete');
-
-        if (confirmDeleteBtn) {
-            confirmDeleteBtn.addEventListener('click', confirmDelete);
-        }
-
-        if (cancelDeleteBtn) {
-            cancelDeleteBtn.addEventListener('click', closeDeleteModal);
-        }
-
-        // Optional: close modal when clicking outside the content
-        window.addEventListener('click', (event) => {
-            const deleteModal = document.getElementById('deleteModal');
-            if (event.target === deleteModal) {
-                closeDeleteModal();
-            }
-        });
+    logoutBtn.addEventListener('click', () => {
+        logoutModal.style.display = 'block';
     });
 
+    cancelLogout.addEventListener('click', () => {
+        logoutModal.style.display = 'none';
+    });
+
+    confirmLogout.addEventListener('click', () => {
+        window.location.href = 'logout.php';
+    });
+
+    // DELETE MODAL FUNCTIONALITY
+    const deleteModal = document.getElementById('deleteModal');
+    const confirmDelete = document.getElementById('confirmDelete');
+    const cancelDelete = document.getElementById('cancelDelete');
+    let userIdToDelete = null;
+
+    function openDeleteModal(userId) {
+        userIdToDelete = userId;
+        deleteModal.style.display = 'block';
+    }
+
+    cancelDelete.addEventListener('click', () => {
+        deleteModal.style.display = 'none';
+        userIdToDelete = null;
+    });
+
+    confirmDelete.addEventListener('click', () => {
+        if (userIdToDelete !== null) {
+            window.location.href = 'admindelete_user.php?user_ID=' + userIdToDelete;
+        }
+    });
+
+    // Optional: Close modals if clicking outside the modal content
+    window.addEventListener('click', function(e) {
+        if (e.target === logoutModal) logoutModal.style.display = 'none';
+        if (e.target === deleteModal) deleteModal.style.display = 'none';
+    });
 </script>
     
 
