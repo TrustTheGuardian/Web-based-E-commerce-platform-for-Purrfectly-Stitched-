@@ -180,7 +180,11 @@ if ($rating_result && $rating_result->num_rows > 0) {
                 <div class="aboutproduct">
                     <!-- Title -->
                     <h1><?= htmlspecialchars($product['product_title']) ?></h1>
-                    <p class="text-success mt-2"><?= $product['product_quantity'] > 0 ? 'In stock' : 'Out of stock' ?></p>
+                    <p class="<?= $product['product_quantity'] > 0 ? 'text-success' : 'text-danger' ?> mt-2">
+                        <?= $product['product_quantity'] > 0 
+                            ? 'In stock: ' . $product['product_quantity'] 
+                            : 'Out of stock' ?>
+                    </p>
                     <br>
                     <div class="pricerating">
                     <h3>₱<?= number_format($product['product_price'], 2) ?></h3>
@@ -395,11 +399,18 @@ if ($rating_result && $rating_result->num_rows > 0) {
 }
 
 function addToCart(product_ID, stock) {
-    const qty = 1; // Or use the quantity from an input field if needed
+    const qtyInput = document.getElementById('quantity');
+    const qty = parseInt(qtyInput.value); // get actual input value
+
+    if (qty < 1 || qty > stock) {
+        alert("Please select a valid quantity.");
+        return;
+    }
+
     const formData = new FormData();
     formData.append('action', 'add');
     formData.append('product_ID', product_ID);
-    formData.append('quantity', qty);
+    formData.append('quantity', qty); // send correct quantity
 
     fetch('user_add_to_cart.php', {
         method: 'POST',
@@ -409,7 +420,6 @@ function addToCart(product_ID, stock) {
         if (response === 'out_of_stock') {
             alert("Sorry, this product is out of stock.");
         } else {
-            console.log("Cart count:", response);
             updateCartIcon(response);
             alert("Product added to cart!");
         }

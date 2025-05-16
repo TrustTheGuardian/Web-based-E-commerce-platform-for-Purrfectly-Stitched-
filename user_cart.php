@@ -5,18 +5,46 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'user') {
     exit;
 }
 include 'db_connection.php';
+
 $userID = $_SESSION['user_id'];
+
+// Fetch user profile image
 $query = "SELECT ProfileImage FROM users WHERE user_ID = ?";
 $stmt = $con->prepare($query);
 $stmt->bind_param("i", $userID);
 $stmt->execute();
 $result = $stmt->get_result();
 
+$profileImage = 'pictures/default-profile.png';
 if ($result && $result->num_rows > 0) {
     $user = $result->fetch_assoc();
-    $profileImage = !empty($user['ProfileImage']) ? $user['ProfileImage'] : 'pictures/default-profile.png';
-} else {
-    $profileImage = 'pictures/default-profile.png';
+    if (!empty($user['ProfileImage'])) {
+        $profileImage = $user['ProfileImage'];
+    }
+}
+
+// Handle cart actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['product_ID'])) {
+    $product_ID = $_POST['product_ID'];
+    $action = $_POST['action'];
+
+    // Fetch product stock
+    $stmt = $con->prepare("SELECT product_quantity FROM products WHERE product_ID = ?");
+    $stmt->bind_param("i", $product_ID);
+    $stmt->execute();
+    $productResult = $stmt->get_result();
+
+    if ($productResult && $productResult->num_rows > 0 && isset($_SESSION['cart'][$product_ID])) {
+        $product = $productResult->fetch_assoc();
+        $max_qty = $product['product_quantity'];
+        $current_qty = $_SESSION['cart'][$product_ID];
+
+        if ($action === 'increase' && $current_qty < $max_qty) {
+            $_SESSION['cart'][$product_ID]++;
+        } elseif ($action === 'decrease' && $current_qty > 1) {
+            $_SESSION['cart'][$product_ID]--;
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -72,69 +100,63 @@ if ($result && $result->num_rows > 0) {
       <div id="cart-items">
   <!-- Dynamic Cart Items -->
   <?php
-        $total = 0.00; // Initialize the total variable
+            $total = 0.00;
 
-        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-            foreach ($_SESSION['cart'] as $product_ID => $qty) {
-                // Update the query to include product_quantity
-                $sql = "SELECT p.product_title, p.product_price, p.product_quantity, pi.image_path 
-                        FROM products p 
-                        LEFT JOIN product_images pi ON p.product_ID = pi.product_ID 
-                        WHERE p.product_ID = '$product_ID' LIMIT 1";
-                $result = mysqli_query($con, $sql);
-                $row = mysqli_fetch_assoc($result);
+            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+                foreach ($_SESSION['cart'] as $product_ID => $qty) {
+                    $stmt = $con->prepare("SELECT p.product_title, p.product_price, p.product_quantity, pi.image_path 
+                                           FROM products p 
+                                           LEFT JOIN product_images pi ON p.product_ID = pi.product_ID 
+                                           WHERE p.product_ID = ? LIMIT 1");
+                    $stmt->bind_param("i", $product_ID);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-                $title = $row['product_title'];
-                $price = $row['product_price'];
-                $product_quantity = $row['product_quantity']; // Get product quantity
-                $img = $row['image_path'];
-                $subtotal = $price * $qty;
-                $total += $subtotal;
+                    if ($row = $result->fetch_assoc()) {
+                        $title = $row['product_title'];
+                        $price = $row['product_price'];
+                        $stock = $row['product_quantity'];
+                        $img = $row['image_path'];
+                        $subtotal = $price * $qty;
+                        $total += $subtotal;
 
-                // Update quantity if needed
-                if (isset($_POST['action']) && $_POST['product_ID'] == $product_ID) {
-                    if ($_POST['action'] == 'increase' && $qty < $product_quantity) {
-                        $_SESSION['cart'][$product_ID] = $qty + 1;
-                    } elseif ($_POST['action'] == 'decrease' && $qty > 1) {
-                        $_SESSION['cart'][$product_ID] = $qty - 1;
+                        echo "
+                        <div class='product-card2' style='display: flex; align-items: center; border-bottom: 1px solid #ccc; padding: 20px 20px;'>
+                            <img class='imgproduct' src='$img' alt='Product' style='border-radius: 10px; margin-right: 20px; width: 100px; height: 100px; object-fit: cover;'>
+                            <div style='flex: 2;'>
+                                <h3 class='card-title'>$title</h3>
+                                <p class='price'>₱$price</p>
+                            </div>
+                            <div style='display: flex; align-items: center; gap: 10px;'>
+                                <form method='POST' action='user_cart.php'>
+                                    <input type='hidden' name='product_ID' value='$product_ID'>
+                                    <input type='hidden' name='action' value='decrease'>
+                                    <button class='btn-custom' ". ($qty <= 1 ? "disabled" : "") .">-</button>
+                                </form>
+                                <span class='qty'>$qty</span>
+                                <form method='POST' action='user_cart.php'>
+                                    <input type='hidden' name='product_ID' value='$product_ID'>
+                                    <input type='hidden' name='action' value='increase'>
+                                    <button class='btn-custom' ". ($qty >= $stock ? "disabled" : "") .">+</button>
+                                </form>
+                            </div>
+                            <form method='POST' action='user_update_cart.php' style='margin-left: 20px;'>
+                                <input type='hidden' name='product_ID' value='$product_ID'>
+                                <input type='hidden' name='action' value='remove'>
+                                <button class='custom-btn'>Remove</button>
+                            </form>
+                        </div>";
                     }
                 }
 
-                echo "
-                <div class='product-card2' style='display: flex; align-items: center; border-bottom: 1px solid #ccc; padding: 20px 20px;'>
-                    <img class='imgproduct' src='$img' alt='Product' style='border-radius: 10px; margin-right: 20px;'>
-                    <div style='flex: 2;'>
-                        <h3 class='card-title'>$title</h3>
-                        <p class='price'>₱$price</p>
-                    </div>
-                    <div style='display: flex; align-items: center; gap: 10px;'>
-                        <form method='POST' action='user_cart.php' style='display:inline;'>
-                            <input type='hidden' name='product_ID' value='$product_ID'>
-                            <input type='hidden' name='action' value='decrease'>
-                            <button class='btn-custom' ". ($qty <= 1 ? "disabled" : "") .">-</button>
-                        </form>
-                        <span class='qty'>$qty</span>
-                        <form method='POST' action='user_cart.php' style='display:inline;'>
-                            <input type='hidden' name='product_ID' value='$product_ID'>
-                            <input type='hidden' name='action' value='increase'>
-                            <button class='btn-custom' ". ($qty >= $product_quantity ? "disabled" : "") .">+</button>
-                        </form>
-                    </div>
-                    <form method='POST' action='user_update_cart.php' style='display:inline; margin-left: 20px;'>
-                        <input type='hidden' name='product_ID' value='$product_ID'>
-                        <input type='hidden' name='action' value='remove'>
-                        <button class='custom-btn'>Remove</button>
-                    </form>
-                </div>";
+                echo "<div style='text-align: right; margin-top: 30px;'>
+                        <h3>Total: ₱" . number_format($total, 2) . "</h3>
+                        <button class='btn-custom' data-bs-toggle='modal' data-bs-target='#checkout-modal' id='checkout-button'>Proceed to Checkout</button>
+                      </div>";
+            } else {
+                echo "<p class='text-muted'>Your cart is empty.</p>";
             }
-              echo "<div style='text-align: right; margin-top: 30px;'>
-                    <h3>Total: ₱$total</h3>
-                    <button class='btn-custom' data-bs-toggle='modal' data-bs-target='#checkout-modal' id='checkout-button'>Proceed to Checkout</button>
-                    </div>";
-          } else {
-              echo "<p></p>";
-          }
-      ?>
+            ?>
     </div>
 
       <!-- Total Section -->
