@@ -150,23 +150,6 @@ if ($rating_result && $rating_result->num_rows > 0) {
                 </div>
                 </div>
 
-                <!-- 3) Dynamic Thumbnail Gallery -->
-                <div class="thumbnail">
-                <div class="thumbnail-gallery d-flex justify-content-center mt-3 gap-2">
-                    <?php foreach ($images as $idx => $imgPath): ?>
-                    <img
-                        src="<?= htmlspecialchars($imgPath) ?>"
-                        class="thumb-img"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="<?= $idx ?>"
-                        aria-label="Go to slide <?= $idx + 1 ?>"
-                        style="cursor:pointer;"
-                        alt="Thumbnail <?= $idx + 1 ?>"
-                    >
-                    <?php endforeach; ?>
-                </div>
-                </div>
-
               </div>
               <div class="col-12 col-md-6">
                 <div class="aboutproduct">
