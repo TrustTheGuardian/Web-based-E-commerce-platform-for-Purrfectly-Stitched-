@@ -315,6 +315,7 @@ include 'db_connection.php';
         if (e.target === logoutModal) logoutModal.style.display = 'none';
         if (e.target === deleteModal) deleteModal.style.display = 'none';
     });
+    
 </script>
     
 
